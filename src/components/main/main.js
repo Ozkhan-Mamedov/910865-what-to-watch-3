@@ -1,9 +1,7 @@
 import React from "react";
 
 const Main = (props) => {
-  // eslint-disable-next-line react/prop-types
   const {promoFilmData} = props;
-  // eslint-disable-next-line react/prop-types
   const {films} = props;
 
   return (
@@ -39,12 +37,9 @@ const Main = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              {/* eslint-disable-next-line react/prop-types */}
               <h2 className="movie-card__title">{promoFilmData.name}</h2>
               <p className="movie-card__meta">
-                {/* eslint-disable-next-line react/prop-types */}
                 <span className="movie-card__genre">{promoFilmData.genre}</span>
-                {/* eslint-disable-next-line react/prop-types */}
                 <span className="movie-card__year">{promoFilmData.releaseDate}</span>
               </p>
 
@@ -105,7 +100,6 @@ const Main = (props) => {
           </ul>
 
           <div className="catalog__movies-list">
-            {/* eslint-disable-next-line react/prop-types */}
             {films.map((it) =>
               <article key={it} className="small-movie-card catalog__movies-card">
                 <div className="small-movie-card__image">
