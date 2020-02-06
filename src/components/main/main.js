@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Main = (props) => {
   const {promoFilmData} = props;
@@ -134,6 +135,15 @@ const Main = (props) => {
       </div>
     </React.Fragment>
   );
+};
+
+Main.propTypes = {
+  promoFilmData: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseDate: PropTypes.string.isRequired,
+  }),
+  films: PropTypes.arrayOf(PropTypes.string.isRequired)
 };
 
 export default Main;
