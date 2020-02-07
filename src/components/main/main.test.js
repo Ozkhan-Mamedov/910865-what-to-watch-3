@@ -16,7 +16,7 @@ const films = [
 
 it(`App component renders correctly`, () => {
   const tree = renderer
-    .create(<Main promoFilmData={promoFilmData} films={films} />)
+    .create(<Main promoFilmData={promoFilmData} films={films} filmNameClickHandler={() => {}} />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
