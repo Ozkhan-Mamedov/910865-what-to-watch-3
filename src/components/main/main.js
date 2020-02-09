@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Main = (props) => {
-  const {promoFilmData} = props;
-  const {films} = props;
+  const {promoFilmData, films, filmNameClickHandler} = props;
 
   return (
     <React.Fragment>
@@ -101,14 +100,14 @@ const Main = (props) => {
           </ul>
 
           <div className="catalog__movies-list">
-            {films.map((it) =>
-              <article key={it} className="small-movie-card catalog__movies-card">
+            {films.map((film) =>
+              <article key={film} className="small-movie-card catalog__movies-card">
                 <div className="small-movie-card__image">
                   <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                    alt={it} width="280" height="175"/>
+                    alt={film} width="280" height="175"/>
                 </div>
                 <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">{it}</a>
+                  <a className="small-movie-card__link" href="movie-page.html" onClick={filmNameClickHandler}>{film}</a>
                 </h3>
               </article>
             )}
@@ -143,7 +142,8 @@ Main.propTypes = {
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.string.isRequired,
   }),
-  films: PropTypes.arrayOf(PropTypes.string.isRequired)
+  films: PropTypes.arrayOf(PropTypes.string.isRequired),
+  filmNameClickHandler: PropTypes.func.isRequired
 };
 
 export default Main;
