@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import SmallMovieCard from "../small-movie-card/small-movie-card";
+
 const Main = (props) => {
   const {promoFilmData, films, filmNameClickHandler} = props;
 
@@ -100,17 +102,8 @@ const Main = (props) => {
           </ul>
 
           <div className="catalog__movies-list">
-            {films.map((film, index) =>
-              <article key={index} className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src={film.picture}
-                    alt={film.name} width="280" height="175"/>
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html" onClick={filmNameClickHandler}>{film.name}</a>
-                </h3>
-              </article>
-            )}
+            {films.map((film, index) => <SmallMovieCard film={film} key={index}
+              filmNameClickHandler={filmNameClickHandler}/>)}
           </div>
 
           <div className="catalog__more">
