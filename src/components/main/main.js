@@ -100,14 +100,14 @@ const Main = (props) => {
           </ul>
 
           <div className="catalog__movies-list">
-            {films.map((film) =>
-              <article key={film} className="small-movie-card catalog__movies-card">
+            {films.map((film, index) =>
+              <article key={index} className="small-movie-card catalog__movies-card">
                 <div className="small-movie-card__image">
-                  <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                    alt={film} width="280" height="175"/>
+                  <img src={film.picture}
+                    alt={film.name} width="280" height="175"/>
                 </div>
                 <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html" onClick={filmNameClickHandler}>{film}</a>
+                  <a className="small-movie-card__link" href="movie-page.html" onClick={filmNameClickHandler}>{film.name}</a>
                 </h3>
               </article>
             )}
