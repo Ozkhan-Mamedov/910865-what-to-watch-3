@@ -259,6 +259,8 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -266,7 +268,7 @@ Array [
             <img
               alt="Film#1"
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="picture#1"
               width="280"
             />
           </div>
@@ -284,6 +286,8 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -291,7 +295,7 @@ Array [
             <img
               alt="Film#2"
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="picture#2"
               width="280"
             />
           </div>
@@ -309,6 +313,8 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -316,7 +322,7 @@ Array [
             <img
               alt="Film#3"
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="picture#3"
               width="280"
             />
           </div>
