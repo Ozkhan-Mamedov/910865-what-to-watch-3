@@ -1,6 +1,7 @@
 import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
+
 import Main from "./main";
 
 Enzyme.configure({
@@ -14,7 +15,12 @@ const promoFilmData = {
 };
 
 const films = [
-  `Film`
+  {
+    name: `Film#1`,
+    picture: `picture#1`,
+    genre: `genre#1`,
+    id: `#1`,
+  },
 ];
 
 it(`Should film name link be pressed`, () => {
