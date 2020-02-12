@@ -3,7 +3,7 @@ import React from "react";
 
 import App from "./components/app/app";
 
-import promoFilmData from "./mock/promo";
-import films from "./mock/films";
+import promoFilmData from "./mocks/promo";
+import films from "./mocks/films";
 
 ReactDOM.render(<App promoFilmData={promoFilmData} films={films} />, document.getElementById(`root`));

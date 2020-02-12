@@ -1,13 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import App from "./app";
-
-const promoFilmData = {
-  name: `name`,
-  genre: `genre`,
-  releaseDate: `date`,
-};
+import MovieList from "./movie-list";
 
 const films = [
   {
@@ -32,7 +26,7 @@ const films = [
 
 it(`App component renders correctly`, () => {
   const tree = renderer
-    .create(<App promoFilmData={promoFilmData} films={films} />)
+    .create(<MovieList films={films} filmNameClickHandler={() => {}} />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
