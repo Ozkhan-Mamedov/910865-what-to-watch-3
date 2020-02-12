@@ -27,8 +27,16 @@ class MovieList extends React.Component {
 
     return (
       <div className="catalog__movies-list">
-        {films.map((film, index) => <SmallMovieCard film={film} key={index}
-          filmNameClickHandler={filmNameClickHandler} cardHoverHandler={this.cardHoverHandler} />)}
+        {
+          films.map((film, index) =>
+            <SmallMovieCard
+              film={film}
+              key={index}
+              filmNameClickHandler={filmNameClickHandler}
+              cardHoverHandler={this.cardHoverHandler}
+            />
+          )
+        }
       </div>
     );
   }
