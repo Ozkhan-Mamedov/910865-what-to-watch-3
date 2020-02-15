@@ -48,6 +48,12 @@ MovieList.propTypes = {
     picture: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
+    releaseDate: PropTypes.string.isRequired,
+    ratingScore: PropTypes.number.isRequired,
+    ratingsNumber: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.arrayOf(PropTypes.string),
   })),
   filmNameClickHandler: PropTypes.func.isRequired
 };

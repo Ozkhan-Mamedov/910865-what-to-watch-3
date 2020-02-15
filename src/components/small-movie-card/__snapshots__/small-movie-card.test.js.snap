@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App component renders correctly 1`] = `
+exports[`SmallMovieCard component renders correctly 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
   onMouseOut={[Function]}
@@ -12,6 +12,7 @@ exports[`App component renders correctly 1`] = `
     <img
       alt="Film#1"
       height="175"
+      onClick={[Function]}
       src="picture#1"
       width="280"
     />

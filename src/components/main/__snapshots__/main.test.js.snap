@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App component renders correctly 1`] = `
+exports[`Main component renders correctly 1`] = `
 Array [
   <section
     className="movie-card"
@@ -268,6 +268,7 @@ Array [
             <img
               alt="Film#1"
               height="175"
+              onClick={[Function]}
               src="picture#1"
               width="280"
             />
@@ -295,6 +296,7 @@ Array [
             <img
               alt="Film#2"
               height="175"
+              onClick={[Function]}
               src="picture#2"
               width="280"
             />
@@ -322,6 +324,7 @@ Array [
             <img
               alt="Film#3"
               height="175"
+              onClick={[Function]}
               src="picture#3"
               width="280"
             />
