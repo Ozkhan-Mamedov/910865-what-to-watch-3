@@ -24,21 +24,30 @@ class App extends React.Component {
     });
   }
 
+  _renderApp() {
+    const {films} = this.props;
+    const {activeCard} = this.state;
+
+    if (activeCard === -1) {
+
+      return <Main {...this.props} filmNameClickHandler={this.filmNameClickHandler} />;
+    } else {
+      return <MovieDetails film={films[activeCard]} />;
+    }
+  }
+
   render() {
     const {films} = this.props;
+    const {activeCard} = this.state;
 
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {
-              this.state.activeCard === -1
-                ? <Main {...this.props} filmNameClickHandler={this.filmNameClickHandler} />
-                : <MovieDetails film={films[this.state.activeCard]} />
-            }
+            {this._renderApp()}
           </Route>
           <Route exact path="/dev-component">
-            <MovieDetails film={films[this.state.activeCard]} />
+            <MovieDetails film={films[activeCard]} />
           </Route>
         </Switch>
       </BrowserRouter>

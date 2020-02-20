@@ -45,10 +45,8 @@ describe(`Should SmallMovieCard work correctly`, () => {
     expect(cardHoverHandler).toHaveBeenCalledWith(-1);
   });
 
-  it(`Should film name link be pressed`, () => {
-    const filmNameLink = movieCard.find(`.small-movie-card__link`);
-
-    filmNameLink.props().onClick({
+  it(`Should film card be pressed`, () => {
+    movieCard.props().onClick({
       preventDefault: () => {
       }
     });
@@ -56,30 +54,11 @@ describe(`Should SmallMovieCard work correctly`, () => {
     expect(filmNameClickHandler.mock.calls.length).toBe(1);
   });
 
-  it(`Should film name link return correct value`, () => {
-    const filmNameLink = movieCard.find(`.small-movie-card__link`);
-
-    filmNameLink.simulate(`click`, {
+  it(`Should film card return correct value`, () => {
+    movieCard.simulate(`click`, {
       preventDefault: () => {
       }
     });
-
-    expect(filmNameClickHandler).toHaveBeenCalledWith(`Film#1`);
-    filmNameClickHandler.mockClear();
-  });
-
-  it(`Should film image be pressed`, () => {
-    const filmImage = movieCard.find(`.small-movie-card__image img`);
-
-    filmImage.props().onClick();
-
-    expect(filmNameClickHandler.mock.calls.length).toBe(1);
-  });
-
-  it(`Should film image return correct value`, () => {
-    const filmImage = movieCard.find(`.small-movie-card__image`);
-
-    filmImage.simulate(`click`);
 
     expect(filmNameClickHandler).toHaveBeenCalledWith(`Film#1`);
   });

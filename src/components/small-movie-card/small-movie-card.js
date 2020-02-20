@@ -8,21 +8,15 @@ const SmallMovieCard = (props) => {
     <article className="small-movie-card catalog__movies-card"
       onMouseOver={() => cardHoverHandler(film.id)}
       onMouseOut={() => cardHoverHandler(-1)}
-
-    >
+      onClick={(evt) => {
+        evt.preventDefault();
+        filmNameClickHandler(film.name);
+      }}>
       <div className="small-movie-card__image">
-        <img src={film.picture} alt={film.name} width="280" height="175"
-          onClick={() => {
-
-            filmNameClickHandler(film.name);
-          }}/>
+        <img src={film.picture} alt={film.name} width="280" height="175"/>
       </div>
       <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html"
-          onClick={(evt) => {
-            evt.preventDefault();
-            filmNameClickHandler(film.name);
-          }}>{film.name}</a>
+        <a className="small-movie-card__link" href="movie-page.html">{film.name}</a>
       </h3>
     </article>
   );

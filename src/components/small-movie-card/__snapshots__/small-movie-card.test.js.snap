@@ -3,6 +3,7 @@
 exports[`SmallMovieCard component renders correctly 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
+  onClick={[Function]}
   onMouseOut={[Function]}
   onMouseOver={[Function]}
 >
@@ -12,7 +13,6 @@ exports[`SmallMovieCard component renders correctly 1`] = `
     <img
       alt="Film#1"
       height="175"
-      onClick={[Function]}
       src="picture#1"
       width="280"
     />
@@ -23,7 +23,6 @@ exports[`SmallMovieCard component renders correctly 1`] = `
     <a
       className="small-movie-card__link"
       href="movie-page.html"
-      onClick={[Function]}
     >
       Film#1
     </a>
