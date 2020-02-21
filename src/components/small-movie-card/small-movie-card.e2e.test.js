@@ -14,6 +14,12 @@ const film =
     picture: `picture#1`,
     genre: `genre#1`,
     id: 1,
+    releaseDate: `2025`,
+    ratingScore: 2,
+    ratingsNumber: 5,
+    director: `Director#2`,
+    starring: [`Actor#1`, `Actor#2`, `Actor#3`],
+    description: [`Test paragraph #1.`, `Test paragraph #2.`],
   };
 
 describe(`Should SmallMovieCard work correctly`, () => {
@@ -22,7 +28,7 @@ describe(`Should SmallMovieCard work correctly`, () => {
 
   const smallMovieComponent = shallow(
       <SmallMovieCard film={film} filmNameClickHandler={filmNameClickHandler}
-        cardHoverHandler={cardHoverHandler}/>
+        cardHoverHandler={cardHoverHandler} />
   );
 
   const movieCard = smallMovieComponent.find(`.small-movie-card`);
@@ -39,11 +45,21 @@ describe(`Should SmallMovieCard work correctly`, () => {
     expect(cardHoverHandler).toHaveBeenCalledWith(-1);
   });
 
-  it(`Should film name link be pressed`, () => {
-    const filmNameLink = movieCard.find(`.small-movie-card__link`);
-
-    filmNameLink.props().onClick();
+  it(`Should film card be pressed`, () => {
+    movieCard.props().onClick({
+      preventDefault: () => {
+      }
+    });
 
     expect(filmNameClickHandler.mock.calls.length).toBe(1);
+  });
+
+  it(`Should film card return correct value`, () => {
+    movieCard.simulate(`click`, {
+      preventDefault: () => {
+      }
+    });
+
+    expect(filmNameClickHandler).toHaveBeenCalledWith(`Film#1`);
   });
 });

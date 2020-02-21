@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App component renders correctly 1`] = `
+exports[`SmallMovieCard component renders correctly 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
+  onClick={[Function]}
   onMouseOut={[Function]}
   onMouseOver={[Function]}
 >
@@ -22,7 +23,6 @@ exports[`App component renders correctly 1`] = `
     <a
       className="small-movie-card__link"
       href="movie-page.html"
-      onClick={[Function]}
     >
       Film#1
     </a>

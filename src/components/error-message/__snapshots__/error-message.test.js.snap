@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorMessage component renders correctly 1`] = `
+<h1
+  style={
+    Object {
+      "color": "red",
+      "fontSize": "60px",
+      "left": "50%",
+      "margin": "0",
+      "position": "absolute",
+      "top": "50vh",
+      "transform": "translateX(-50%) translateY(-50%)",
+    }
+  }
+>
+  Film not found!
+</h1>
+`;
