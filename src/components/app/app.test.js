@@ -21,6 +21,7 @@ const films = [
     director: `Director#1`,
     starring: [`Actor#1`, `Actor#2`, `Actor#3`, `Actor#4`],
     description: [`Test paragraph #1.`, `Test paragraph #2.`],
+    preview: `preview#1`,
   },
   {
     name: `Film#2`,
@@ -33,6 +34,7 @@ const films = [
     director: `Director#2`,
     starring: [`Actor#1`, `Actor#2`, `Actor#3`],
     description: [`Test paragraph #1.`, `Test paragraph #2.`],
+    preview: `preview#2`,
   },
   {
     name: `Film#3`,
@@ -45,6 +47,7 @@ const films = [
     director: `Director#3`,
     starring: [`Actor#1`, `Actor#2`],
     description: [`Test paragraph #1.`],
+    preview: `preview#3`,
   },
 ];
 

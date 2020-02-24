@@ -34,6 +34,7 @@ class MovieList extends React.Component {
               key={index}
               filmNameClickHandler={filmNameClickHandler}
               cardHoverHandler={this.cardHoverHandler}
+              activeCard={this.state.activeCard}
             />
           )
         }
@@ -54,6 +55,7 @@ MovieList.propTypes = {
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string),
     description: PropTypes.arrayOf(PropTypes.string),
+    preview: PropTypes.string.isRequired,
   })),
   filmNameClickHandler: PropTypes.func.isRequired
 };

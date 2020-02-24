@@ -20,6 +20,7 @@ const film =
     director: `Director#2`,
     starring: [`Actor#1`, `Actor#2`, `Actor#3`],
     description: [`Test paragraph #1.`, `Test paragraph #2.`],
+    preview: `preview`,
   };
 
 describe(`Should SmallMovieCard work correctly`, () => {
@@ -28,7 +29,7 @@ describe(`Should SmallMovieCard work correctly`, () => {
 
   const smallMovieComponent = shallow(
       <SmallMovieCard film={film} filmNameClickHandler={filmNameClickHandler}
-        cardHoverHandler={cardHoverHandler} />
+        cardHoverHandler={cardHoverHandler} activeCard={-1}/>
   );
 
   const movieCard = smallMovieComponent.find(`.small-movie-card`);
@@ -36,7 +37,7 @@ describe(`Should SmallMovieCard work correctly`, () => {
   it(`Should hover correctly`, () => {
     movieCard.simulate(`mouseover`);
 
-    expect(cardHoverHandler).toHaveBeenCalledWith(1);
+    setTimeout(() => expect(cardHoverHandler).toHaveBeenCalledWith(1), 1000);
   });
 
   it(`Should remove hover correctly`, () => {
