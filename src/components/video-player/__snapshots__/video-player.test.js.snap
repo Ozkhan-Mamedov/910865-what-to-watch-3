@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VideoPlayer component renders correctly 1`] = `
+<video
+  height={175}
+  poster="picture#1"
+  width={280}
+/>
+`;

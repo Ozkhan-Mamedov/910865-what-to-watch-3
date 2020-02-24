@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import SmallMovieCard from "./small-movie-card";
+import VideoPlayer from "./video-player";
 
 const film =
   {
@@ -15,13 +15,16 @@ const film =
     director: `Director`,
     starring: [`Actor#1`, `Actor#2`, `Actor#3`],
     description: [`Test paragraph #1.`, `Test paragraph #2.`],
-    preview: `preview`,
+    preview: `preview link`,
   };
 
-it(`SmallMovieCard component renders correctly`, () => {
+it(`VideoPlayer component renders correctly`, () => {
   const tree = renderer
-    .create(<SmallMovieCard film={film} cardHoverHandler={() => {}}
-      filmNameClickHandler={() => {}} activeCard={-1}/>)
+    .create(<VideoPlayer src={film.preview} poster={film.picture} />, {
+      createNodeMock: () => {
+        return {};
+      }
+    })
     .toJSON();
 
   expect(tree).toMatchSnapshot();
