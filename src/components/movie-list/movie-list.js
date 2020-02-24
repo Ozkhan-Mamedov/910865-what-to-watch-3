@@ -34,6 +34,7 @@ class MovieList extends React.Component {
               key={index}
               filmNameClickHandler={filmNameClickHandler}
               cardHoverHandler={this.cardHoverHandler}
+              activeCard={this.state.activeCard}
             />
           )
         }
