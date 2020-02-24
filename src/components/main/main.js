@@ -143,6 +143,7 @@ Main.propTypes = {
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string),
     description: PropTypes.arrayOf(PropTypes.string),
+    preview: PropTypes.string.isRequired,
   })),
   filmNameClickHandler: PropTypes.func.isRequired
 };
