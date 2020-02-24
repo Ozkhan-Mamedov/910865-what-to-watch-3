@@ -11,7 +11,8 @@ class VideoPlayer extends React.Component {
     super(props);
 
     this.state = {
-      isLoading: true,
+      isPaused: true,
+      isPlaying: false,
     };
 
     this._videoRef = React.createRef();
@@ -26,8 +27,6 @@ class VideoPlayer extends React.Component {
         height={VIDEO_PROPERTIES.HEIGHT}
         poster={poster}
         ref={this._videoRef}
-        muted
-        autoPlay
       />
     );
   }
@@ -37,9 +36,28 @@ class VideoPlayer extends React.Component {
     const video = this._videoRef.current;
 
     video.src = src;
-    video.oncanplaythrough = () => this.setState({
-      isLoading: false,
-    });
+    video.oncanplaythrough = () => {
+      video.muted = true;
+      this.setState({
+        isPaused: false,
+        isPlaying: true,
+      });
+    };
+  }
+
+  componentDidUpdate() {
+    const {isPaused, isPlaying} = this.state;
+    const video = this._videoRef.current;
+
+    if (isPaused) {
+      return;
+    }
+
+    if (isPlaying) {
+      video.play();
+    } else {
+      video.load();
+    }
   }
 
   componentWillUnmount() {
