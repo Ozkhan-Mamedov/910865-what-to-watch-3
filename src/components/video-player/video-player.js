@@ -12,7 +12,6 @@ class VideoPlayer extends React.Component {
 
     this.state = {
       isLoading: true,
-      isPlaying: false,
     };
 
     this._videoRef = React.createRef();
