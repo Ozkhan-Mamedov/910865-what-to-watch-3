@@ -15,13 +15,7 @@ const GenreList = ({films, activeGenre = GENRES.ALL_GENRES}) => {
   };
 
   const formatGenres = (genres) => {
-    const formattedGenres = [];
-
-    genres.forEach((genre) => {
-      formattedGenres.push(GENRES[genre.toUpperCase()]);
-    });
-
-    return formattedGenres;
+    return Array.from(genres).map((genre) => GENRES[genre.toUpperCase()]);
   };
 
   const genres = formatGenres(getGenres(films));
@@ -29,17 +23,11 @@ const GenreList = ({films, activeGenre = GENRES.ALL_GENRES}) => {
   return (
     <ul className="catalog__genres-list">
       {
-        genres.map((genre, index) => {
-          if (index < MAX_GENRE_NUMBER) {
-            return (
-              <li className={`catalog__genres-item ${genre === activeGenre ? `catalog__genres-item--active` : ``}`} key={index}>
-                <a href="#" className="catalog__genres-link">{genre}</a>
-              </li>
-            );
-          }
-
-          return null;
-        })
+        genres.slice(0, MAX_GENRE_NUMBER).map((genre, index) => (
+          <li className={`catalog__genres-item ${genre === activeGenre ? `catalog__genres-item--active` : ``}`} key={index}>
+            <a href="#" className="catalog__genres-link">{genre}</a>
+          </li>
+        ))
       }
     </ul>
   );
