@@ -7,7 +7,7 @@ import App from "./components/app/app";
 
 import promoFilmData from "./mocks/promo";
 import films from "./mocks/films";
-import {reducer} from "./reducer";
+import {reducer} from "./reducer/reducer";
 
 const store = createStore(reducer);
 
