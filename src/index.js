@@ -1,9 +1,18 @@
 import ReactDOM from "react-dom";
 import React from "react";
+import {Provider} from "react-redux";
+import {createStore} from "redux";
 
 import App from "./components/app/app";
 
 import promoFilmData from "./mocks/promo";
 import films from "./mocks/films";
+import {reducer} from "./reducer";
 
-ReactDOM.render(<App promoFilmData={promoFilmData} films={films} />, document.getElementById(`root`));
+const store = createStore(reducer);
+
+ReactDOM.render(
+    <Provider store={store}>
+      <App promoFilmData={promoFilmData} films={films} />
+    </Provider>,
+    document.getElementById(`root`));
