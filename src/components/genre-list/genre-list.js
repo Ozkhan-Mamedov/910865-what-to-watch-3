@@ -46,6 +46,7 @@ GenreList.propTypes = {
     starring: PropTypes.arrayOf(PropTypes.string),
     description: PropTypes.arrayOf(PropTypes.string),
     preview: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired,
   })),
   activeGenre: PropTypes.string,
 };
