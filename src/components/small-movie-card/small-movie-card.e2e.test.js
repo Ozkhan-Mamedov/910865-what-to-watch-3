@@ -21,6 +21,7 @@ const film =
     starring: [`Actor#1`, `Actor#2`, `Actor#3`],
     description: [`Test paragraph #1.`, `Test paragraph #2.`],
     preview: `preview`,
+    runTime: 130,
   };
 
 describe(`Should SmallMovieCard work correctly`, () => {

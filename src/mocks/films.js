@@ -15,6 +15,7 @@ const films = [
                 sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously,
                 Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`],
     preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    runTime: 99,
   },
   {
     name: `Midnight Special`,
@@ -28,6 +29,7 @@ const films = [
     starring: [`Michael Shannon`, `Jaeden Martell`, `Joel Edgerton`],
     description: [`Some description text for Midnight Special`],
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    runTime: 129,
   },
   {
     name: `Mindhunter`,
@@ -41,6 +43,7 @@ const films = [
     starring: [`Jonathan Groff`, `Holt McCallany`, `Anna Torv`],
     description: [`Some description text for Mindhunter`],
     preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    runTime: 59,
   },
   {
     name: `No Country for Old Men`,
@@ -54,6 +57,7 @@ const films = [
     starring: [`Javier Bardem`, `Josh Brolin`, `Tommy Lee Jones`],
     description: [`Some description text for No Country for Old Men`],
     preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    runTime: 130,
   },
   {
     name: `Revenant`,
@@ -67,6 +71,7 @@ const films = [
     starring: [`Leonardo DiCaprio`, `Tom Hardy`, `Will Poulter`],
     description: [`Some description text for Revenant`],
     preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    runTime: 88,
   },
 ];
 

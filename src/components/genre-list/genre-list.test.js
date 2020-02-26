@@ -1,13 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import App from "./app";
-
-const promoFilmData = {
-  name: `name`,
-  genre: `genre`,
-  releaseDate: `date`,
-};
+import GenreList from "./genre-list";
 
 const films = [
   {
@@ -54,9 +48,9 @@ const films = [
   },
 ];
 
-it(`App component renders correctly`, () => {
+it(`GenreList component renders correctly`, () => {
   const tree = renderer
-    .create(<App promoFilmData={promoFilmData} films={films} />)
+    .create(<GenreList films={films} />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
