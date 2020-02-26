@@ -15,6 +15,7 @@ const film = {
   starring: [`Actor#1`, `Actor#2`, `Actor#3`, `Actor#4`],
   description: [`Test paragraph #1.`, `Test paragraph #2.`],
   preview: `preview#1`,
+  runTime: 130,
 };
 
 it(`MovieDetails component renders correctly`, () => {

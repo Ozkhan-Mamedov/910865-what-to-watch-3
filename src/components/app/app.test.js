@@ -22,6 +22,7 @@ const films = [
     starring: [`Actor#1`, `Actor#2`, `Actor#3`, `Actor#4`],
     description: [`Test paragraph #1.`, `Test paragraph #2.`],
     preview: `preview#1`,
+    runTime: 130,
   },
   {
     name: `Film#2`,
@@ -35,6 +36,7 @@ const films = [
     starring: [`Actor#1`, `Actor#2`, `Actor#3`],
     description: [`Test paragraph #1.`, `Test paragraph #2.`],
     preview: `preview#2`,
+    runTime: 130,
   },
   {
     name: `Film#3`,
@@ -48,6 +50,7 @@ const films = [
     starring: [`Actor#1`, `Actor#2`],
     description: [`Test paragraph #1.`],
     preview: `preview#3`,
+    runTime: 130,
   },
 ];
 
