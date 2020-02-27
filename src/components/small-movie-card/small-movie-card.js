@@ -18,7 +18,8 @@ const SmallMovieCard = (props) => {
     cardHoverHandler(-1);
   };
 
-  const cardClickHandler = () => {
+  const cardClickHandler = (evt) => {
+    evt.preventDefault();
     clearTimeout(timer);
     filmNameClickHandler(film.name);
   };
