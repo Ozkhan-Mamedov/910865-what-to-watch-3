@@ -1,18 +1,62 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 import ErrorMessage from "../error-message/error-message";
 import Tabs from "../tabs/tabs";
 
-import {MINUTES_IN_HOUR, TABS_KEYS} from "../../constants";
+import {
+  MINUTES_IN_HOUR,
+  TABS_KEYS,
+  MONTH_KEYS,
+  MONTH_SUBSTR,
+  DAY_SUBSTR,
+  YEAR_SUBSTR,
+  MORE_LIKE_THIS_LIST, MORE_LIKE_THIS_FILMS
+} from "../../constants";
+import MovieList from "../movie-list/movie-list";
 
 class MovieDetails extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      activeTab: TABS_KEYS.REVIEWS
+      activeTab: TABS_KEYS.OVERVIEW
     };
+
+    this.tabClickHandler = this.tabClickHandler.bind(this);
+  }
+
+  getMoreLikeThisFilm() {
+    const {film: targetFilm, films} = this.props;
+    const {genre} = targetFilm;
+
+    return films.filter((film) => film.genre === genre && targetFilm !== film);
+  }
+
+  tabClickHandler(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab,
+      });
+    }
+  }
+
+  getDateTime(date) {
+    const mseconds = Date.parse(date);
+
+    return new Date(mseconds).toLocaleDateString().replace(/\./g, `-`);
+  }
+
+  getFullDate(date) {
+    const mseconds = Date.parse(date);
+    const dateString = new Date(mseconds).toDateString();
+    const year = dateString.substr(YEAR_SUBSTR.START, YEAR_SUBSTR.LENGTH);
+    const currentMonthKey = dateString.substr(MONTH_SUBSTR.START, MONTH_SUBSTR.LENGTH);
+    const month = MONTH_KEYS.find((monthKey) => monthKey.key === currentMonthKey).month;
+    const day = dateString.substr(DAY_SUBSTR.START, DAY_SUBSTR.LENGTH);
+
+    return `${month} ${day[0] === `0` ? day[day.length - 1] : day}, ${year}`;
   }
 
   getTextRating(num) {
@@ -68,202 +112,110 @@ class MovieDetails extends React.Component {
 
   _renderTab() {
     const {activeTab} = this.state;
-    const {film} = this.props;
+    const {film, filmComment} = this.props;
 
     switch (activeTab) {
       case TABS_KEYS.OVERVIEW:
         return (
-          <div className="movie-card__wrap movie-card__translate-top">
-            <div className="movie-card__info">
-              <div className="movie-card__poster movie-card__poster--big">
-                <img src="img/the-grand-budapest-hotel-poster.jpg" alt={film.name} width="218"
-                  height="327"/>
-              </div>
+          <div className="movie-card__desc">
+            <div className="movie-rating">
+              <div className="movie-rating__score">{this.formatRating(film.ratingScore)}</div>
+              <p className="movie-rating__meta">
+                <span className="movie-rating__level">{this.getTextRating(film.ratingScore)}</span>
+                <span className="movie-rating__count">{film.ratingsNumber} ratings</span>
+              </p>
+            </div>
 
-              <div className="movie-card__desc">
-                <nav className="movie-nav movie-card__nav">
-                  <Tabs activeTab={activeTab} />
-                </nav>
+            <div className="movie-card__text">
+              {
+                film.description.map((it, index) =>
+                  <p key={index}>{it}</p>
+                )
+              }
+              <p className="movie-card__director"><strong>Director: {film.director}</strong></p>
 
-                <div className="movie-rating">
-                  <div className="movie-rating__score">{this.formatRating(film.ratingScore)}</div>
-                  <p className="movie-rating__meta">
-                    <span className="movie-rating__level">{this.getTextRating(film.ratingScore)}</span>
-                    <span className="movie-rating__count">{film.ratingsNumber} ratings</span>
-                  </p>
-                </div>
-
-                <div className="movie-card__text">
-                  {
-                    film.description.map((it, index) =>
-                      <p key={index}>{it}</p>
-                    )
-                  }
-
-                  <p className="movie-card__director"><strong>Director: {film.director}</strong></p>
-
-                  <p className="movie-card__starring"><strong>Starring: {film.starring.join(`, `)}
-                    {` and other`}
-                  </strong></p>
-                </div>
-              </div>
+              <p className="movie-card__starring"><strong>Starring: {film.starring.join(`, `)}
+                {` and other`}
+              </strong></p>
             </div>
           </div>
         );
 
       case TABS_KEYS.DETAILS:
         return (
-          <div className="movie-card__wrap movie-card__translate-top">
-            <div className="movie-card__info">
-              <div className="movie-card__poster movie-card__poster--big">
-                <img src="img/the-grand-budapest-hotel-poster.jpg" alt={film.name} width="218"
-                  height="327"/>
-              </div>
+          <div className="movie-card__text movie-card__row">
+            <div className="movie-card__text-col">
+              <p className="movie-card__details-item">
+                <strong className="movie-card__details-name">Director</strong>
+                <span className="movie-card__details-value">{film.director}</span>
+              </p>
+              <p className="movie-card__details-item">
+                <strong className="movie-card__details-name">Starring</strong>
+                <span className="movie-card__details-value">
+                  {this.getStarringList(film.starring)}
+                </span>
+              </p>
+            </div>
 
-              <div className="movie-card__desc">
-                <nav className="movie-nav movie-card__nav">
-                  <Tabs activeTab={activeTab} />
-                </nav>
-
-                <div className="movie-card__text movie-card__row">
-                  <div className="movie-card__text-col">
-                    <p className="movie-card__details-item">
-                      <strong className="movie-card__details-name">Director</strong>
-                      <span className="movie-card__details-value">{film.director}</span>
-                    </p>
-                    <p className="movie-card__details-item">
-                      <strong className="movie-card__details-name">Starring</strong>
-                      <span className="movie-card__details-value">
-                        {this.getStarringList(film.starring)}
-                      </span>
-                    </p>
-                  </div>
-
-                  <div className="movie-card__text-col">
-                    <p className="movie-card__details-item">
-                      <strong className="movie-card__details-name">Run Time</strong>
-                      <span className="movie-card__details-value">{this.getFilmDuration(film.runTime)}</span>
-                    </p>
-                    <p className="movie-card__details-item">
-                      <strong className="movie-card__details-name">Genre</strong>
-                      <span className="movie-card__details-value">{film.genre}</span>
-                    </p>
-                    <p className="movie-card__details-item">
-                      <strong className="movie-card__details-name">Released</strong>
-                      <span className="movie-card__details-value">{film.releaseDate}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div className="movie-card__text-col">
+              <p className="movie-card__details-item">
+                <strong className="movie-card__details-name">Run Time</strong>
+                <span className="movie-card__details-value">{this.getFilmDuration(film.runTime)}</span>
+              </p>
+              <p className="movie-card__details-item">
+                <strong className="movie-card__details-name">Genre</strong>
+                <span className="movie-card__details-value">{film.genre}</span>
+              </p>
+              <p className="movie-card__details-item">
+                <strong className="movie-card__details-name">Released</strong>
+                <span className="movie-card__details-value">{film.releaseDate}</span>
+              </p>
             </div>
           </div>
         );
 
       case TABS_KEYS.REVIEWS:
         return (
-          <div className="movie-card__wrap movie-card__translate-top">
-            <div className="movie-card__info">
-              <div className="movie-card__poster movie-card__poster--big">
-                <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
-                  height="327"/>
-              </div>
+          <div className="movie-card__reviews movie-card__row">
+            <div className="movie-card__reviews-col">
+              {filmComment.commentsList.splice(0, Math.ceil(filmComment.commentsList.length / 2)).map((comment, index) => {
+                return (
+                  <div className="review" key={index}>
+                    <blockquote className="review__quote">
+                      <p className="review__text">{comment.comment}</p>
 
-              <div className="movie-card__desc">
-                <nav className="movie-nav movie-card__nav">
-                  <Tabs activeTab={activeTab} />
-                </nav>
+                      <footer className="review__details">
+                        <cite className="review__author">{comment.userName}</cite>
+                        <time className="review__date" dateTime={this.getDateTime(comment.date)}>
+                          {this.getFullDate(comment.date)}
+                        </time>
+                      </footer>
+                    </blockquote>
 
-                <div className="movie-card__reviews movie-card__row">
-                  <div className="movie-card__reviews-col">
-                    <div className="review">
-                      <blockquote className="review__quote">
-                        <p className="review__text">Discerning travellers and Wes Anderson fans will luxuriate in the
-                          glorious Mittel-European kitsch of one of the director&apos;s funniest and most exquisitely
-                          designed movies in years.</p>
-
-                        <footer className="review__details">
-                          <cite className="review__author">Kate Muir</cite>
-                          <time className="review__date" dateTime="2016-12-24">December 24, 2016</time>
-                        </footer>
-                      </blockquote>
-
-                      <div className="review__rating">8,9</div>
-                    </div>
-
-                    <div className="review">
-                      <blockquote className="review__quote">
-                        <p className="review__text">Anderson&apos;s films are too precious for some, but for those of us
-                          willing to lose ourselves in them, they&apos;re a delight. &apos;The Grand Budapest Hotel&apos; is no
-                          different, except that he has added a hint of gravitas to the mix, improving the recipe.</p>
-
-                        <footer className="review__details">
-                          <cite className="review__author">Bill Goodykoontz</cite>
-                          <time className="review__date" dateTime="2015-11-18">November 18, 2015</time>
-                        </footer>
-                      </blockquote>
-
-                      <div className="review__rating">8,0</div>
-                    </div>
-
-                    <div className="review">
-                      <blockquote className="review__quote">
-                        <p className="review__text">I didn&apos;t find it amusing, and while I can appreciate the creativity,
-                          it&apos;s an hour and 40 minutes I wish I could take back.</p>
-
-                        <footer className="review__details">
-                          <cite className="review__author">Amanda Greever</cite>
-                          <time className="review__date" dateTime="2015-11-18">November 18, 2015</time>
-                        </footer>
-                      </blockquote>
-
-                      <div className="review__rating">8,0</div>
-                    </div>
+                    <div className="review__rating">{this.formatRating(comment.rating)}</div>
                   </div>
-                  <div className="movie-card__reviews-col">
-                    <div className="review">
-                      <blockquote className="review__quote">
-                        <p className="review__text">The mannered, madcap proceedings are often delightful, occasionally
-                          silly, and here and there, gruesome and/or heartbreaking.</p>
+                );
+              })}
+            </div>
+            <div className="movie-card__reviews-col">
+              {filmComment.commentsList.slice().map((comment, index) => {
+                return (
+                  <div className="review" key={index}>
+                    <blockquote className="review__quote">
+                      <p className="review__text">{comment.comment}</p>
 
-                        <footer className="review__details">
-                          <cite className="review__author">Matthew Lickona</cite>
-                          <time className="review__date" dateTime="2016-12-20">December 20, 2016</time>
-                        </footer>
-                      </blockquote>
+                      <footer className="review__details">
+                        <cite className="review__author">{comment.userName}</cite>
+                        <time className="review__date" dateTime={this.getDateTime(comment.date)}>
+                          {this.getFullDate(comment.date)}
+                        </time>
+                      </footer>
+                    </blockquote>
 
-                      <div className="review__rating">7,2</div>
-                    </div>
-
-                    <div className="review">
-                      <blockquote className="review__quote">
-                        <p className="review__text">It is certainly a magical and childlike way of storytelling, even if
-                          the content is a little more adult.</p>
-
-                        <footer className="review__details">
-                          <cite className="review__author">Paula Fleri-Soler</cite>
-                          <time className="review__date" dateTime="2016-12-20">December 20, 2016</time>
-                        </footer>
-                      </blockquote>
-
-                      <div className="review__rating">7,6</div>
-                    </div>
-
-                    <div className="review">
-                      <blockquote className="review__quote">
-                        <p className="review__text">It is certainly a magical and childlike way of storytelling, even if
-                          the content is a little more adult.</p>
-
-                        <footer className="review__details">
-                          <cite className="review__author">Paula Fleri-Soler</cite>
-                          <time className="review__date" dateTime="2016-12-20">December 20, 2016</time>
-                        </footer>
-                      </blockquote>
-
-                      <div className="review__rating">7,0</div>
-                    </div>
+                    <div className="review__rating">{this.formatRating(comment.rating)}</div>
                   </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         );
@@ -273,7 +225,8 @@ class MovieDetails extends React.Component {
   }
 
   render() {
-    const {film} = this.props;
+    const {film, filmNameClickHandler} = this.props;
+    const {activeTab} = this.state;
 
     return (
       film !== undefined ?
@@ -328,54 +281,26 @@ class MovieDetails extends React.Component {
                 </div>
               </div>
             </div>
+            <div className="movie-card__wrap movie-card__translate-top">
+              <div className="movie-card__info">
+                <div className="movie-card__poster movie-card__poster--big">
+                  <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+                    height="327"/>
+                </div>
+                <div className="movie-card__desc">
+                  <nav className="movie-nav movie-card__nav">
+                    <Tabs activeTab={activeTab} onTabClick={this.tabClickHandler} />
+                  </nav>
 
-            {this._renderTab()}
+                  {this._renderTab()}
+
+                </div>
+              </div>
+            </div>
           </section>
 
           <div className="page-content">
-            <section className="catalog catalog--like-this">
-              <h2 className="catalog__title">More like this</h2>
-
-              <div className="catalog__movies-list">
-                <article className="small-movie-card catalog__movies-card">
-                  <div className="small-movie-card__image">
-                    <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                      alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"/>
-                  </div>
-                  <h3 className="small-movie-card__title">
-                    <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of
-                      Grindelwald</a>
-                  </h3>
-                </article>
-
-                <article className="small-movie-card catalog__movies-card">
-                  <div className="small-movie-card__image">
-                    <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
-                  </div>
-                  <h3 className="small-movie-card__title">
-                    <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-                  </h3>
-                </article>
-
-                <article className="small-movie-card catalog__movies-card">
-                  <div className="small-movie-card__image">
-                    <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
-                  </div>
-                  <h3 className="small-movie-card__title">
-                    <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-                  </h3>
-                </article>
-
-                <article className="small-movie-card catalog__movies-card">
-                  <div className="small-movie-card__image">
-                    <img src="img/aviator.jpg" alt="Aviator" width="280" height="175"/>
-                  </div>
-                  <h3 className="small-movie-card__title">
-                    <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-                  </h3>
-                </article>
-              </div>
-            </section>
+            <MovieList films={this.getMoreLikeThisFilm().slice(0, MORE_LIKE_THIS_FILMS - 1)} filmNameClickHandler={filmNameClickHandler} list={MORE_LIKE_THIS_LIST} />
 
             <footer className="page-footer">
               <div className="logo">
@@ -397,7 +322,25 @@ class MovieDetails extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  activeCard: state.activeCard
+});
+
 MovieDetails.propTypes = {
+  films: PropTypes.arrayOf(PropTypes.exact({
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    releaseDate: PropTypes.string.isRequired,
+    ratingScore: PropTypes.number.isRequired,
+    ratingsNumber: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.arrayOf(PropTypes.string),
+    preview: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired,
+  })),
   film: PropTypes.exact({
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
@@ -412,6 +355,17 @@ MovieDetails.propTypes = {
     preview: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
   }),
+  filmComment: PropTypes.exact({
+    filmId: PropTypes.number.isRequired,
+    commentsList: PropTypes.arrayOf(PropTypes.exact({
+      userName: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      comment: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+    }))
+  }),
+  filmNameClickHandler: PropTypes.func.isRequired,
 };
 
-export default MovieDetails;
+export {MovieDetails};
+export default connect(mapStateToProps, null)(MovieDetails);

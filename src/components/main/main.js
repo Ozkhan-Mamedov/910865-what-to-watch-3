@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import MovieList from "../movie-list/movie-list";
 import GenreList from "../genre-list/genre-list";
 
+import {MOVIE_LIST} from "../../constants";
+
 const Main = (props) => {
   const {promoFilmData, films, filmNameClickHandler} = props;
 
@@ -66,17 +68,9 @@ const Main = (props) => {
       </section>
 
       <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
-
+        <MovieList filmNameClickHandler={filmNameClickHandler} films={films} list={MOVIE_LIST} >
           <GenreList films={films} />
-
-          <MovieList films={films} filmNameClickHandler={filmNameClickHandler} />
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
-        </section>
+        </MovieList>
 
         <footer className="page-footer">
           <div className="logo">

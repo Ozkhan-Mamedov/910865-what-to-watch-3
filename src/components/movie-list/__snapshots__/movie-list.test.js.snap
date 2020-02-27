@@ -1,89 +1,205 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MovieList component renders correctly 1`] = `
-<div
-  className="catalog__movies-list"
+exports[`MovieList component renders correctly for details page 1`] = `
+<section
+  className="catalog catalog--like-this"
 >
-  <article
-    className="small-movie-card catalog__movies-card"
-    onClick={[Function]}
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
+  <h2
+    className="catalog__title"
   >
-    <div
-      className="small-movie-card__image"
-    >
-      <img
-        alt="Film#1"
-        height="175"
-        src="picture#1"
-        width="280"
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
-      >
-        Film#1
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onClick={[Function]}
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
+    More like this
+  </h2>
+  <div
+    className="catalog__movies-list"
   >
-    <div
-      className="small-movie-card__image"
+    <article
+      className="small-movie-card catalog__movies-card"
+      onClick={[Function]}
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
     >
-      <img
-        alt="Film#2"
-        height="175"
-        src="picture#2"
-        width="280"
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
+      <div
+        className="small-movie-card__image"
       >
-        Film#2
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onClick={[Function]}
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
+        <img
+          alt="Film#1"
+          height="175"
+          src="picture#1"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="movie-page.html"
+        >
+          Film#1
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onClick={[Function]}
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+      >
+        <img
+          alt="Film#2"
+          height="175"
+          src="picture#2"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="movie-page.html"
+        >
+          Film#2
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onClick={[Function]}
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+      >
+        <img
+          alt="Film#3"
+          height="175"
+          src="picture#3"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="movie-page.html"
+        >
+          Film#3
+        </a>
+      </h3>
+    </article>
+  </div>
+</section>
+`;
+
+exports[`MovieList component renders correctly for main page 1`] = `
+<section
+  className="catalog"
+>
+  <h2
+    className="catalog__title visually-hidden"
   >
-    <div
-      className="small-movie-card__image"
+    Catalog
+  </h2>
+  <div
+    className="catalog__movies-list"
+  >
+    <article
+      className="small-movie-card catalog__movies-card"
+      onClick={[Function]}
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
     >
-      <img
-        alt="Film#3"
-        height="175"
-        src="picture#3"
-        width="280"
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
+      <div
+        className="small-movie-card__image"
       >
-        Film#3
-      </a>
-    </h3>
-  </article>
-</div>
+        <img
+          alt="Film#1"
+          height="175"
+          src="picture#1"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="movie-page.html"
+        >
+          Film#1
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onClick={[Function]}
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+      >
+        <img
+          alt="Film#2"
+          height="175"
+          src="picture#2"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="movie-page.html"
+        >
+          Film#2
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onClick={[Function]}
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+      >
+        <img
+          alt="Film#3"
+          height="175"
+          src="picture#3"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="movie-page.html"
+        >
+          Film#3
+        </a>
+      </h3>
+    </article>
+  </div>
+  <div
+    className="catalog__more"
+  >
+    <button
+      className="catalog__button"
+      type="button"
+    >
+      Show more
+    </button>
+  </div>
+</section>
 `;

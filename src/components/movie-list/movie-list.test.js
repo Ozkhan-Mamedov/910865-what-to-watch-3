@@ -2,6 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 
 import MovieList from "./movie-list";
+import {MORE_LIKE_THIS_LIST, MOVIE_LIST} from "../../constants";
 
 const films = [
   {
@@ -48,9 +49,17 @@ const films = [
   },
 ];
 
-it(`MovieList component renders correctly`, () => {
+it(`MovieList component renders correctly for main page`, () => {
   const tree = renderer
-    .create(<MovieList films={films} filmNameClickHandler={() => {}} />)
+    .create(<MovieList films={films} filmNameClickHandler={() => {}} list={MOVIE_LIST}/>)
+    .toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`MovieList component renders correctly for details page`, () => {
+  const tree = renderer
+    .create(<MovieList films={films} filmNameClickHandler={() => {}} list={MORE_LIKE_THIS_LIST}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

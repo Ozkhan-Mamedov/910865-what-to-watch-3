@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import App from "./app";
+import {App} from "./app";
 
 const promoFilmData = {
   name: `name`,
@@ -54,9 +54,52 @@ const films = [
   },
 ];
 
+const filmComments = [
+  {
+    filmId: 1,
+    commentsList: [
+      {
+        userName: `User#1`,
+        rating: 8.9,
+        comment: `Comment#1`,
+        date: `2020-02-27T14:05:14.896Z`
+      },
+      {
+        userName: `User#2`,
+        rating: 8,
+        comment: `Comment#2`,
+        date: `2020-02-27T14:05:14.896Z`
+      },
+    ]
+  },
+  {
+    filmId: 2,
+    commentsList: [
+      {
+        userName: `User#3`,
+        rating: 6.9,
+        comment: `Comment#3`,
+        date: `2020-02-27T14:05:14.896Z`
+      },
+      {
+        userName: `User#4`,
+        rating: 2,
+        comment: `Comment#4`,
+        date: `2020-02-27T14:05:14.896Z`
+      },
+    ]
+  },
+];
+
 it(`App component renders correctly`, () => {
   const tree = renderer
-    .create(<App promoFilmData={promoFilmData} films={films} />)
+    .create(<App
+      promoFilmData={promoFilmData}
+      films={films}
+      activeCard={-1}
+      cardClickHandler={() => {}}
+      filmsComments={filmComments}
+    />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

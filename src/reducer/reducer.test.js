@@ -10,6 +10,8 @@ describe(`Reducer works correctly`, () => {
     expect(reducer(initialState, ActionCreator.changeFilter(`genre`))).toEqual({
       genre: `genre`,
       films: initialState.films,
+      activeCard: initialState.activeCard,
+      filmsComments: initialState.filmsComments,
     });
   });
 
@@ -17,6 +19,17 @@ describe(`Reducer works correctly`, () => {
     expect(reducer(initialState, ActionCreator.getFilmsByGenre(`Fantasy`))).toEqual({
       genre: ALL_GENRES,
       films: initialState.films.filter((film) => film.genre === `Fantasy`),
+      activeCard: initialState.activeCard,
+      filmsComments: initialState.filmsComments,
+    });
+  });
+
+  it(`Reducer should change active card correctly`, () => {
+    expect(reducer(initialState, ActionCreator.changeActiveCard(1))).toEqual({
+      genre: initialState.genre,
+      films: initialState.films,
+      filmsComments: initialState.filmsComments,
+      activeCard: 1,
     });
   });
 });
