@@ -1,5 +1,5 @@
 import {reducer, ActionCreator, initialState} from "./reducer.js";
-import {ALL_GENRES} from "../constants";
+import {ALL_GENRES, MAX_CARD_RENDER_NUMBER} from "../constants";
 
 describe(`Reducer works correctly`, () => {
   it(`Reducer without parameters returns initial state`, () => {
@@ -12,6 +12,7 @@ describe(`Reducer works correctly`, () => {
       films: initialState.films,
       activeCard: initialState.activeCard,
       filmsComments: initialState.filmsComments,
+      cardsRenderNumber: initialState.cardsRenderNumber,
     });
   });
 
@@ -21,6 +22,7 @@ describe(`Reducer works correctly`, () => {
       films: initialState.films.filter((film) => film.genre === `Fantasy`),
       activeCard: initialState.activeCard,
       filmsComments: initialState.filmsComments,
+      cardsRenderNumber: initialState.cardsRenderNumber,
     });
   });
 
@@ -30,6 +32,17 @@ describe(`Reducer works correctly`, () => {
       films: initialState.films,
       filmsComments: initialState.filmsComments,
       activeCard: 1,
+      cardsRenderNumber: initialState.cardsRenderNumber,
+    });
+  });
+
+  it(`Reducer should change cards render number correctly`, () => {
+    expect(reducer(initialState, ActionCreator.incrementCardsNumber())).toEqual({
+      genre: initialState.genre,
+      films: initialState.films,
+      filmsComments: initialState.filmsComments,
+      activeCard: initialState.activeCard,
+      cardsRenderNumber: MAX_CARD_RENDER_NUMBER * 2,
     });
   });
 });

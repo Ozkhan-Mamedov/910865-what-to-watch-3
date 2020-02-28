@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 import SmallMovieCard from "../small-movie-card/small-movie-card";
+import ShowMoreButton from "../show-more-button/show-more-button";
+
 import {MORE_LIKE_THIS_LIST, MOVIE_LIST} from "../../constants";
+import {ActionCreator} from "../../reducer/reducer";
 
 class MovieList extends React.Component {
   constructor(props) {
@@ -24,7 +28,7 @@ class MovieList extends React.Component {
   }
 
   _renderList() {
-    const {films, filmNameClickHandler, list} = this.props;
+    const {films, filmNameClickHandler, list, cardsRenderNumber, incrementCardsNumber} = this.props;
 
     switch (list) {
       case MOVIE_LIST:
@@ -36,7 +40,7 @@ class MovieList extends React.Component {
 
             <div className="catalog__movies-list">
               {
-                films.map((film, index) =>
+                films.slice(0, cardsRenderNumber).map((film, index) =>
                   <SmallMovieCard
                     key={index}
                     film={film}
@@ -48,9 +52,9 @@ class MovieList extends React.Component {
               }
             </div>
 
-            <div className="catalog__more">
-              <button className="catalog__button" type="button">Show more</button>
-            </div>
+            {cardsRenderNumber < films.length ?
+              <ShowMoreButton buttonClickHandler={incrementCardsNumber} />
+              : null}
           </section>
         );
 
@@ -86,6 +90,16 @@ class MovieList extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  cardsRenderNumber: state.cardsRenderNumber,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  incrementCardsNumber() {
+    dispatch(ActionCreator.incrementCardsNumber());
+  },
+});
+
 MovieList.propTypes = {
   films: PropTypes.arrayOf(PropTypes.exact({
     name: PropTypes.string.isRequired,
@@ -103,7 +117,10 @@ MovieList.propTypes = {
   })),
   filmNameClickHandler: PropTypes.func.isRequired,
   list: PropTypes.string.isRequired,
-  children: PropTypes.element
+  cardsRenderNumber: PropTypes.number,
+  incrementCardsNumber: PropTypes.func,
+  children: PropTypes.element,
 };
 
-export default MovieList;
+export {MovieList};
+export default connect(mapStateToProps, mapDispatchToProps)(MovieList);

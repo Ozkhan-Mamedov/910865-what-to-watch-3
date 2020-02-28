@@ -1,7 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import MovieList from "./movie-list";
+import {MovieList} from "./movie-list";
+
 import {MORE_LIKE_THIS_LIST, MOVIE_LIST} from "../../constants";
 
 const films = [
