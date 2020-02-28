@@ -1,7 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {Provider} from "react-redux";
+import {createStore} from "redux";
 
 import {App} from "./app";
+
+import {reducer} from "../../reducer/reducer";
+
 
 const promoFilmData = {
   name: `name`,
@@ -93,13 +98,16 @@ const filmComments = [
 
 it(`App component renders correctly`, () => {
   const tree = renderer
-    .create(<App
-      promoFilmData={promoFilmData}
-      films={films}
-      activeCard={-1}
-      cardClickHandler={() => {}}
-      filmsComments={filmComments}
-    />)
+    .create(
+        <Provider store={createStore(reducer)}>
+          <App
+            promoFilmData={promoFilmData}
+            films={films}
+            activeCard={-1}
+            cardClickHandler={() => {}}
+            filmsComments={filmComments}
+          />
+        </Provider>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

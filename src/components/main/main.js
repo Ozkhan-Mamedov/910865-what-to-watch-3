@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {MovieList} from "../movie-list/movie-list";
+import MovieList from "../movie-list/movie-list";
 import GenreList from "../genre-list/genre-list";
 
 import {MOVIE_LIST} from "../../constants";
