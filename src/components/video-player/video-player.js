@@ -1,10 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const VIDEO_PROPERTIES = {
-  WIDTH: 280,
-  HEIGHT: 175,
-};
+import {PREVIEW_PLAYER_PROPERTIES} from "../../constants";
 
 class VideoPlayer extends React.Component {
   constructor(props) {
@@ -23,8 +20,8 @@ class VideoPlayer extends React.Component {
 
     return (
       <video
-        width={VIDEO_PROPERTIES.WIDTH}
-        height={VIDEO_PROPERTIES.HEIGHT}
+        width={PREVIEW_PLAYER_PROPERTIES.WIDTH}
+        height={PREVIEW_PLAYER_PROPERTIES.HEIGHT}
         poster={poster}
         ref={this._videoRef}
       />

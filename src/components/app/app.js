@@ -1,44 +1,42 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Route, Switch, BrowserRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
 import Main from "../main/main";
 import MovieDetails from "../movie-details/movie-details";
+
+import {ActionCreator} from "../../reducer/reducer";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      activeCard: -1
-    };
-
     this.filmNameClickHandler = this.filmNameClickHandler.bind(this);
   }
 
   filmNameClickHandler(filmName) {
-    const {films} = this.props;
+    const {films, cardClickHandler} = this.props;
 
-    this.setState({
-      activeCard: films.findIndex((film) => film.name === filmName),
-    });
+    cardClickHandler(films.findIndex((film) => film.name === filmName));
   }
 
   _renderApp() {
-    const {films} = this.props;
-    const {activeCard} = this.state;
+    const {films, filmsComments, activeCard} = this.props;
 
     if (activeCard === -1) {
-
       return <Main {...this.props} filmNameClickHandler={this.filmNameClickHandler} />;
     } else {
-      return <MovieDetails film={films[activeCard]} />;
+      return <MovieDetails
+        films={films}
+        film={films[activeCard]}
+        filmComment={filmsComments.find((filmComments) => (activeCard + 1) === filmComments.filmId)}
+        filmNameClickHandler={this.filmNameClickHandler}/>;
     }
   }
 
   render() {
-    const {films} = this.props;
-    const {activeCard} = this.state;
+    const {films, filmsComments, activeCard} = this.props;
 
     return (
       <BrowserRouter>
@@ -47,13 +45,27 @@ class App extends React.Component {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-component">
-            <MovieDetails film={films[activeCard]} />
+            <MovieDetails
+              films={films}
+              film={films[activeCard]}
+              filmComment={filmsComments.find((filmComments) => (activeCard + 1) === filmComments.filmId)}
+              filmNameClickHandler={this.filmNameClickHandler}/>
           </Route>
         </Switch>
       </BrowserRouter>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  activeCard: state.activeCard
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  cardClickHandler(id) {
+    dispatch(ActionCreator.changeActiveCard(id));
+  }
+});
 
 App.propTypes = {
   films: PropTypes.arrayOf(PropTypes.exact({
@@ -70,6 +82,18 @@ App.propTypes = {
     preview: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
   })),
+  filmsComments: PropTypes.arrayOf(PropTypes.exact({
+    filmId: PropTypes.number.isRequired,
+    commentsList: PropTypes.arrayOf(PropTypes.exact({
+      userName: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+      comment: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+    }))
+  })),
+  activeCard: PropTypes.number.isRequired,
+  cardClickHandler: PropTypes.func.isRequired
 };
 
-export default App;
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

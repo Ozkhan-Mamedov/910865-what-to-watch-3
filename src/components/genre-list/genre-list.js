@@ -7,8 +7,8 @@ const GenreList = ({films, activeGenre = GENRES.ALL_GENRES}) => {
   const getGenres = (filmList) => {
     const genres = new Set().add(ALL_GENRES);
 
-    filmList.forEach((it) => {
-      genres.add(it.genre);
+    filmList.forEach((film) => {
+      genres.add(film.genre);
     });
 
     return genres;

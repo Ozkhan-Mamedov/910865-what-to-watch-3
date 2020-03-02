@@ -20,6 +20,7 @@ const SmallMovieCard = (props) => {
 
   const cardClickHandler = (evt) => {
     evt.preventDefault();
+    clearTimeout(timer);
     filmNameClickHandler(film.name);
   };
 

@@ -1,7 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
 
-import MovieDetails from "./movie-details";
+import {MovieDetails} from "./movie-details";
+
+import {reducer} from "../../reducer/reducer";
 
 const film = {
   name: `Film#1`,
@@ -18,9 +22,82 @@ const film = {
   runTime: 130,
 };
 
+const filmComments = {
+  filmId: 1,
+  commentsList: [
+    {
+      userName: `User#1`,
+      rating: 8.9,
+      comment: `Comment#1`,
+      date: `2020-02-27T14:05:14.896Z`
+    },
+    {
+      userName: `User#2`,
+      rating: 8,
+      comment: `Comment#2`,
+      date: `2020-02-27T14:05:14.896Z`
+    },
+  ]
+};
+
+const films = [
+  {
+    name: `Film#1`,
+    picture: `picture#1`,
+    genre: `genre#1`,
+    id: 1,
+    releaseDate: `2020`,
+    ratingScore: 1,
+    ratingsNumber: 2,
+    director: `Director#1`,
+    starring: [`Actor#1`, `Actor#2`, `Actor#3`, `Actor#4`],
+    description: [`Test paragraph #1.`, `Test paragraph #2.`],
+    preview: `preview#1`,
+    runTime: 130,
+  },
+  {
+    name: `Film#2`,
+    picture: `picture#2`,
+    genre: `genre#2`,
+    id: 2,
+    releaseDate: `2025`,
+    ratingScore: 2,
+    ratingsNumber: 5,
+    director: `Director#2`,
+    starring: [`Actor#1`, `Actor#2`, `Actor#3`],
+    description: [`Test paragraph #1.`, `Test paragraph #2.`],
+    preview: `preview#2`,
+    runTime: 130,
+  },
+  {
+    name: `Film#3`,
+    picture: `picture#3`,
+    genre: `genre#3`,
+    id: 3,
+    releaseDate: `1990`,
+    ratingScore: 5,
+    ratingsNumber: 211,
+    director: `Director#3`,
+    starring: [`Actor#1`, `Actor#2`],
+    description: [`Test paragraph #1.`],
+    preview: `preview#3`,
+    runTime: 130,
+  },
+];
+
 it(`MovieDetails component renders correctly`, () => {
   const tree = renderer
-    .create(<MovieDetails film={film} />)
+    .create(
+        <Provider store={createStore(reducer)}>
+          <MovieDetails
+            films={films}
+            film={film}
+            filmComment={filmComments}
+            filmNameClickHandler={() => {}}
+            activeCard={-1}
+          />
+        </Provider>
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();
