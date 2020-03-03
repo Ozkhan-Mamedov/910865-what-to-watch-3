@@ -5,10 +5,10 @@ import {connect} from "react-redux";
 import SmallMovieCard from "../small-movie-card/small-movie-card";
 import ShowMoreButton from "../show-more-button/show-more-button";
 
-import {MORE_LIKE_THIS_LIST, MOVIE_LIST} from "../../constants";
+import {ALL_GENRES, MORE_LIKE_THIS_LIST, MOVIE_LIST} from "../../constants";
 import {ActionCreator} from "../../reducer/reducer";
 
-class MovieList extends React.Component {
+class MovieList extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -28,10 +28,19 @@ class MovieList extends React.Component {
   }
 
   _renderList() {
-    const {films, filmNameClickHandler, list, cardsRenderNumber, incrementCardsNumber} = this.props;
+    const {films, filmNameClickHandler, list, cardsRenderNumber, incrementCardsNumber,
+      activeGenre} = this.props;
 
     switch (list) {
       case MOVIE_LIST:
+        const filteredList = films.filter((film) => {
+          if (activeGenre === ALL_GENRES) {
+            return film.genre;
+          }
+
+          return film.genre === activeGenre;
+        });
+
         return (
           <section className="catalog">
             <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -40,7 +49,7 @@ class MovieList extends React.Component {
 
             <div className="catalog__movies-list">
               {
-                films.slice(0, cardsRenderNumber).map((film, index) =>
+                filteredList.slice(0, cardsRenderNumber).map((film, index) =>
                   <SmallMovieCard
                     key={index}
                     film={film}
@@ -52,7 +61,7 @@ class MovieList extends React.Component {
               }
             </div>
 
-            {cardsRenderNumber < films.length ?
+            {cardsRenderNumber < filteredList.length ?
               <ShowMoreButton buttonClickHandler={incrementCardsNumber} />
               : null}
           </section>
@@ -92,6 +101,7 @@ class MovieList extends React.Component {
 
 const mapStateToProps = (state) => ({
   cardsRenderNumber: state.cardsRenderNumber,
+  activeGenre: state.genre,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -120,6 +130,7 @@ MovieList.propTypes = {
   cardsRenderNumber: PropTypes.number,
   incrementCardsNumber: PropTypes.func,
   children: PropTypes.element,
+  activeGenre: PropTypes.string
 };
 
 export {MovieList};

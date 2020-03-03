@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import {PREVIEW_PLAYER_PROPERTIES} from "../../constants";
 
-class VideoPlayer extends React.Component {
+class VideoPlayer extends React.PureComponent {
   constructor(props) {
     super(props);
 

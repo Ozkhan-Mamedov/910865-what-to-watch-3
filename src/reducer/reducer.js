@@ -1,6 +1,7 @@
 import {
   ALL_GENRES, CHANGE_FILTER_BY_GENRE, GET_FILMS_BY_GENRE,
-  CHANGE_ACTIVE_CARD, MAX_CARD_RENDER_NUMBER, INCREMENT_CARDS_NUMBER
+  CHANGE_ACTIVE_CARD, MAX_CARD_RENDER_NUMBER, INCREMENT_CARDS_NUMBER,
+  DECREASE_CARDS_NUMBER
 } from "../constants";
 import films from "../mocks/films";
 import filmsComments from "../mocks/comments";
@@ -19,6 +20,7 @@ const ActionType = {
   GET_FILMS_BY_GENRE,
   CHANGE_ACTIVE_CARD,
   INCREMENT_CARDS_NUMBER,
+  DECREASE_CARDS_NUMBER,
 };
 
 const ActionCreator = {
@@ -37,6 +39,10 @@ const ActionCreator = {
   incrementCardsNumber: () => ({
     type: ActionType.INCREMENT_CARDS_NUMBER,
     payload: MAX_CARD_RENDER_NUMBER,
+  }),
+  decreaseCardsNumber: () => ({
+    type: ActionType.DECREASE_CARDS_NUMBER,
+    payload: MAX_CARD_RENDER_NUMBER
   })
 };
 
@@ -60,6 +66,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.INCREMENT_CARDS_NUMBER:
       return extend(state, {
         cardsRenderNumber: state.cardsRenderNumber + action.payload,
+      });
+
+    case ActionType.DECREASE_CARDS_NUMBER:
+      return extend(state, {
+        cardsRenderNumber: action.payload,
       });
   }
 

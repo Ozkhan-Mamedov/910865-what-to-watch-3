@@ -45,4 +45,14 @@ describe(`Reducer works correctly`, () => {
       cardsRenderNumber: MAX_CARD_RENDER_NUMBER * 2,
     });
   });
+
+  it(`Reducer should return initial cards render number correctly`, () => {
+    expect(reducer(initialState, ActionCreator.decreaseCardsNumber())).toEqual({
+      genre: initialState.genre,
+      films: initialState.films,
+      filmsComments: initialState.filmsComments,
+      activeCard: initialState.activeCard,
+      cardsRenderNumber: MAX_CARD_RENDER_NUMBER,
+    });
+  });
 });

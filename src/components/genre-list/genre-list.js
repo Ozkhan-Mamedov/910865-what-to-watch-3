@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
-import {GENRES, ALL_GENRES, MAX_GENRE_NUMBER} from "../../constants";
+import {ActionCreator} from "../../reducer/reducer";
+import {GENRES, GENRE_KEYS, ALL_GENRES, MAX_GENRE_NUMBER} from "../../constants";
 
-const GenreList = ({films, activeGenre = GENRES.ALL_GENRES}) => {
+const GenreList = ({films, changeFilterByGenre, genre = ALL_GENRES, decreaseCardsNumber}) => {
   const getGenres = (filmList) => {
     const genres = new Set().add(ALL_GENRES);
 
@@ -15,7 +17,17 @@ const GenreList = ({films, activeGenre = GENRES.ALL_GENRES}) => {
   };
 
   const formatGenres = (genres) => {
-    return Array.from(genres).map((genre) => GENRES[genre.toUpperCase()]);
+    return Array.from(genres).map((currentGenre) => GENRES[currentGenre.toUpperCase()]);
+  };
+
+  const genreClickHandler = (evt) => {
+    evt.preventDefault();
+    for (genre in GENRES) {
+      if (evt.target.textContent === GENRES[genre]) {
+        decreaseCardsNumber();
+        changeFilterByGenre(GENRE_KEYS[genre]);
+      }
+    }
   };
 
   const genres = formatGenres(getGenres(films));
@@ -23,15 +35,31 @@ const GenreList = ({films, activeGenre = GENRES.ALL_GENRES}) => {
   return (
     <ul className="catalog__genres-list">
       {
-        genres.slice(0, MAX_GENRE_NUMBER).map((genre, index) => (
-          <li className={`catalog__genres-item ${genre === activeGenre ? `catalog__genres-item--active` : ``}`} key={index}>
-            <a href="#" className="catalog__genres-link">{genre}</a>
+        genres.slice(0, MAX_GENRE_NUMBER).map((currentGenre, index) => (
+          <li
+            className={`catalog__genres-item ${currentGenre === GENRES[genre.toUpperCase()] ? `catalog__genres-item--active` : ``}`}
+            key={index}
+            onClick={genreClickHandler}>
+            <a href="#" className="catalog__genres-link">{currentGenre}</a>
           </li>
         ))
       }
     </ul>
   );
 };
+
+const mapStateToProps = (state) => ({
+  genre: state.genre
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeFilterByGenre(genre) {
+    dispatch(ActionCreator.changeFilter(genre));
+  },
+  decreaseCardsNumber() {
+    dispatch(ActionCreator.decreaseCardsNumber());
+  },
+});
 
 GenreList.propTypes = {
   films: PropTypes.arrayOf(PropTypes.exact({
@@ -49,6 +77,10 @@ GenreList.propTypes = {
     runTime: PropTypes.number.isRequired,
   })),
   activeGenre: PropTypes.string,
+  changeFilterByGenre: PropTypes.func,
+  genre: PropTypes.string,
+  decreaseCardsNumber: PropTypes.func,
 };
 
-export default GenreList;
+export {GenreList};
+export default connect(mapStateToProps, mapDispatchToProps)(GenreList);
