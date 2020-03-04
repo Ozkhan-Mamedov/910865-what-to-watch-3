@@ -2,8 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
+import MovieList from "../movie-list/movie-list";
+import Header from "../header/header";
+import Footer from "../footer/footer";
 import ErrorMessage from "../error-message/error-message";
 import Tabs from "../tabs/tabs";
+import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
 
 import {
   MINUTES_IN_HOUR,
@@ -14,9 +18,8 @@ import {
   YEAR_SUBSTR,
   MORE_LIKE_THIS_LIST, MORE_LIKE_THIS_FILMS
 } from "../../constants";
-import MovieList from "../movie-list/movie-list";
 
-class MovieDetails extends React.Component {
+class MovieDetails extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -175,10 +178,12 @@ class MovieDetails extends React.Component {
         );
 
       case TABS_KEYS.REVIEWS:
+        const commentsInCol = Math.ceil(filmComment.commentsList.length / 2);
+
         return (
           <div className="movie-card__reviews movie-card__row">
             <div className="movie-card__reviews-col">
-              {filmComment.commentsList.splice(0, Math.ceil(filmComment.commentsList.length / 2)).map((comment, index) => {
+              {filmComment.commentsList.slice(0, commentsInCol).map((comment, index) => {
                 return (
                   <div className="review" key={index}>
                     <blockquote className="review__quote">
@@ -198,7 +203,7 @@ class MovieDetails extends React.Component {
               })}
             </div>
             <div className="movie-card__reviews-col">
-              {filmComment.commentsList.slice().map((comment, index) => {
+              {filmComment.commentsList.slice(commentsInCol, filmComment.commentsList.length).map((comment, index) => {
                 return (
                   <div className="review" key={index}>
                     <blockquote className="review__quote">
@@ -239,21 +244,7 @@ class MovieDetails extends React.Component {
 
               <h1 className="visually-hidden">WTW</h1>
 
-              <header className="page-header movie-card__head">
-                <div className="logo">
-                  <a href="main.html" className="logo__link">
-                    <span className="logo__letter logo__letter--1">W</span>
-                    <span className="logo__letter logo__letter--2">T</span>
-                    <span className="logo__letter logo__letter--3">W</span>
-                  </a>
-                </div>
-
-                <div className="user-block">
-                  <div className="user-block__avatar">
-                    <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                  </div>
-                </div>
-              </header>
+              <Header isActive={true} />
 
               <div className="movie-card__wrap">
                 <div className="movie-card__desc">
@@ -263,21 +254,7 @@ class MovieDetails extends React.Component {
                     <span className="movie-card__year">{film.releaseDate}</span>
                   </p>
 
-                  <div className="movie-card__buttons">
-                    <button className="btn btn--play movie-card__button" type="button">
-                      <svg viewBox="0 0 19 19" width="19" height="19">
-                        <use xlinkHref="#play-s"/>
-                      </svg>
-                      <span>Play</span>
-                    </button>
-                    <button className="btn btn--list movie-card__button" type="button">
-                      <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add"/>
-                      </svg>
-                      <span>My list</span>
-                    </button>
-                    <a href="add-review.html" className="btn movie-card__button">Add review</a>
-                  </div>
+                  <MovieCardButtons isMainPageElement={true} />
                 </div>
               </div>
             </div>
@@ -302,19 +279,7 @@ class MovieDetails extends React.Component {
           <div className="page-content">
             <MovieList films={this.getMoreLikeThisFilm().slice(0, MORE_LIKE_THIS_FILMS - 1)} filmNameClickHandler={filmNameClickHandler} list={MORE_LIKE_THIS_LIST} />
 
-            <footer className="page-footer">
-              <div className="logo">
-                <a href="main.html" className="logo__link logo__link--light">
-                  <span className="logo__letter logo__letter--1">W</span>
-                  <span className="logo__letter logo__letter--2">T</span>
-                  <span className="logo__letter logo__letter--3">W</span>
-                </a>
-              </div>
-
-              <div className="copyright">
-                <p>© 2019 What to watch Ltd.</p>
-              </div>
-            </footer>
+            <Footer isMainPageElement={true} />
           </div>
         </React.Fragment>
         : <ErrorMessage/>

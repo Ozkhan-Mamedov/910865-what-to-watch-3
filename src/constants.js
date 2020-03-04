@@ -1,4 +1,15 @@
 const ALL_GENRES = `ALL_GENRES`;
+const GENRE_KEYS = {
+  ALL_GENRES,
+  COMEDY: `Comedy`,
+  DOCUMENTARY: `Documentary`,
+  DRAMA: `Drama`,
+  HORROR: `Horror`,
+  KIDS_AND_FAMILY: `Kids & Family`,
+  ROMANCE: `Romance`,
+  SCI_FI: `Sci-Fi`,
+  THRILLER: `Thriller`,
+};
 const GENRES = {
   ALL_GENRES: `All genres`,
   COMEDY: `Comedies`,
@@ -15,6 +26,7 @@ const CHANGE_FILTER_BY_GENRE = `CHANGE_FILTER_BY_GENRE`;
 const GET_FILMS_BY_GENRE = `GET_FILMS_BY_GENRE`;
 const CHANGE_ACTIVE_CARD = `CHANGE_ACTIVE_CARD`;
 const INCREMENT_CARDS_NUMBER = `INCREMENT_CARDS_NUMBER`;
+const DECREASE_CARDS_NUMBER = `DECREASE_CARDS_NUMBER`;
 const TABS_LIST = [`Overview`, `Details`, `Reviews`];
 const TABS_KEYS = {
   OVERVIEW: `Overview`,
@@ -99,6 +111,7 @@ export {
   CHANGE_FILTER_BY_GENRE,
   GET_FILMS_BY_GENRE,
   GENRES,
+  GENRE_KEYS,
   MAX_GENRE_NUMBER,
   TABS_LIST,
   TABS_KEYS,
@@ -114,4 +127,5 @@ export {
   MAX_CARD_RENDER_NUMBER,
   INCREMENT_CARDS_NUMBER,
   PREVIEW_PLAYER_PROPERTIES,
+  DECREASE_CARDS_NUMBER,
 };
