@@ -44,6 +44,8 @@ PromoMovieCard.propTypes = {
     name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired,
   })
 };
 

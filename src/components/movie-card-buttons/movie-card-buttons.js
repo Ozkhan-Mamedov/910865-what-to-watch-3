@@ -1,10 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
-const MovieCardButtons = ({isMainPageElement}) => {
+import {ActionCreator} from "../../reducer/reducer";
+
+const MovieCardButtons = ({isMainPageElement, renderPlayer}) => {
   return (
     <div className="movie-card__buttons">
-      <button className="btn btn--play movie-card__button" type="button">
+      <button className="btn btn--play movie-card__button" type="button" onClick={renderPlayer}>
         <svg viewBox="0 0 19 19" width="19" height="19">
           <use xlinkHref="#play-s"/>
         </svg>
@@ -25,12 +28,20 @@ const MovieCardButtons = ({isMainPageElement}) => {
   );
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  renderPlayer() {
+    dispatch(ActionCreator.renderPlayer());
+  }
+});
+
 MovieCardButtons.defaultProps = {
   isMainPageElement: false
 };
 
 MovieCardButtons.propTypes = {
-  isMainPageElement: PropTypes.bool.isRequired
+  isMainPageElement: PropTypes.bool.isRequired,
+  renderPlayer: PropTypes.func
 };
 
-export default MovieCardButtons;
+export {MovieCardButtons};
+export default connect(null, mapDispatchToProps)(MovieCardButtons);

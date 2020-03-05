@@ -1,15 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 import MovieList from "../movie-list/movie-list";
 import GenreList from "../genre-list/genre-list";
 import Footer from "../footer/footer";
 import PromoMovieCard from "../promo-movie-card/promo-movie-card";
+import FullscreenVideoPlayer from "../fullscreen-video-player/fullscreen-video-player";
 
 import {MOVIE_LIST} from "../../constants";
+import {ActionCreator} from "../../reducer/reducer";
 
 const Main = (props) => {
-  const {promoFilmData, films, filmNameClickHandler} = props;
+  const {promoFilmData, films, filmNameClickHandler, isPlayerActive, onExitButtonClickHandler} = props;
 
   return (
     <React.Fragment>
@@ -22,15 +25,30 @@ const Main = (props) => {
 
         <Footer />
       </div>
+
+      {isPlayerActive ? <FullscreenVideoPlayer film={promoFilmData} onExitButtonClickHandler={onExitButtonClickHandler} /> : null}
     </React.Fragment>
   );
 };
+
+const mapStateToProps = (state) => ({
+  isPlayerActive: state.isPlayerActive,
+  activeCard: state.activeCard,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onExitButtonClickHandler() {
+    dispatch(ActionCreator.unrenderPlayer());
+  }
+});
 
 Main.propTypes = {
   promoFilmData: PropTypes.exact({
     name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired
   }),
   films: PropTypes.arrayOf(PropTypes.exact({
     name: PropTypes.string.isRequired,
@@ -46,7 +64,10 @@ Main.propTypes = {
     preview: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
   })),
-  filmNameClickHandler: PropTypes.func.isRequired
+  filmNameClickHandler: PropTypes.func.isRequired,
+  isPlayerActive: PropTypes.bool,
+  onExitButtonClickHandler: PropTypes.func,
 };
 
-export default Main;
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

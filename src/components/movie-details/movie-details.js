@@ -8,6 +8,7 @@ import Footer from "../footer/footer";
 import ErrorMessage from "../error-message/error-message";
 import Tabs from "../tabs/tabs";
 import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
+import FullscreenVideoPlayer from "../fullscreen-video-player/fullscreen-video-player";
 
 import {
   MINUTES_IN_HOUR,
@@ -18,6 +19,7 @@ import {
   YEAR_SUBSTR,
   MORE_LIKE_THIS_LIST, MORE_LIKE_THIS_FILMS
 } from "../../constants";
+import {ActionCreator} from "../../reducer/reducer";
 
 class MovieDetails extends React.PureComponent {
   constructor(props) {
@@ -230,7 +232,7 @@ class MovieDetails extends React.PureComponent {
   }
 
   render() {
-    const {film, filmNameClickHandler} = this.props;
+    const {film, filmNameClickHandler, isPlayerActive, onExitButtonClickHandler} = this.props;
     const {activeTab} = this.state;
 
     return (
@@ -244,7 +246,7 @@ class MovieDetails extends React.PureComponent {
 
               <h1 className="visually-hidden">WTW</h1>
 
-              <Header isActive={true} />
+              <Header isMainPageElement={false} />
 
               <div className="movie-card__wrap">
                 <div className="movie-card__desc">
@@ -281,6 +283,7 @@ class MovieDetails extends React.PureComponent {
 
             <Footer isMainPageElement={true} />
           </div>
+          {isPlayerActive ? <FullscreenVideoPlayer film={film} onExitButtonClickHandler={onExitButtonClickHandler} /> : null}
         </React.Fragment>
         : <ErrorMessage/>
     );
@@ -288,7 +291,14 @@ class MovieDetails extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  activeCard: state.activeCard
+  activeCard: state.activeCard,
+  isPlayerActive: state.isPlayerActive,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onExitButtonClickHandler() {
+    dispatch(ActionCreator.unrenderPlayer());
+  }
 });
 
 MovieDetails.propTypes = {
@@ -330,7 +340,9 @@ MovieDetails.propTypes = {
     }))
   }),
   filmNameClickHandler: PropTypes.func.isRequired,
+  isPlayerActive: PropTypes.bool,
+  onExitButtonClickHandler: PropTypes.func,
 };
 
 export {MovieDetails};
-export default connect(mapStateToProps, null)(MovieDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(MovieDetails);
