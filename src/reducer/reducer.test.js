@@ -13,6 +13,7 @@ describe(`Reducer works correctly`, () => {
       activeCard: initialState.activeCard,
       filmsComments: initialState.filmsComments,
       cardsRenderNumber: initialState.cardsRenderNumber,
+      isPlayerActive: initialState.isPlayerActive,
     });
   });
 
@@ -23,6 +24,7 @@ describe(`Reducer works correctly`, () => {
       activeCard: initialState.activeCard,
       filmsComments: initialState.filmsComments,
       cardsRenderNumber: initialState.cardsRenderNumber,
+      isPlayerActive: initialState.isPlayerActive,
     });
   });
 
@@ -33,6 +35,7 @@ describe(`Reducer works correctly`, () => {
       filmsComments: initialState.filmsComments,
       activeCard: 1,
       cardsRenderNumber: initialState.cardsRenderNumber,
+      isPlayerActive: initialState.isPlayerActive,
     });
   });
 
@@ -43,6 +46,7 @@ describe(`Reducer works correctly`, () => {
       filmsComments: initialState.filmsComments,
       activeCard: initialState.activeCard,
       cardsRenderNumber: MAX_CARD_RENDER_NUMBER * 2,
+      isPlayerActive: initialState.isPlayerActive,
     });
   });
 
@@ -53,6 +57,29 @@ describe(`Reducer works correctly`, () => {
       filmsComments: initialState.filmsComments,
       activeCard: initialState.activeCard,
       cardsRenderNumber: MAX_CARD_RENDER_NUMBER,
+      isPlayerActive: initialState.isPlayerActive,
+    });
+  });
+
+  it(`Reducer should change rendered player status correctly`, () => {
+    expect(reducer(initialState, ActionCreator.renderPlayer())).toEqual({
+      genre: initialState.genre,
+      films: initialState.films,
+      filmsComments: initialState.filmsComments,
+      activeCard: initialState.activeCard,
+      cardsRenderNumber: MAX_CARD_RENDER_NUMBER,
+      isPlayerActive: true,
+    });
+  });
+
+  it(`Reducer should change unrendered player status correctly`, () => {
+    expect(reducer(initialState, ActionCreator.unrenderPlayer())).toEqual({
+      genre: initialState.genre,
+      films: initialState.films,
+      filmsComments: initialState.filmsComments,
+      activeCard: initialState.activeCard,
+      cardsRenderNumber: MAX_CARD_RENDER_NUMBER,
+      isPlayerActive: false,
     });
   });
 });

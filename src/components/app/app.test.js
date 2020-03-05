@@ -7,11 +7,12 @@ import {App} from "./app";
 
 import {reducer} from "../../reducer/reducer";
 
-
 const promoFilmData = {
   name: `name`,
   genre: `genre`,
   releaseDate: `date`,
+  src: `source`,
+  runTime: 10,
 };
 
 const films = [

@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import MovieCardButtons from "./movie-card-buttons";
+import {MovieCardButtons} from "./movie-card-buttons";
 
 
 it(`Main  component renders correctly`, () => {

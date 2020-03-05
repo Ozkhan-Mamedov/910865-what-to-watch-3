@@ -28,8 +28,8 @@ class FullscreenVideoPlayer extends React.PureComponent {
     const {timeRemaining} = this.state;
 
     const hours = Math.floor(timeRemaining / MINUTES_IN_HOUR / SECONDS_IN_MINUTE);
-    const minutes = (timeRemaining - (hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE)) / 60;
-    const seconds = (timeRemaining - (timeRemaining / MINUTES_IN_HOUR / SECONDS_IN_MINUTE) - ((timeRemaining - (hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE)) / 60));
+    const minutes = (timeRemaining - (hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE)) / SECONDS_IN_MINUTE;
+    const seconds = (timeRemaining - (timeRemaining / MINUTES_IN_HOUR / SECONDS_IN_MINUTE) - ((timeRemaining - (hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE)) / SECONDS_IN_MINUTE));
 
     return `${hours < 10 ? `0` + Math.floor(hours) : Math.floor(hours)}:${minutes < 10 ? `0` + Math.floor(minutes) : Math.floor(minutes)}:${seconds < 10 ? `0` + Math.ceil(seconds) : Math.ceil(seconds)}`;
   }
@@ -181,7 +181,6 @@ FullscreenVideoPlayer.propTypes = {
     picture: PropTypes.string,
   }),
   onExitButtonClickHandler: PropTypes.func.isRequired,
-
 };
 
 export default FullscreenVideoPlayer;
