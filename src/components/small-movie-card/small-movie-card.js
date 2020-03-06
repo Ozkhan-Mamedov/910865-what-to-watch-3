@@ -21,7 +21,7 @@ const SmallMovieCard = (props) => {
   const cardClickHandler = (evt) => {
     evt.preventDefault();
     clearTimeout(timer);
-    filmNameClickHandler(film.name);
+    filmNameClickHandler(film.id);
   };
 
   return (
@@ -55,9 +55,14 @@ SmallMovieCard.propTypes = {
     ratingsNumber: PropTypes.number.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string),
-    description: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
   }),
   filmNameClickHandler: PropTypes.func.isRequired,
   cardHoverHandler: PropTypes.func.isRequired,

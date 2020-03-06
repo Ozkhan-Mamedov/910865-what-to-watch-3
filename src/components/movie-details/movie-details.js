@@ -124,19 +124,15 @@ class MovieDetails extends React.PureComponent {
         return (
           <div className="movie-card__desc">
             <div className="movie-rating">
-              <div className="movie-rating__score">{this.formatRating(film.ratingScore)}</div>
+              <div className="movie-rating__score">{this.formatRating(film.ratingsNumber)}</div>
               <p className="movie-rating__meta">
-                <span className="movie-rating__level">{this.getTextRating(film.ratingScore)}</span>
-                <span className="movie-rating__count">{film.ratingsNumber} ratings</span>
+                <span className="movie-rating__level">{this.getTextRating(film.ratingsNumber)}</span>
+                <span className="movie-rating__count">{film.ratingScore} ratings</span>
               </p>
             </div>
 
             <div className="movie-card__text">
-              {
-                film.description.map((it, index) =>
-                  <p key={index}>{it}</p>
-                )
-              }
+              <p>{film.description}</p>
               <p className="movie-card__director"><strong>Director: {film.director}</strong></p>
 
               <p className="movie-card__starring"><strong>Starring: {film.starring.join(`, `)}
@@ -180,12 +176,12 @@ class MovieDetails extends React.PureComponent {
         );
 
       case TABS_KEYS.REVIEWS:
-        const commentsInCol = Math.ceil(filmComment.commentsList.length / 2);
+        const commentsInCol = Math.ceil(filmComment.length / 2);
 
         return (
           <div className="movie-card__reviews movie-card__row">
             <div className="movie-card__reviews-col">
-              {filmComment.commentsList.slice(0, commentsInCol).map((comment, index) => {
+              {filmComment.slice(0, commentsInCol).map((comment, index) => {
                 return (
                   <div className="review" key={index}>
                     <blockquote className="review__quote">
@@ -205,7 +201,7 @@ class MovieDetails extends React.PureComponent {
               })}
             </div>
             <div className="movie-card__reviews-col">
-              {filmComment.commentsList.slice(commentsInCol, filmComment.commentsList.length).map((comment, index) => {
+              {filmComment.slice(commentsInCol, filmComment.length).map((comment, index) => {
                 return (
                   <div className="review" key={index}>
                     <blockquote className="review__quote">
@@ -241,7 +237,7 @@ class MovieDetails extends React.PureComponent {
           <section className="movie-card movie-card--full">
             <div className="movie-card__hero">
               <div className="movie-card__bg">
-                <img src="img/bg-the-grand-budapest-hotel.jpg" alt={film.name}/>
+                <img src={film.backgroundImage} alt={film.name}/>
               </div>
 
               <h1 className="visually-hidden">WTW</h1>
@@ -263,7 +259,7 @@ class MovieDetails extends React.PureComponent {
             <div className="movie-card__wrap movie-card__translate-top">
               <div className="movie-card__info">
                 <div className="movie-card__poster movie-card__poster--big">
-                  <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+                  <img src={film.previewImage} alt="The Grand Budapest Hotel poster" width="218"
                     height="327"/>
                 </div>
                 <div className="movie-card__desc">
@@ -312,9 +308,14 @@ MovieDetails.propTypes = {
     ratingsNumber: PropTypes.number.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string),
-    description: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
   })),
   film: PropTypes.exact({
     name: PropTypes.string.isRequired,
@@ -326,19 +327,23 @@ MovieDetails.propTypes = {
     ratingsNumber: PropTypes.number.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string),
-    description: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string,
     preview: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
   }),
-  filmComment: PropTypes.exact({
-    filmId: PropTypes.number.isRequired,
-    commentsList: PropTypes.arrayOf(PropTypes.exact({
-      userName: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      comment: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-    }))
-  }),
+  filmComment: PropTypes.arrayOf(PropTypes.exact({
+    id: PropTypes.number.isRequired,
+    userId: PropTypes.number.isRequired,
+    userName: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    comment: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+  })),
   filmNameClickHandler: PropTypes.func.isRequired,
   isPlayerActive: PropTypes.bool,
   onExitButtonClickHandler: PropTypes.func,

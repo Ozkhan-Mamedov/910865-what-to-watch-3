@@ -12,11 +12,11 @@ import {MOVIE_LIST} from "../../constants";
 import {ActionCreator} from "../../reducer/reducer";
 
 const Main = (props) => {
-  const {promoFilmData, films, filmNameClickHandler, isPlayerActive, onExitButtonClickHandler} = props;
+  const {promoFilm, films, filmNameClickHandler, isPlayerActive, onExitButtonClickHandler} = props;
 
   return (
     <React.Fragment>
-      <PromoMovieCard promoFilm={promoFilmData} />
+      <PromoMovieCard promoFilm={promoFilm} />
 
       <div className="page-content">
         <MovieList filmNameClickHandler={filmNameClickHandler} films={films} list={MOVIE_LIST} >
@@ -26,7 +26,7 @@ const Main = (props) => {
         <Footer />
       </div>
 
-      {isPlayerActive ? <FullscreenVideoPlayer film={promoFilmData} onExitButtonClickHandler={onExitButtonClickHandler} /> : null}
+      {isPlayerActive ? <FullscreenVideoPlayer film={promoFilm} onExitButtonClickHandler={onExitButtonClickHandler} /> : null}
     </React.Fragment>
   );
 };
@@ -34,6 +34,7 @@ const Main = (props) => {
 const mapStateToProps = (state) => ({
   isPlayerActive: state.isPlayerActive,
   activeCard: state.activeCard,
+  promoFilm: state.promoFilm,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -43,12 +44,24 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Main.propTypes = {
-  promoFilmData: PropTypes.exact({
+  promoFilm: PropTypes.exact({
     name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     releaseDate: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired
+    ratingScore: PropTypes.number.isRequired,
+    ratingsNumber: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
   }),
   films: PropTypes.arrayOf(PropTypes.exact({
     name: PropTypes.string.isRequired,
@@ -60,9 +73,14 @@ Main.propTypes = {
     ratingsNumber: PropTypes.number.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string),
-    description: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
   })),
   filmNameClickHandler: PropTypes.func.isRequired,
   isPlayerActive: PropTypes.bool,

@@ -90,7 +90,7 @@ class FullscreenVideoPlayer extends React.PureComponent {
 
     return (
       <div className="player">
-        <video src={film.src || film.preview} className="player__video" poster={film.picture} ref={this._videoRef}
+        <video src={film.videoLink} className="player__video" poster={film.picture} ref={this._videoRef}
           onEnded={this.onVideoEndHandler}
           onTimeUpdate={() => this.onTimeUpdateHandler(this._videoRef.current.currentTime)}
         />
@@ -171,14 +171,24 @@ class FullscreenVideoPlayer extends React.PureComponent {
 }
 
 FullscreenVideoPlayer.propTypes = {
-  film: PropTypes.shape({
-    name: PropTypes.string,
-    genre: PropTypes.string,
-    releaseDate: PropTypes.string,
-    src: PropTypes.string,
-    runTime: PropTypes.number,
-    preview: PropTypes.string,
-    picture: PropTypes.string,
+  film: PropTypes.exact({
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    releaseDate: PropTypes.string.isRequired,
+    ratingScore: PropTypes.number.isRequired,
+    ratingsNumber: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
   }),
   onExitButtonClickHandler: PropTypes.func.isRequired,
 };

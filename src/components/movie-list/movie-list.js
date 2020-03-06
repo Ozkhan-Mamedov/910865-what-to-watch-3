@@ -68,25 +68,29 @@ class MovieList extends React.PureComponent {
         );
 
       case MORE_LIKE_THIS_LIST:
-        return (
-          <section className="catalog catalog--like-this">
-            <h2 className="catalog__title">More like this</h2>
+        if (films.length !== 0) {
+          return (
+            <section className="catalog catalog--like-this">
+              <h2 className="catalog__title">More like this</h2>
 
-            <div className="catalog__movies-list">
-              {
-                films.map((film, index) =>
-                  <SmallMovieCard
-                    key={index}
-                    film={film}
-                    filmNameClickHandler={filmNameClickHandler}
-                    cardHoverHandler={this.cardHoverHandler}
-                    activeCard={this.state.activeCard}
-                  />
-                )
-              }
-            </div>
-          </section>
-        );
+              <div className="catalog__movies-list">
+                {
+                  films.map((film, index) =>
+                    <SmallMovieCard
+                      key={index}
+                      film={film}
+                      filmNameClickHandler={filmNameClickHandler}
+                      cardHoverHandler={this.cardHoverHandler}
+                      activeCard={this.state.activeCard}
+                    />
+                  )
+                }
+              </div>
+            </section>
+          );
+        } else {
+          return null;
+        }
     }
 
     return null;
@@ -121,9 +125,14 @@ MovieList.propTypes = {
     ratingsNumber: PropTypes.number.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string),
-    description: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
   })),
   filmNameClickHandler: PropTypes.func.isRequired,
   list: PropTypes.string.isRequired,
