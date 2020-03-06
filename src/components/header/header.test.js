@@ -3,7 +3,6 @@ import renderer from "react-test-renderer";
 
 import Header from "./header";
 
-
 it(`Main Header component renders correctly`, () => {
   const tree = renderer
     .create(

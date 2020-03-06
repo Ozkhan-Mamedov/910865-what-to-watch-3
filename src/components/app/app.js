@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import Main from "../main/main";
 import MovieDetails from "../movie-details/movie-details";
 
-import {ActionCreator} from "../../reducer/reducer";
+import {ActionCreator, Operation} from "../../reducer/reducer";
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -18,7 +18,7 @@ class App extends React.PureComponent {
   filmNameClickHandler(filmName) {
     const {films, cardClickHandler} = this.props;
 
-    cardClickHandler(films.findIndex((film) => film.name === filmName));
+    cardClickHandler(films.findIndex((film) => film.id === filmName));
   }
 
   _renderApp() {
@@ -30,7 +30,7 @@ class App extends React.PureComponent {
       return <MovieDetails
         films={films}
         film={films[activeCard]}
-        filmComment={filmsComments.find((filmComments) => (activeCard + 1) === filmComments.filmId)}
+        filmComment={filmsComments}
         filmNameClickHandler={this.filmNameClickHandler}/>;
     }
   }
@@ -48,7 +48,7 @@ class App extends React.PureComponent {
             <MovieDetails
               films={films}
               film={films[activeCard]}
-              filmComment={filmsComments.find((filmComments) => (activeCard + 1) === filmComments.filmId)}
+              filmComment={filmsComments}
               filmNameClickHandler={this.filmNameClickHandler}/>
           </Route>
         </Switch>
@@ -58,12 +58,15 @@ class App extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  activeCard: state.activeCard
+  activeCard: state.activeCard,
+  films: state.films,
+  filmsComments: state.filmsComments,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   cardClickHandler(id) {
     dispatch(ActionCreator.changeActiveCard(id));
+    dispatch(Operation.getCommentsList(id));
   }
 });
 
@@ -78,18 +81,22 @@ App.propTypes = {
     ratingsNumber: PropTypes.number.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string),
-    description: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
   })),
   filmsComments: PropTypes.arrayOf(PropTypes.exact({
-    filmId: PropTypes.number.isRequired,
-    commentsList: PropTypes.arrayOf(PropTypes.exact({
-      userName: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      comment: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-    }))
+    id: PropTypes.number.isRequired,
+    userId: PropTypes.number.isRequired,
+    userName: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    comment: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
   })),
   activeCard: PropTypes.number.isRequired,
   cardClickHandler: PropTypes.func.isRequired

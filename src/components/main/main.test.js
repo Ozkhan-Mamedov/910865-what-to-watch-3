@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import {createStore} from "redux";
 
-import Main from "./main";
+import {Main} from "./main";
 
 import {reducer} from "../../reducer/reducer";
 
@@ -11,6 +11,8 @@ const promoFilmData = {
   name: `name`,
   genre: `genre`,
   releaseDate: `date`,
+  src: `source`,
+  runTime: 10,
 };
 
 const films = [
