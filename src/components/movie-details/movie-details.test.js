@@ -27,28 +27,6 @@ const film = {
   backgroundImage: `background image#1`,
 };
 
-const filmComments = {
-  filmId: 1,
-  commentsList: [
-    {
-      commentId: `CommentId#1`,
-      userId: `UsedId#1`,
-      userName: `User#1`,
-      rating: 8.9,
-      comment: `Comment#1`,
-      date: `2020-02-27T14:05:14.896Z`
-    },
-    {
-      commentId: `CommentId#2`,
-      userId: `UsedId#2`,
-      userName: `User#2`,
-      rating: 8,
-      comment: `Comment#2`,
-      date: `2020-02-27T14:05:14.896Z`
-    },
-  ]
-};
-
 const films = [
   {
     name: `Film#1`,

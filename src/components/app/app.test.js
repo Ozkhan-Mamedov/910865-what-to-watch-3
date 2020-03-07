@@ -67,51 +67,6 @@ const films = [
   },
 ];
 
-const filmsComments = [
-  {
-    filmId: 1,
-    commentsList: [
-      {
-        commentId: `CommentId#1`,
-        userId: `UsedId#1`,
-        userName: `User#1`,
-        rating: 8.9,
-        comment: `Comment#1`,
-        date: `2020-02-27T14:05:14.896Z`
-      },
-      {
-        commentId: `CommentId#2`,
-        userId: `UsedId#2`,
-        userName: `User#2`,
-        rating: 8,
-        comment: `Comment#2`,
-        date: `2020-02-27T14:05:14.896Z`
-      },
-    ]
-  },
-  {
-    filmId: 2,
-    commentsList: [
-      {
-        commentId: `CommentId#3`,
-        userId: `UsedId#3`,
-        userName: `User#3`,
-        rating: 6.9,
-        comment: `Comment#3`,
-        date: `2020-02-27T14:05:14.896Z`
-      },
-      {
-        commentId: `CommentId#4`,
-        userId: `UsedId#4`,
-        userName: `User#4`,
-        rating: 2,
-        comment: `Comment#4`,
-        date: `2020-02-27T14:05:14.896Z`
-      },
-    ]
-  },
-];
-
 it(`App component renders correctly`, () => {
   const tree = renderer
     .create(
