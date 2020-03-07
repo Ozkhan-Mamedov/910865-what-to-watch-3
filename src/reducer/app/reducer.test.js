@@ -1,5 +1,7 @@
-import {reducer, ActionCreator, initialState} from "./reducer.js";
-import {ALL_GENRES, MAX_CARD_RENDER_NUMBER} from "../constants";
+import {reducer} from "./reducer";
+import {ActionCreator} from "./action-creator";
+import initialState from "./initial-state";
+import {MAX_CARD_RENDER_NUMBER} from "../../constants";
 
 describe(`Reducer works correctly`, () => {
   it(`Reducer without parameters returns initial state`, () => {
@@ -9,77 +11,80 @@ describe(`Reducer works correctly`, () => {
   it(`Reducer should change genre correctly`, () => {
     expect(reducer(initialState, ActionCreator.changeFilter(`genre`))).toEqual({
       genre: `genre`,
-      films: initialState.films,
       activeCard: initialState.activeCard,
-      filmsComments: initialState.filmsComments,
       cardsRenderNumber: initialState.cardsRenderNumber,
       isPlayerActive: initialState.isPlayerActive,
-    });
-  });
-
-  it(`Reducer should filter film array correctly`, () => {
-    expect(reducer(initialState, ActionCreator.getFilmsByGenre(`Fantasy`))).toEqual({
-      genre: ALL_GENRES,
-      films: initialState.films.filter((film) => film.genre === `Fantasy`),
-      activeCard: initialState.activeCard,
-      filmsComments: initialState.filmsComments,
-      cardsRenderNumber: initialState.cardsRenderNumber,
-      isPlayerActive: initialState.isPlayerActive,
+      isServerAvailable: initialState.isServerAvailable,
     });
   });
 
   it(`Reducer should change active card correctly`, () => {
     expect(reducer(initialState, ActionCreator.changeActiveCard(1))).toEqual({
       genre: initialState.genre,
-      films: initialState.films,
-      filmsComments: initialState.filmsComments,
       activeCard: 1,
       cardsRenderNumber: initialState.cardsRenderNumber,
       isPlayerActive: initialState.isPlayerActive,
+      isServerAvailable: initialState.isServerAvailable,
     });
   });
 
   it(`Reducer should change cards render number correctly`, () => {
     expect(reducer(initialState, ActionCreator.incrementCardsNumber())).toEqual({
       genre: initialState.genre,
-      films: initialState.films,
-      filmsComments: initialState.filmsComments,
       activeCard: initialState.activeCard,
       cardsRenderNumber: MAX_CARD_RENDER_NUMBER * 2,
       isPlayerActive: initialState.isPlayerActive,
+      isServerAvailable: initialState.isServerAvailable,
     });
   });
 
   it(`Reducer should return initial cards render number correctly`, () => {
     expect(reducer(initialState, ActionCreator.decreaseCardsNumber())).toEqual({
       genre: initialState.genre,
-      films: initialState.films,
-      filmsComments: initialState.filmsComments,
       activeCard: initialState.activeCard,
       cardsRenderNumber: MAX_CARD_RENDER_NUMBER,
       isPlayerActive: initialState.isPlayerActive,
+      isServerAvailable: initialState.isServerAvailable,
     });
   });
 
   it(`Reducer should change rendered player status correctly`, () => {
     expect(reducer(initialState, ActionCreator.renderPlayer())).toEqual({
       genre: initialState.genre,
-      films: initialState.films,
-      filmsComments: initialState.filmsComments,
       activeCard: initialState.activeCard,
-      cardsRenderNumber: MAX_CARD_RENDER_NUMBER,
+      cardsRenderNumber: initialState.cardsRenderNumber,
       isPlayerActive: true,
+      isServerAvailable: initialState.isServerAvailable,
     });
   });
 
   it(`Reducer should change unrendered player status correctly`, () => {
     expect(reducer(initialState, ActionCreator.unrenderPlayer())).toEqual({
       genre: initialState.genre,
-      films: initialState.films,
-      filmsComments: initialState.filmsComments,
       activeCard: initialState.activeCard,
-      cardsRenderNumber: MAX_CARD_RENDER_NUMBER,
+      cardsRenderNumber: initialState.cardsRenderNumber,
       isPlayerActive: false,
+      isServerAvailable: initialState.isServerAvailable,
+    });
+  });
+
+  it(`Reducer should change server status to false correctly`, () => {
+    expect(reducer(initialState, ActionCreator.changeServerStatus(false))).toEqual({
+      genre: initialState.genre,
+      activeCard: initialState.activeCard,
+      cardsRenderNumber: initialState.cardsRenderNumber,
+      isPlayerActive: initialState.isPlayerActive,
+      isServerAvailable: false,
+    });
+  });
+
+  it(`Reducer should change server status to true correctly`, () => {
+    expect(reducer(initialState, ActionCreator.changeServerStatus(true))).toEqual({
+      genre: initialState.genre,
+      activeCard: initialState.activeCard,
+      cardsRenderNumber: initialState.cardsRenderNumber,
+      isPlayerActive: initialState.isPlayerActive,
+      isServerAvailable: true,
     });
   });
 });

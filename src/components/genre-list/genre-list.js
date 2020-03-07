@@ -82,7 +82,6 @@ GenreList.propTypes = {
     backgroundColor: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
   })),
-  activeGenre: PropTypes.string,
   changeFilterByGenre: PropTypes.func,
   genre: PropTypes.string,
   decreaseCardsNumber: PropTypes.func,

@@ -3,7 +3,6 @@ import renderer from "react-test-renderer";
 
 import Footer from "./footer";
 
-
 it(`Main Footer component renders correctly`, () => {
   const tree = renderer
     .create(

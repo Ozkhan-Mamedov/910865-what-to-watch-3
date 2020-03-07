@@ -8,20 +8,25 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-const film =
-  {
-    name: `Film#1`,
-    picture: `picture#1`,
-    genre: `genre#1`,
-    id: 1,
-    releaseDate: `2025`,
-    ratingScore: 2,
-    ratingsNumber: 5,
-    director: `Director#2`,
-    starring: [`Actor#1`, `Actor#2`, `Actor#3`],
-    description: [`Test paragraph #1.`, `Test paragraph #2.`],
-    preview: `preview link`,
-  };
+const film = {
+  name: `Film#1`,
+  picture: `picture#1`,
+  genre: `genre#1`,
+  id: 1,
+  releaseDate: `2020`,
+  ratingScore: 1,
+  ratingsNumber: 2,
+  director: `Director#1`,
+  starring: [`Actor#1`, `Actor#2`, `Actor#3`, `Actor#4`],
+  description: `Test paragraph #1.`,
+  preview: `preview#1`,
+  runTime: 130,
+  previewImage: `preview image#1`,
+  videoLink: `video link#1`,
+  isFavorite: false,
+  backgroundColor: `background color#1`,
+  backgroundImage: `background image#1`,
+};
 
 describe(`Should VideoPlayer work correctly`, () => {
   const wrapper = mount(<VideoPlayer src={film.preview} poster={film.picture} />);

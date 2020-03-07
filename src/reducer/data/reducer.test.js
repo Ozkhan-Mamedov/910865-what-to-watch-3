@@ -1,11 +1,6 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import {Provider} from "react-redux";
-import {createStore} from "redux";
-
-import {App} from "./app";
-
-import reducer from "../../reducer/reducer";
+import {reducer} from "./reducer";
+import {ActionCreator} from "./action-creator";
+import initialState from "./initial-state";
 
 const films = [
   {
@@ -112,17 +107,32 @@ const filmsComments = [
   },
 ];
 
-it(`App component renders correctly`, () => {
-  const tree = renderer
-    .create(
-        <Provider store={createStore(reducer)}>
-          <App
-            films={films}
-            activeCard={-1}
-            cardClickHandler={() => {}}
-            isServerAvailable={true}/>
-        </Provider>)
-    .toJSON();
+describe(`Reducer works correctly`, () => {
+  it(`Reducer without parameters returns initial state`, () => {
+    expect(reducer(undefined, {})).toEqual(initialState);
+  });
 
-  expect(tree).toMatchSnapshot();
+  it(`Reducer should change films list correctly`, () => {
+    expect(reducer(initialState, ActionCreator.getFilmList(films))).toEqual({
+      films,
+      filmsComments: initialState.filmsComments,
+      promoFilm: initialState.promoFilm,
+    });
+  });
+
+  it(`Reducer should change filmsComments list correctly`, () => {
+    expect(reducer(initialState, ActionCreator.getCommentsList(filmsComments))).toEqual({
+      films: initialState.films,
+      filmsComments,
+      promoFilm: initialState.promoFilm,
+    });
+  });
+
+  it(`Reducer should change promo film data correctly`, () => {
+    expect(reducer(initialState, ActionCreator.getPromoMovieData(films[0]))).toEqual({
+      films: initialState.films,
+      filmsComments: initialState.filmsComments,
+      promoFilm: films[0],
+    });
+  });
 });

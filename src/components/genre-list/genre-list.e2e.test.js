@@ -1,7 +1,12 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import Enzyme, {mount} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
 import {GenreList} from "./genre-list";
+
+Enzyme.configure({
+  adapter: new Adapter(),
+});
 
 const films = [
   {
@@ -63,10 +68,18 @@ const films = [
   },
 ];
 
-it(`GenreList component renders correctly`, () => {
-  const tree = renderer
-    .create(<GenreList films={films} />)
-    .toJSON();
+describe(`Should GenreList work correctly`, () => {
+  const onGenreClickHandler = jest.fn();
+  const wrapper = mount(<GenreList genre={`genre#3`} films={films}
+    changeFilterByGenre={onGenreClickHandler}
+    decreaseCardsNumber={() => {}}
+  />);
+  const genreItems = wrapper.find(`.catalog__genres-item`);
 
-  expect(tree).toMatchSnapshot();
+  it(`ActiveClass change should be correct`, () => {
+    const genreItem = genreItems.at(0);
+
+    genreItem.simulate(`click`);
+    expect(genreItem.hasClass(`catalog__genres-item--active`));
+  });
 });
