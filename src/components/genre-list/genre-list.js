@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import {ActionCreator} from "../../reducer/reducer";
+import {ActionCreator} from "../../reducer/app/action-creator";
 import {GENRES, GENRE_KEYS, ALL_GENRES, MAX_GENRE_NUMBER} from "../../constants";
+import {getGenre} from "../../reducer/app/selectors";
 
 const GenreList = ({films, changeFilterByGenre, genre = ALL_GENRES, decreaseCardsNumber}) => {
   const getGenres = (filmList) => {
@@ -49,7 +50,7 @@ const GenreList = ({films, changeFilterByGenre, genre = ALL_GENRES, decreaseCard
 };
 
 const mapStateToProps = (state) => ({
-  genre: state.genre
+  genre: getGenre(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

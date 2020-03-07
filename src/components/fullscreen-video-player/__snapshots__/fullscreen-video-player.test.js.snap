@@ -9,7 +9,6 @@ exports[`FullscreenVideoPlayer component renders correctly 1`] = `
     onEnded={[Function]}
     onTimeUpdate={[Function]}
     poster="picture#1"
-    src="preview link"
   />
   <button
     className="player__exit"

@@ -5,8 +5,10 @@ import {connect} from "react-redux";
 import SmallMovieCard from "../small-movie-card/small-movie-card";
 import ShowMoreButton from "../show-more-button/show-more-button";
 
-import {ALL_GENRES, MORE_LIKE_THIS_LIST, MOVIE_LIST} from "../../constants";
-import {ActionCreator} from "../../reducer/reducer";
+import {MORE_LIKE_THIS_LIST, MOVIE_LIST} from "../../constants";
+import {ActionCreator} from "../../reducer/app/action-creator";
+import {getCardsRenderNumber, getGenre} from "../../reducer/app/selectors";
+import {getFilteredFilmList} from "../../reducer/data/selectors";
 
 class MovieList extends React.PureComponent {
   constructor(props) {
@@ -28,19 +30,11 @@ class MovieList extends React.PureComponent {
   }
 
   _renderList() {
-    const {films, filmNameClickHandler, list, cardsRenderNumber, incrementCardsNumber,
-      activeGenre} = this.props;
+    const {films, filmNameClickHandler, list,
+      cardsRenderNumber, incrementCardsNumber, filteredFilmsList} = this.props;
 
     switch (list) {
       case MOVIE_LIST:
-        const filteredList = films.filter((film) => {
-          if (activeGenre === ALL_GENRES) {
-            return film.genre;
-          }
-
-          return film.genre === activeGenre;
-        });
-
         return (
           <section className="catalog">
             <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -49,7 +43,7 @@ class MovieList extends React.PureComponent {
 
             <div className="catalog__movies-list">
               {
-                filteredList.slice(0, cardsRenderNumber).map((film, index) =>
+                filteredFilmsList.slice(0, cardsRenderNumber).map((film, index) =>
                   <SmallMovieCard
                     key={index}
                     film={film}
@@ -61,7 +55,7 @@ class MovieList extends React.PureComponent {
               }
             </div>
 
-            {cardsRenderNumber < filteredList.length ?
+            {cardsRenderNumber < filteredFilmsList.length ?
               <ShowMoreButton buttonClickHandler={incrementCardsNumber} />
               : null}
           </section>
@@ -104,8 +98,9 @@ class MovieList extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  cardsRenderNumber: state.cardsRenderNumber,
-  activeGenre: state.genre,
+  cardsRenderNumber: getCardsRenderNumber(state),
+  activeGenre: getGenre(state),
+  filteredFilmsList: getFilteredFilmList(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -139,7 +134,25 @@ MovieList.propTypes = {
   cardsRenderNumber: PropTypes.number,
   incrementCardsNumber: PropTypes.func,
   children: PropTypes.element,
-  activeGenre: PropTypes.string
+  filteredFilmsList: PropTypes.arrayOf(PropTypes.exact({
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    releaseDate: PropTypes.string.isRequired,
+    ratingScore: PropTypes.number.isRequired,
+    ratingsNumber: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+  }))
 };
 
 export {MovieList};

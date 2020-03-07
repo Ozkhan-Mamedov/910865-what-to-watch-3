@@ -19,7 +19,8 @@ import {
   YEAR_SUBSTR,
   MORE_LIKE_THIS_LIST, MORE_LIKE_THIS_FILMS
 } from "../../constants";
-import {ActionCreator} from "../../reducer/reducer";
+import {ActionCreator} from "../../reducer/app/action-creator";
+import {getActiveCard, getPlayerStatus} from "../../reducer/app/selectors";
 
 class MovieDetails extends React.PureComponent {
   constructor(props) {
@@ -234,7 +235,7 @@ class MovieDetails extends React.PureComponent {
     return (
       film !== undefined ?
         <React.Fragment>
-          <section className="movie-card movie-card--full">
+          <section className="movie-card movie-card--full" style={{backgroundColor: film.backgroundColor}}>
             <div className="movie-card__hero">
               <div className="movie-card__bg">
                 <img src={film.backgroundImage} alt={film.name}/>
@@ -277,18 +278,18 @@ class MovieDetails extends React.PureComponent {
           <div className="page-content">
             <MovieList films={this.getMoreLikeThisFilm().slice(0, MORE_LIKE_THIS_FILMS - 1)} filmNameClickHandler={filmNameClickHandler} list={MORE_LIKE_THIS_LIST} />
 
-            <Footer isMainPageElement={true} />
+            <Footer isMainPageElement={false} />
           </div>
           {isPlayerActive ? <FullscreenVideoPlayer film={film} onExitButtonClickHandler={onExitButtonClickHandler} /> : null}
         </React.Fragment>
-        : <ErrorMessage/>
+        : <ErrorMessage errorMessage={`Film not found!`}/>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  activeCard: state.activeCard,
-  isPlayerActive: state.isPlayerActive,
+  activeCard: getActiveCard(state),
+  isPlayerActive: getPlayerStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

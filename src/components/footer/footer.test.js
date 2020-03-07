@@ -17,7 +17,7 @@ it(`Main Footer component renders correctly`, () => {
 it(`Footer component renders correctly`, () => {
   const tree = renderer
     .create(
-        <Footer isMainPageElement={true}/>
+        <Footer isMainPageElement={false}/>
     )
     .toJSON();
 

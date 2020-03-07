@@ -13,7 +13,6 @@ Array [
       >
         <img
           alt="Film#1"
-          src="img/bg-the-grand-budapest-hotel.jpg"
         />
       </div>
       <h1
@@ -29,7 +28,7 @@ Array [
         >
           <a
             className="logo__link"
-            href={null}
+            href="main.html"
           >
             <span
               className="logo__letter logo__letter--1"
@@ -148,7 +147,6 @@ Array [
           <img
             alt="The Grand Budapest Hotel poster"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
             width="218"
           />
         </div>
@@ -205,7 +203,7 @@ Array [
               <div
                 className="movie-rating__score"
               >
-                1
+                2
               </div>
               <p
                 className="movie-rating__meta"
@@ -218,7 +216,7 @@ Array [
                 <span
                   className="movie-rating__count"
                 >
-                  2
+                  1
                    ratings
                 </span>
               </p>
@@ -228,8 +226,6 @@ Array [
             >
               <p>
                 Test paragraph #1.
-              </p>
-              <p>
                 Test paragraph #2.
               </p>
               <p

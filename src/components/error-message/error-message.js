@@ -1,21 +1,34 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-const ErrorMessage = () => {
-  const errorMessageStyle = {
-    position: `absolute`,
-    top: `50vh`,
-    left: `50%`,
-    margin: `0`,
+import Footer from "../footer/footer";
 
-    fontSize: `60px`,
-    color: `red`,
-
-    transform: `translateX(-50%) translateY(-50%)`,
-  };
-
+const ErrorMessage = ({errorMessage}) => {
   return (
-    <h1 style={errorMessageStyle}>Film not found!</h1>
+    <React.Fragment>
+      <div className="user-page">
+        <header className="page-header user-page__head" style={{marginBottom: `30vh`}}>
+          <div className="logo">
+            <a className="logo__link">
+              <span className="logo__letter logo__letter--1">W</span>
+              <span className="logo__letter logo__letter--2">T</span>
+              <span className="logo__letter logo__letter--3">W</span>
+            </a>
+          </div>
+        </header>
+
+        <div className="sign-in__message" style={{minHeight: `33vh`}}>
+          <p style={{fontSize: `44px`, textAlign: `center`}}>{errorMessage}</p>
+        </div>
+
+        <Footer />
+      </div>
+    </React.Fragment>
   );
+};
+
+ErrorMessage.propTypes = {
+  errorMessage: PropTypes.string.isRequired,
 };
 
 export default ErrorMessage;

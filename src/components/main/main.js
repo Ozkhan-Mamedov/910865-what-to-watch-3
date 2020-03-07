@@ -9,32 +9,39 @@ import PromoMovieCard from "../promo-movie-card/promo-movie-card";
 import FullscreenVideoPlayer from "../fullscreen-video-player/fullscreen-video-player";
 
 import {MOVIE_LIST} from "../../constants";
-import {ActionCreator} from "../../reducer/reducer";
+import {ActionCreator} from "../../reducer/app/action-creator";
+import {getActiveCard, getPlayerStatus} from "../../reducer/app/selectors";
+import {getPromoFilm} from "../../reducer/data/selectors";
 
 const Main = (props) => {
   const {promoFilm, films, filmNameClickHandler, isPlayerActive, onExitButtonClickHandler} = props;
 
-  return (
-    <React.Fragment>
-      <PromoMovieCard promoFilm={promoFilm} />
+  if (promoFilm && films) {
+    return (
+      <React.Fragment>
+        <PromoMovieCard promoFilm={promoFilm}/>
 
-      <div className="page-content">
-        <MovieList filmNameClickHandler={filmNameClickHandler} films={films} list={MOVIE_LIST} >
-          <GenreList films={films} />
-        </MovieList>
+        <div className="page-content">
+          <MovieList filmNameClickHandler={filmNameClickHandler} films={films} list={MOVIE_LIST}>
+            <GenreList films={films}/>
+          </MovieList>
 
-        <Footer />
-      </div>
+          <Footer/>
+        </div>
 
-      {isPlayerActive ? <FullscreenVideoPlayer film={promoFilm} onExitButtonClickHandler={onExitButtonClickHandler} /> : null}
-    </React.Fragment>
-  );
+        {isPlayerActive ?
+          <FullscreenVideoPlayer film={promoFilm} onExitButtonClickHandler={onExitButtonClickHandler}/> : null}
+      </React.Fragment>
+    );
+  } else {
+    return null;
+  }
 };
 
 const mapStateToProps = (state) => ({
-  isPlayerActive: state.isPlayerActive,
-  activeCard: state.activeCard,
-  promoFilm: state.promoFilm,
+  isPlayerActive: getPlayerStatus(state),
+  activeCard: getActiveCard(state),
+  promoFilm: getPromoFilm(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
