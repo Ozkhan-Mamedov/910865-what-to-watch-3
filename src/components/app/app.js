@@ -5,8 +5,13 @@ import {connect} from "react-redux";
 
 import Main from "../main/main";
 import MovieDetails from "../movie-details/movie-details";
+import ErrorMessage from "../error-message/error-message";
 
-import {ActionCreator, Operation} from "../../reducer/reducer";
+import {ActionCreator} from "../../reducer/app/action-creator";
+import {Operation} from "../../reducer/data/reducer";
+import {SERVER_NOT_WORKING_ERROR} from "../../constants";
+import {getActiveCard, getServerStatus} from "../../reducer/app/selectors";
+import {getFilms, getFilmsComments} from "../../reducer/data/selectors";
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -22,7 +27,11 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {films, filmsComments, activeCard} = this.props;
+    const {films, filmsComments, activeCard, isServerAvailable} = this.props;
+
+    if (isServerAvailable !== true) {
+      return <ErrorMessage errorMessage={SERVER_NOT_WORKING_ERROR} />;
+    }
 
     if (activeCard === -1) {
       return <Main {...this.props} filmNameClickHandler={this.filmNameClickHandler} />;
@@ -58,9 +67,10 @@ class App extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  activeCard: state.activeCard,
-  films: state.films,
-  filmsComments: state.filmsComments,
+  activeCard: getActiveCard(state),
+  films: getFilms(state),
+  filmsComments: getFilmsComments(state),
+  isServerAvailable: getServerStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -99,7 +109,8 @@ App.propTypes = {
     date: PropTypes.string.isRequired,
   })),
   activeCard: PropTypes.number.isRequired,
-  cardClickHandler: PropTypes.func.isRequired
+  cardClickHandler: PropTypes.func.isRequired,
+  isServerAvailable: PropTypes.bool.isRequired,
 };
 
 export {App};

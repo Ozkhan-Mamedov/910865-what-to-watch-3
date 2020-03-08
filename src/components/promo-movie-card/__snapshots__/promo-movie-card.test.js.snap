@@ -8,8 +8,8 @@ exports[`PromoMovieCard component renders correctly 1`] = `
     className="movie-card__bg"
   >
     <img
-      alt="The Grand Budapest Hotel"
-      src="img/bg-the-grand-budapest-hotel.jpg"
+      alt="Film#1"
+      src="background image#1"
     />
   </div>
   <h1
@@ -69,9 +69,9 @@ exports[`PromoMovieCard component renders correctly 1`] = `
         className="movie-card__poster"
       >
         <img
-          alt="The Grand Budapest Hotel poster"
+          alt="Film#1 poster"
           height="327"
-          src="img/the-grand-budapest-hotel-poster.jpg"
+          src="preview image#1"
           width="218"
         />
       </div>
@@ -81,7 +81,7 @@ exports[`PromoMovieCard component renders correctly 1`] = `
         <h2
           className="movie-card__title"
         >
-          name
+          Film#1
         </h2>
         <p
           className="movie-card__meta"
@@ -89,12 +89,12 @@ exports[`PromoMovieCard component renders correctly 1`] = `
           <span
             className="movie-card__genre"
           >
-            genre
+            genre#1
           </span>
           <span
             className="movie-card__year"
           >
-            date
+            2020
           </span>
         </p>
         <div

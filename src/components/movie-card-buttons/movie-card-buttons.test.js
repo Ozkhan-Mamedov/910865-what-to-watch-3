@@ -3,8 +3,7 @@ import renderer from "react-test-renderer";
 
 import {MovieCardButtons} from "./movie-card-buttons";
 
-
-it(`Main  component renders correctly`, () => {
+it(`MovieCardButtons component renders correctly`, () => {
   const tree = renderer
     .create(
         <MovieCardButtons />
@@ -14,7 +13,7 @@ it(`Main  component renders correctly`, () => {
   expect(tree).toMatchSnapshot();
 });
 
-it(`Header component renders correctly`, () => {
+it(`MovieCardButtons component renders correctly`, () => {
   const tree = renderer
     .create(
         <MovieCardButtons isMainPageElement={true}/>

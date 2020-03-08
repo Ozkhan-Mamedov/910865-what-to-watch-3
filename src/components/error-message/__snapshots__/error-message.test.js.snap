@@ -1,19 +1,94 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ErrorMessage component renders correctly 1`] = `
-<h1
-  style={
-    Object {
-      "color": "red",
-      "fontSize": "60px",
-      "left": "50%",
-      "margin": "0",
-      "position": "absolute",
-      "top": "50vh",
-      "transform": "translateX(-50%) translateY(-50%)",
-    }
-  }
+<div
+  className="user-page"
 >
-  Film not found!
-</h1>
+  <header
+    className="page-header user-page__head"
+    style={
+      Object {
+        "marginBottom": "30vh",
+      }
+    }
+  >
+    <div
+      className="logo"
+    >
+      <a
+        className="logo__link"
+      >
+        <span
+          className="logo__letter logo__letter--1"
+        >
+          W
+        </span>
+        <span
+          className="logo__letter logo__letter--2"
+        >
+          T
+        </span>
+        <span
+          className="logo__letter logo__letter--3"
+        >
+          W
+        </span>
+      </a>
+    </div>
+  </header>
+  <div
+    className="sign-in__message"
+    style={
+      Object {
+        "minHeight": "33vh",
+      }
+    }
+  >
+    <p
+      style={
+        Object {
+          "fontSize": "44px",
+          "textAlign": "center",
+        }
+      }
+    >
+      message
+    </p>
+  </div>
+  <footer
+    className="page-footer"
+  >
+    <div
+      className="logo"
+    >
+      <a
+        className="logo__link logo__link--light"
+        href={null}
+      >
+        <span
+          className="logo__letter logo__letter--1"
+        >
+          W
+        </span>
+        <span
+          className="logo__letter logo__letter--2"
+        >
+          T
+        </span>
+        <span
+          className="logo__letter logo__letter--3"
+        >
+          W
+        </span>
+      </a>
+    </div>
+    <div
+      className="copyright"
+    >
+      <p>
+        © 2019 What to watch Ltd.
+      </p>
+    </div>
+  </footer>
+</div>
 `;

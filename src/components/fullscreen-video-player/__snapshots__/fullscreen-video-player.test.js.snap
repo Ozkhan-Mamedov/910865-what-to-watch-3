@@ -9,7 +9,7 @@ exports[`FullscreenVideoPlayer component renders correctly 1`] = `
     onEnded={[Function]}
     onTimeUpdate={[Function]}
     poster="picture#1"
-    src="preview link"
+    src="video link#1"
   />
   <button
     className="player__exit"
@@ -46,7 +46,7 @@ exports[`FullscreenVideoPlayer component renders correctly 1`] = `
       <div
         className="player__time-value"
       >
-        NaN:NaN:NaN
+        00:02:128
       </div>
     </div>
     <div

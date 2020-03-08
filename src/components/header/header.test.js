@@ -16,7 +16,7 @@ it(`Main Header component renders correctly`, () => {
 it(`Header component renders correctly`, () => {
   const tree = renderer
     .create(
-        <Header isActive={true}/>
+        <Header isMainPageElement={false}/>
     )
     .toJSON();
 

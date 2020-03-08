@@ -167,6 +167,8 @@ class FullscreenVideoPlayer extends React.PureComponent {
 
     video.oncanplaythrough = null;
     video.src = ``;
+    video.onended = null;
+    video.ontimeupdate = null;
   }
 }
 
