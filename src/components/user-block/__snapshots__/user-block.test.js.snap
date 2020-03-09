@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserBlock component renders correctly for main page 1`] = `
+<div
+  className="user-block"
+>
+  <div
+    className="user-block"
+  >
+    <a
+      className="user-block__link"
+      href="sign-in.html"
+      onClick={[Function]}
+    >
+      Sign in
+    </a>
+  </div>
+</div>
+`;

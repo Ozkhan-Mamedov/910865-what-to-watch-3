@@ -2,7 +2,7 @@ import axios from "axios";
 
 import {ERROR} from "./constants";
 
-const createAPI = (errorHandler) => {
+const createAPI = (errorHandler, onUnauthorized) => {
   const api = axios.create({
     baseURL: `https://htmlacademy-react-3.appspot.com/wtw`,
     timeout: 5000,
@@ -17,6 +17,8 @@ const createAPI = (errorHandler) => {
     const {response} = error;
 
     if (response.status === ERROR.UNAUTHORIZED) {
+      onUnauthorized();
+
       throw error;
     }
 

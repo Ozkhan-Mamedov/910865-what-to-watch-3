@@ -1,11 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 import Header from "../header/header";
 import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
+import UserBlock from "../user-block/user-block";
+
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
 
 const PromoMovieCard = (props) => {
-  const {promoFilm} = props;
+  const {promoFilm, authorizationStatus, loginButtonClickHandler} = props;
 
   return (
     <section className="movie-card">
@@ -15,7 +19,9 @@ const PromoMovieCard = (props) => {
 
       <h1 className="visually-hidden">WTW</h1>
 
-      <Header />
+      <Header>
+        <UserBlock authorizationStatus={authorizationStatus} loginButtonClickHandler={loginButtonClickHandler}/>
+      </Header>
 
       <div className="movie-card__wrap">
         <div className="movie-card__info">
@@ -39,6 +45,10 @@ const PromoMovieCard = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
 PromoMovieCard.propTypes = {
   promoFilm: PropTypes.exact({
     name: PropTypes.string.isRequired,
@@ -58,7 +68,10 @@ PromoMovieCard.propTypes = {
     isFavorite: PropTypes.bool.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
-  })
+  }),
+  authorizationStatus: PropTypes.string,
+  loginButtonClickHandler: PropTypes.func.isRequired,
 };
 
-export default PromoMovieCard;
+export {PromoMovieCard};
+export default connect(mapStateToProps)(PromoMovieCard);

@@ -9,6 +9,7 @@ import ErrorMessage from "../error-message/error-message";
 import Tabs from "../tabs/tabs";
 import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
 import FullscreenVideoPlayer from "../fullscreen-video-player/fullscreen-video-player";
+import UserBlock from "../user-block/user-block";
 
 import {
   MINUTES_IN_HOUR,
@@ -21,6 +22,7 @@ import {
 } from "../../constants";
 import {ActionCreator} from "../../reducer/app/action-creator";
 import {getActiveCard, getPlayerStatus} from "../../reducer/app/selectors";
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
 
 class MovieDetails extends React.PureComponent {
   constructor(props) {
@@ -229,7 +231,9 @@ class MovieDetails extends React.PureComponent {
   }
 
   render() {
-    const {film, filmNameClickHandler, isPlayerActive, onExitButtonClickHandler} = this.props;
+    const {film, filmNameClickHandler, isPlayerActive,
+      onExitButtonClickHandler, authorizationStatus,
+      loginButtonClickHandler} = this.props;
     const {activeTab} = this.state;
 
     return (
@@ -243,7 +247,9 @@ class MovieDetails extends React.PureComponent {
 
               <h1 className="visually-hidden">WTW</h1>
 
-              <Header isMainPageElement={false} />
+              <Header isMainPageElement={false} >
+                <UserBlock authorizationStatus={authorizationStatus} loginButtonClickHandler={loginButtonClickHandler}/>
+              </Header>
 
               <div className="movie-card__wrap">
                 <div className="movie-card__desc">
@@ -290,6 +296,7 @@ class MovieDetails extends React.PureComponent {
 const mapStateToProps = (state) => ({
   activeCard: getActiveCard(state),
   isPlayerActive: getPlayerStatus(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -348,6 +355,8 @@ MovieDetails.propTypes = {
   filmNameClickHandler: PropTypes.func.isRequired,
   isPlayerActive: PropTypes.bool,
   onExitButtonClickHandler: PropTypes.func,
+  authorizationStatus: PropTypes.string.isRequired,
+  loginButtonClickHandler: PropTypes.func.isRequired,
 };
 
 export {MovieDetails};

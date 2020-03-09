@@ -7,12 +7,13 @@ import thunk from "redux-thunk";
 import App from "./components/app/app";
 import ErrorMessage from "./components/error-message/error-message";
 
-
 import {ActionCreator as AppActionCreator} from "./reducer/app/action-creator";
-import {Operation} from "./reducer/data/reducer";
+import {Operation as userOperation} from "./reducer/user/reducer";
+import {Operation as dataOperation} from "./reducer/data/reducer";
 import reducer from "./reducer/reducer";
 import createAPI from "./api";
-import {SERVER_NOT_WORKING_ERROR} from "./constants";
+import {AUTHORIZATION_STATUS, SERVER_NOT_WORKING_ERROR} from "./constants";
+import {ActionCreator} from "./reducer/user/action-creator";
 
 const errorHandler = () => {
   store.dispatch(AppActionCreator.changeServerStatus(false));
@@ -21,7 +22,11 @@ const errorHandler = () => {
       document.getElementById(`root`));
 };
 
-const api = createAPI(errorHandler);
+const onUnauthorized = () => {
+  store.dispatch(ActionCreator.changeAuthorizationStatus(AUTHORIZATION_STATUS.NO_AUTH));
+};
+
+const api = createAPI(errorHandler, onUnauthorized);
 const store = createStore(
     reducer,
     compose(
@@ -30,9 +35,12 @@ const store = createStore(
     )
 );
 
-store.dispatch(Operation.getFilmList())
+store.dispatch(dataOperation.getFilmList())
   .then(() => {
-    store.dispatch(Operation.getPromoMovieData());
+    store.dispatch(dataOperation.getPromoMovieData());
+  })
+  .then(() => {
+    store.dispatch(userOperation.checkUserStatus());
   })
   .then(() => {
     ReactDOM.render(

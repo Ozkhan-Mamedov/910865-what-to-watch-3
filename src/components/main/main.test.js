@@ -71,7 +71,7 @@ it(`Main component renders correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={createStore(reducer)}>
-          <Main promoFilmData={films[0]} films={films} filmNameClickHandler={() => {}} />)
+          <Main promoFilmData={films[0]} films={films} filmNameClickHandler={() => {}} loginButtonClickHandler={() => {}}/>)
         </Provider>
     )
     .toJSON();

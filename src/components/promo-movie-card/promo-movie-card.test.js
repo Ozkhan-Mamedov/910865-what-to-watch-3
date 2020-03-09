@@ -31,7 +31,7 @@ it(`PromoMovieCard component renders correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={createStore(reducer)}>
-          <PromoMovieCard promoFilm={promoFilmData} />
+          <PromoMovieCard promoFilm={promoFilmData} loginButtonClickHandler={() => {}} />
         </Provider>
     )
     .toJSON();
