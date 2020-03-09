@@ -96,7 +96,8 @@ it(`MovieDetails component renders correctly`, () => {
             film={film}
             filmNameClickHandler={() => {}}
             activeCard={-1}
-          />
+            authorizationStatus={`NO_AUTH`}
+            loginButtonClickHandler={() => {}}/>
         </Provider>
     )
     .toJSON();

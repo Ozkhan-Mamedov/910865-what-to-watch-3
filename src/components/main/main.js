@@ -14,12 +14,12 @@ import {getActiveCard, getPlayerStatus} from "../../reducer/app/selectors";
 import {getPromoFilm} from "../../reducer/data/selectors";
 
 const Main = (props) => {
-  const {promoFilm, films, filmNameClickHandler, isPlayerActive, onExitButtonClickHandler} = props;
+  const {promoFilm, films, filmNameClickHandler, isPlayerActive, onExitButtonClickHandler, loginButtonClickHandler} = props;
 
   if (promoFilm && films) {
     return (
       <React.Fragment>
-        <PromoMovieCard promoFilm={promoFilm}/>
+        <PromoMovieCard promoFilm={promoFilm} loginButtonClickHandler={loginButtonClickHandler}/>
 
         <div className="page-content">
           <MovieList filmNameClickHandler={filmNameClickHandler} films={films} list={MOVIE_LIST}>
@@ -33,9 +33,9 @@ const Main = (props) => {
           <FullscreenVideoPlayer film={promoFilm} onExitButtonClickHandler={onExitButtonClickHandler}/> : null}
       </React.Fragment>
     );
-  } else {
-    return null;
   }
+
+  return null;
 };
 
 const mapStateToProps = (state) => ({
@@ -92,6 +92,7 @@ Main.propTypes = {
   filmNameClickHandler: PropTypes.func.isRequired,
   isPlayerActive: PropTypes.bool,
   onExitButtonClickHandler: PropTypes.func,
+  loginButtonClickHandler: PropTypes.func.isRequired,
 };
 
 export {Main};

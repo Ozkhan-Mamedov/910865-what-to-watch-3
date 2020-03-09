@@ -6,18 +6,22 @@ import {connect} from "react-redux";
 import Main from "../main/main";
 import MovieDetails from "../movie-details/movie-details";
 import ErrorMessage from "../error-message/error-message";
+import SignIn from "../sign-in/sign-in";
 
-import {ActionCreator} from "../../reducer/app/action-creator";
+import {ActionCreator as appActionCreator} from "../../reducer/app/action-creator";
+import {ActionCreator as userActionCreator} from "../../reducer/user/action-creator";
 import {Operation} from "../../reducer/data/reducer";
-import {SERVER_NOT_WORKING_ERROR} from "../../constants";
+import {AUTHORIZATION_STATUS, SERVER_NOT_WORKING_ERROR} from "../../constants";
 import {getActiveCard, getServerStatus} from "../../reducer/app/selectors";
 import {getFilms, getFilmsComments} from "../../reducer/data/selectors";
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
 
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.filmNameClickHandler = this.filmNameClickHandler.bind(this);
+    this.loginButtonClickHandler = this.loginButtonClickHandler.bind(this);
   }
 
   filmNameClickHandler(filmName) {
@@ -26,21 +30,34 @@ class App extends React.PureComponent {
     cardClickHandler(films.findIndex((film) => film.id === filmName));
   }
 
+  loginButtonClickHandler(evt) {
+    const {changeAuthorizationStatus} = this.props;
+
+    evt.preventDefault();
+    changeAuthorizationStatus(AUTHORIZATION_STATUS.REQUIRED);
+  }
+
   _renderApp() {
-    const {films, filmsComments, activeCard, isServerAvailable} = this.props;
+    const {films, filmsComments, activeCard, isServerAvailable, authorizationStatus} = this.props;
 
     if (isServerAvailable !== true) {
       return <ErrorMessage errorMessage={SERVER_NOT_WORKING_ERROR} />;
     }
 
+    if (authorizationStatus === `REQUIRED`) {
+      return <SignIn />;
+    }
+
     if (activeCard === -1) {
-      return <Main {...this.props} filmNameClickHandler={this.filmNameClickHandler} />;
+      return <Main {...this.props} filmNameClickHandler={this.filmNameClickHandler}
+        loginButtonClickHandler={this.loginButtonClickHandler}/>;
     } else {
       return <MovieDetails
         films={films}
         film={films[activeCard]}
         filmComment={filmsComments}
-        filmNameClickHandler={this.filmNameClickHandler}/>;
+        filmNameClickHandler={this.filmNameClickHandler}
+        loginButtonClickHandler={this.loginButtonClickHandler} />;
     }
   }
 
@@ -53,12 +70,15 @@ class App extends React.PureComponent {
           <Route exact path="/">
             {this._renderApp()}
           </Route>
-          <Route exact path="/dev-component">
+          <Route exact path="/movie-details">
             <MovieDetails
               films={films}
               film={films[activeCard]}
               filmComment={filmsComments}
               filmNameClickHandler={this.filmNameClickHandler}/>
+          </Route>
+          <Route exact path="/login">
+            <SignIn />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -71,12 +91,16 @@ const mapStateToProps = (state) => ({
   films: getFilms(state),
   filmsComments: getFilmsComments(state),
   isServerAvailable: getServerStatus(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   cardClickHandler(id) {
-    dispatch(ActionCreator.changeActiveCard(id));
+    dispatch(appActionCreator.changeActiveCard(id));
     dispatch(Operation.getCommentsList(id));
+  },
+  changeAuthorizationStatus(status) {
+    dispatch(userActionCreator.changeAuthorizationStatus(status));
   }
 });
 
@@ -111,6 +135,8 @@ App.propTypes = {
   activeCard: PropTypes.number.isRequired,
   cardClickHandler: PropTypes.func.isRequired,
   isServerAvailable: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  changeAuthorizationStatus: PropTypes.func.isRequired,
 };
 
 export {App};

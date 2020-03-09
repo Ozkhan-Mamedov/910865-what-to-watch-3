@@ -75,7 +75,9 @@ it(`App component renders correctly`, () => {
             films={films}
             activeCard={-1}
             cardClickHandler={() => {}}
-            isServerAvailable={true}/>
+            isServerAvailable={true}
+            authorizationStatus={`NO_AUTH`}
+            changeAuthorizationStatus={() => {}}/>
         </Provider>)
     .toJSON();
 

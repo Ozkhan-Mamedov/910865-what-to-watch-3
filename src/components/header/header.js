@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Header = ({isMainPageElement}) => {
+import {HEADER_TYPE} from "../../constants";
+
+const Header = ({isMainPageElement, type, children, customStyling}) => {
   return (
-    <header className="page-header movie-card__head">
+    <header className={`page-header movie-card__head ${type}`} style={customStyling}>
       <div className="logo">
         <a href={isMainPageElement ? null : `main.html`} className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
@@ -12,21 +14,23 @@ const Header = ({isMainPageElement}) => {
         </a>
       </div>
 
-      <div className="user-block">
-        <div className="user-block__avatar">
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-        </div>
-      </div>
+      {children}
+
     </header>
   );
 };
 
 Header.defaultProps = {
-  isMainPageElement: true
+  isMainPageElement: true,
+  type: HEADER_TYPE.MOVIE_CARD,
+  customStyling: {},
 };
 
 Header.propTypes = {
-  isMainPageElement: PropTypes.bool.isRequired
+  isMainPageElement: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
+  children: PropTypes.element,
+  customStyling: PropTypes.shape(),
 };
 
 export default Header;

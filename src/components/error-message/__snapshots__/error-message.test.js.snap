@@ -5,7 +5,7 @@ exports[`ErrorMessage component renders correctly 1`] = `
   className="user-page"
 >
   <header
-    className="page-header user-page__head"
+    className="page-header movie-card__head user-page__head"
     style={
       Object {
         "marginBottom": "30vh",
@@ -17,6 +17,7 @@ exports[`ErrorMessage component renders correctly 1`] = `
     >
       <a
         className="logo__link"
+        href={null}
       >
         <span
           className="logo__letter logo__letter--1"
