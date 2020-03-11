@@ -74,6 +74,7 @@ exports[`SignIn component renders correctly for main page 1`] = `
             id="user-password"
             name="user-password"
             placeholder="Password"
+            required={true}
             type="password"
           />
           <label

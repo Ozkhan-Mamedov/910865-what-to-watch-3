@@ -46,7 +46,7 @@ exports[`FullscreenVideoPlayer component renders correctly 1`] = `
       <div
         className="player__time-value"
       >
-        00:02:128
+        02:10:00
       </div>
     </div>
     <div

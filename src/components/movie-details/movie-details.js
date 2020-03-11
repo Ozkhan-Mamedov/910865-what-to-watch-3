@@ -10,6 +10,7 @@ import Tabs from "../tabs/tabs";
 import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
 import FullscreenVideoPlayer from "../fullscreen-video-player/fullscreen-video-player";
 import UserBlock from "../user-block/user-block";
+import AddReview from "../add-review/add-review";
 
 import {
   MINUTES_IN_HOUR,
@@ -29,10 +30,20 @@ class MovieDetails extends React.PureComponent {
     super(props);
 
     this.state = {
-      activeTab: TABS_KEYS.OVERVIEW
+      activeTab: TABS_KEYS.OVERVIEW,
+      addReviewButtonClicked: false,
     };
 
     this.tabClickHandler = this.tabClickHandler.bind(this);
+    this.onAddReviewButtonClickHandler = this.onAddReviewButtonClickHandler.bind(this);
+  }
+
+  onAddReviewButtonClickHandler(evt) {
+    evt.preventDefault();
+
+    this.setState({
+      addReviewButtonClicked: true,
+    });
   }
 
   getMoreLikeThisFilm() {
@@ -234,7 +245,30 @@ class MovieDetails extends React.PureComponent {
     const {film, filmNameClickHandler, isPlayerActive,
       onExitButtonClickHandler, authorizationStatus,
       loginButtonClickHandler} = this.props;
-    const {activeTab} = this.state;
+    const {activeTab, addReviewButtonClicked} = this.state;
+
+    if (addReviewButtonClicked) {
+      return (
+        <AddReview>
+          <Header isMainPageElement={false}>
+            <React.Fragment>
+              <nav className="breadcrumbs">
+                <ul className="breadcrumbs__list">
+                  <li className="breadcrumbs__item">
+                    <a href="movie-page.html" className="breadcrumbs__link">{film.name}</a>
+                  </li>
+                  <li className="breadcrumbs__item">
+                    <a className="breadcrumbs__link">Add review</a>
+                  </li>
+                </ul>
+              </nav>
+
+              <UserBlock authorizationStatus={`AUTH`} />
+            </React.Fragment>
+          </Header>
+        </AddReview>
+      );
+    }
 
     return (
       film !== undefined ?
@@ -259,7 +293,8 @@ class MovieDetails extends React.PureComponent {
                     <span className="movie-card__year">{film.releaseDate}</span>
                   </p>
 
-                  <MovieCardButtons isMainPageElement={true} />
+                  <MovieCardButtons authorizationStatus={authorizationStatus}
+                    onAddReviewButtonClick={this.onAddReviewButtonClickHandler}/>
                 </div>
               </div>
             </div>

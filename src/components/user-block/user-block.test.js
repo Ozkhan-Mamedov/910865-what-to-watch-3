@@ -11,7 +11,7 @@ it(`UserBlock component renders correctly for main page`, () => {
   const tree = renderer
     .create(
         <Provider store={createStore(reducer)}>
-          <UserBlock loginButtonClickHandler={() => {}}/>
+          <UserBlock loginButtonClickHandler={() => {}} authorizationStatus={`AUTH`}/>
         </Provider>)
     .toJSON();
 

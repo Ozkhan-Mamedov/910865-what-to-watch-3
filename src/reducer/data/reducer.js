@@ -25,6 +25,18 @@ const Operation = {
       .then((responce) => {
         dispatch(ActionCreator.getPromoMovieData(filmAdapter(responce.data)));
       });
+  },
+  postReview: (data, id, onSuccess, onError) => (dispatch, getState, api) => {
+    return api.post(`/comments/${id + 1}`, {
+      rating: data.rating,
+      comment: data.comment,
+    })
+      .then(() => {
+        onSuccess();
+      })
+      .catch(() => {
+        onError();
+      });
   }
 };
 

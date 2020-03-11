@@ -5,15 +5,14 @@ exports[`UserBlock component renders correctly for main page 1`] = `
   className="user-block"
 >
   <div
-    className="user-block"
+    className="user-block__avatar"
   >
-    <a
-      className="user-block__link"
-      href="sign-in.html"
-      onClick={[Function]}
-    >
-      Sign in
-    </a>
+    <img
+      alt="User avatar"
+      height="63"
+      src="img/avatar.jpg"
+      width="63"
+    />
   </div>
 </div>
 `;

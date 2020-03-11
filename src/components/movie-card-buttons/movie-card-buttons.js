@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import {ActionCreator} from "../../reducer/app/action-creator";
+import {AUTHORIZATION_STATUS} from "../../constants";
 
-const MovieCardButtons = ({isMainPageElement, renderPlayer}) => {
+const MovieCardButtons = ({isMainPageElement, renderPlayer, authorizationStatus, onAddReviewButtonClick}) => {
   return (
     <div className="movie-card__buttons">
       <button className="btn btn--play movie-card__button" type="button" onClick={renderPlayer}>
@@ -20,8 +21,8 @@ const MovieCardButtons = ({isMainPageElement, renderPlayer}) => {
         <span>My list</span>
       </button>
       {
-        isMainPageElement ?
-          <a href="add-review.html" className="btn movie-card__button">Add review</a>
+        isMainPageElement || (authorizationStatus === AUTHORIZATION_STATUS.AUTH) ?
+          <a href="add-review.html" className="btn movie-card__button" onClick={onAddReviewButtonClick}>Add review</a>
           : null
       }
     </div>
@@ -40,7 +41,9 @@ MovieCardButtons.defaultProps = {
 
 MovieCardButtons.propTypes = {
   isMainPageElement: PropTypes.bool.isRequired,
-  renderPlayer: PropTypes.func
+  renderPlayer: PropTypes.func,
+  authorizationStatus: PropTypes.string,
+  onAddReviewButtonClick: PropTypes.func,
 };
 
 export {MovieCardButtons};
