@@ -7,6 +7,9 @@ import Main from "../main/main";
 import MovieDetails from "../movie-details/movie-details";
 import ErrorMessage from "../error-message/error-message";
 import SignIn from "../sign-in/sign-in";
+import AddReview from "../add-review/add-review";
+import Header from "../header/header";
+import UserBlock from "../user-block/user-block";
 
 import {ActionCreator as appActionCreator} from "../../reducer/app/action-creator";
 import {ActionCreator as userActionCreator} from "../../reducer/user/action-creator";
@@ -44,7 +47,7 @@ class App extends React.PureComponent {
       return <ErrorMessage errorMessage={SERVER_NOT_WORKING_ERROR} />;
     }
 
-    if (authorizationStatus === `REQUIRED`) {
+    if (authorizationStatus === AUTHORIZATION_STATUS.REQUIRED) {
       return <SignIn />;
     }
 
@@ -79,6 +82,26 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path="/login">
             <SignIn />
+          </Route>
+          <Route exact path="/add-review">
+            <AddReview>
+              <Header>
+                <React.Fragment>
+                  <nav className="breadcrumbs">
+                    <ul className="breadcrumbs__list">
+                      <li className="breadcrumbs__item">
+                        <a href="movie-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                      </li>
+                      <li className="breadcrumbs__item">
+                        <a className="breadcrumbs__link">Add review</a>
+                      </li>
+                    </ul>
+                  </nav>
+
+                  <UserBlock authorizationStatus={`AUTH`} />
+                </React.Fragment>
+              </Header>
+            </AddReview>
           </Route>
         </Switch>
       </BrowserRouter>

@@ -14,7 +14,7 @@ class FullscreenVideoPlayer extends React.PureComponent {
       isPlaying: false,
       isFullscreenModeEnabled: false,
       progress: 0,
-      timeRemaining: runTime,
+      timeRemaining: runTime * SECONDS_IN_MINUTE,
     };
 
     this._videoRef = React.createRef();
@@ -26,10 +26,9 @@ class FullscreenVideoPlayer extends React.PureComponent {
 
   formatRemainingTime() {
     const {timeRemaining} = this.state;
-
     const hours = Math.floor(timeRemaining / MINUTES_IN_HOUR / SECONDS_IN_MINUTE);
-    const minutes = (timeRemaining - (hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE)) / SECONDS_IN_MINUTE;
-    const seconds = (timeRemaining - (timeRemaining / MINUTES_IN_HOUR / SECONDS_IN_MINUTE) - ((timeRemaining - (hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE)) / SECONDS_IN_MINUTE));
+    const minutes = Math.floor((timeRemaining - hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE) / MINUTES_IN_HOUR);
+    const seconds = Math.floor(timeRemaining - (hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE) - (minutes * SECONDS_IN_MINUTE));
 
     return `${hours < 10 ? `0` + Math.floor(hours) : Math.floor(hours)}:${minutes < 10 ? `0` + Math.floor(minutes) : Math.floor(minutes)}:${seconds < 10 ? `0` + Math.ceil(seconds) : Math.ceil(seconds)}`;
   }
@@ -73,11 +72,11 @@ class FullscreenVideoPlayer extends React.PureComponent {
 
     if (isPlaying === true) {
       const {runTime} = film;
-      const actualTime = secs;
+      const actualTime = Math.floor(secs);
 
       this.setState({
-        progress: actualTime / (runTime) * 100,
-        timeRemaining: ((runTime / 60) - (actualTime / 60)) * 60,
+        progress: (actualTime / (runTime * SECONDS_IN_MINUTE)) * 100,
+        timeRemaining: (runTime * SECONDS_IN_MINUTE) - actualTime,
       });
     } else {
       this._videoRef.current.oncanplaythrough = null;

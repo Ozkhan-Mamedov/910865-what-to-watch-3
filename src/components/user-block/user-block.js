@@ -21,8 +21,8 @@ const UserBlock = ({authorizationStatus, loginButtonClickHandler}) => {
 };
 
 UserBlock.propTypes = {
-  authorizationStatus: PropTypes.string,
-  loginButtonClickHandler: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  loginButtonClickHandler: PropTypes.func,
 };
 
 export default UserBlock;
