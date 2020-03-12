@@ -1,7 +1,7 @@
 import {
   CHANGE_ACTIVE_CARD, CHANGE_FILTER_BY_GENRE, CHANGE_SERVER_STATUS,
   DECREASE_CARDS_NUMBER, INCREMENT_CARDS_NUMBER, MAX_CARD_RENDER_NUMBER,
-  RENDER_PLAYER, UNRENDER_PLAYER
+  RENDER_PLAYER, UNRENDER_PLAYER, ADD_FILM_TO_WATCH, REMOVE_FILM_TO_WATCH
 } from "../../constants";
 
 const ActionType = {
@@ -12,6 +12,8 @@ const ActionType = {
   RENDER_PLAYER,
   UNRENDER_PLAYER,
   CHANGE_SERVER_STATUS,
+  ADD_FILM_TO_WATCH,
+  REMOVE_FILM_TO_WATCH,
 };
 
 const ActionCreator = {
@@ -42,6 +44,14 @@ const ActionCreator = {
   changeServerStatus: (status) => ({
     type: ActionType.CHANGE_SERVER_STATUS,
     payload: status,
+  }),
+  addFilmToWatch: (film) => ({
+    type: ActionType.ADD_FILM_TO_WATCH,
+    payload: film,
+  }),
+  removeFilmToWatch: (film) => ({
+    type: ActionType.REMOVE_FILM_TO_WATCH,
+    payload: film,
   })
 };
 

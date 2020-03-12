@@ -1,23 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Route, Switch, BrowserRouter} from "react-router-dom";
+import {Route, Switch, Router, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 
 import Main from "../main/main";
 import MovieDetails from "../movie-details/movie-details";
 import ErrorMessage from "../error-message/error-message";
 import SignIn from "../sign-in/sign-in";
+/*
 import AddReview from "../add-review/add-review";
 import Header from "../header/header";
 import UserBlock from "../user-block/user-block";
+ */
 
 import {ActionCreator as appActionCreator} from "../../reducer/app/action-creator";
 import {ActionCreator as userActionCreator} from "../../reducer/user/action-creator";
 import {Operation} from "../../reducer/data/reducer";
-import {AUTHORIZATION_STATUS, SERVER_NOT_WORKING_ERROR} from "../../constants";
+import {APP_ROUTES, AUTHORIZATION_STATUS, SERVER_NOT_WORKING_ERROR} from "../../constants";
 import {getActiveCard, getServerStatus} from "../../reducer/app/selectors";
 import {getFilms, getFilmsComments} from "../../reducer/data/selectors";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
+import history from "../../history";
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -65,46 +68,21 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {films, filmsComments, activeCard} = this.props;
+    // const {films, filmsComments, activeCard, authorizationStatus} = this.props;
+    const {authorizationStatus} = this.props;
 
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
+          <Route exact path={APP_ROUTES.ROOT}>
+            <Main {...this.props} filmNameClickHandler={this.filmNameClickHandler}
+              loginButtonClickHandler={this.loginButtonClickHandler}/>
           </Route>
-          <Route exact path="/movie-details">
-            <MovieDetails
-              films={films}
-              film={films[activeCard]}
-              filmComment={filmsComments}
-              filmNameClickHandler={this.filmNameClickHandler}/>
-          </Route>
-          <Route exact path="/login">
-            <SignIn />
-          </Route>
-          <Route exact path="/add-review">
-            <AddReview>
-              <Header>
-                <React.Fragment>
-                  <nav className="breadcrumbs">
-                    <ul className="breadcrumbs__list">
-                      <li className="breadcrumbs__item">
-                        <a href="movie-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
-                      </li>
-                      <li className="breadcrumbs__item">
-                        <a className="breadcrumbs__link">Add review</a>
-                      </li>
-                    </ul>
-                  </nav>
-
-                  <UserBlock authorizationStatus={`AUTH`} />
-                </React.Fragment>
-              </Header>
-            </AddReview>
+          <Route exact path={APP_ROUTES.LOGIN}>
+            {authorizationStatus === AUTHORIZATION_STATUS.NO_AUTH ? <SignIn /> : <Redirect to={APP_ROUTES.ROOT}/>}
           </Route>
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }

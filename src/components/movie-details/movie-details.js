@@ -294,7 +294,8 @@ class MovieDetails extends React.PureComponent {
                   </p>
 
                   <MovieCardButtons authorizationStatus={authorizationStatus}
-                    onAddReviewButtonClick={this.onAddReviewButtonClickHandler}/>
+                    onAddReviewButtonClick={this.onAddReviewButtonClickHandler}
+                    film={film}/>
                 </div>
               </div>
             </div>

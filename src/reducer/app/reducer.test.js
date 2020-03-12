@@ -3,6 +3,17 @@ import {ActionCreator} from "./action-creator";
 import initialState from "./initial-state";
 import {MAX_CARD_RENDER_NUMBER} from "../../constants";
 
+const initialStateForFilmToWatchList = {
+  genre: `genre`,
+  activeCard: initialState.activeCard,
+  cardsRenderNumber: initialState.cardsRenderNumber,
+  isPlayerActive: initialState.isPlayerActive,
+  isServerAvailable: initialState.isServerAvailable,
+  filmsToWatch: [{
+    name: `Film`,
+  }]
+};
+
 describe(`Reducer works correctly`, () => {
   it(`Reducer without parameters returns initial state`, () => {
     expect(reducer(undefined, {})).toEqual(initialState);
@@ -15,6 +26,7 @@ describe(`Reducer works correctly`, () => {
       cardsRenderNumber: initialState.cardsRenderNumber,
       isPlayerActive: initialState.isPlayerActive,
       isServerAvailable: initialState.isServerAvailable,
+      filmsToWatch: initialState.filmsToWatch
     });
   });
 
@@ -25,6 +37,7 @@ describe(`Reducer works correctly`, () => {
       cardsRenderNumber: initialState.cardsRenderNumber,
       isPlayerActive: initialState.isPlayerActive,
       isServerAvailable: initialState.isServerAvailable,
+      filmsToWatch: initialState.filmsToWatch
     });
   });
 
@@ -35,6 +48,7 @@ describe(`Reducer works correctly`, () => {
       cardsRenderNumber: MAX_CARD_RENDER_NUMBER * 2,
       isPlayerActive: initialState.isPlayerActive,
       isServerAvailable: initialState.isServerAvailable,
+      filmsToWatch: initialState.filmsToWatch
     });
   });
 
@@ -45,6 +59,7 @@ describe(`Reducer works correctly`, () => {
       cardsRenderNumber: MAX_CARD_RENDER_NUMBER,
       isPlayerActive: initialState.isPlayerActive,
       isServerAvailable: initialState.isServerAvailable,
+      filmsToWatch: initialState.filmsToWatch
     });
   });
 
@@ -55,6 +70,7 @@ describe(`Reducer works correctly`, () => {
       cardsRenderNumber: initialState.cardsRenderNumber,
       isPlayerActive: true,
       isServerAvailable: initialState.isServerAvailable,
+      filmsToWatch: initialState.filmsToWatch
     });
   });
 
@@ -65,6 +81,7 @@ describe(`Reducer works correctly`, () => {
       cardsRenderNumber: initialState.cardsRenderNumber,
       isPlayerActive: false,
       isServerAvailable: initialState.isServerAvailable,
+      filmsToWatch: initialState.filmsToWatch
     });
   });
 
@@ -75,6 +92,7 @@ describe(`Reducer works correctly`, () => {
       cardsRenderNumber: initialState.cardsRenderNumber,
       isPlayerActive: initialState.isPlayerActive,
       isServerAvailable: false,
+      filmsToWatch: initialState.filmsToWatch
     });
   });
 
@@ -85,6 +103,35 @@ describe(`Reducer works correctly`, () => {
       cardsRenderNumber: initialState.cardsRenderNumber,
       isPlayerActive: initialState.isPlayerActive,
       isServerAvailable: true,
+      filmsToWatch: initialState.filmsToWatch
+    });
+  });
+
+  it(`Reducer should add film to watch list correctly`, () => {
+    expect(reducer(initialState, ActionCreator.addFilmToWatch({
+      name: `Film`,
+    }))).toEqual({
+      genre: initialState.genre,
+      activeCard: initialState.activeCard,
+      cardsRenderNumber: initialState.cardsRenderNumber,
+      isPlayerActive: initialState.isPlayerActive,
+      isServerAvailable: initialState.isServerAvailable,
+      filmsToWatch: [{
+        name: `Film`,
+      }]
+    });
+  });
+
+  it(`Reducer should remove film to watch list correctly`, () => {
+    expect(reducer(initialStateForFilmToWatchList, ActionCreator.removeFilmToWatch({
+      name: `Film`
+    }))).toEqual({
+      genre: initialStateForFilmToWatchList.genre,
+      activeCard: initialStateForFilmToWatchList.activeCard,
+      cardsRenderNumber: initialStateForFilmToWatchList.cardsRenderNumber,
+      isPlayerActive: initialStateForFilmToWatchList.isPlayerActive,
+      isServerAvailable: initialStateForFilmToWatchList.isServerAvailable,
+      filmsToWatch: []
     });
   });
 });

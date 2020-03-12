@@ -1,11 +1,13 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {createStore} from "redux";
+import {Router} from "react-router-dom";
 import {Provider} from "react-redux";
 
 import {MovieDetails} from "./movie-details";
 
 import reducer from "../../reducer/reducer";
+import history from "../../history";
 
 const film = {
   name: `Film#1`,
@@ -91,13 +93,15 @@ it(`MovieDetails component renders correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={createStore(reducer)}>
-          <MovieDetails
-            films={films}
-            film={film}
-            filmNameClickHandler={() => {}}
-            activeCard={-1}
-            authorizationStatus={`NO_AUTH`}
-            loginButtonClickHandler={() => {}}/>
+          <Router history={history}>
+            <MovieDetails
+              films={films}
+              film={film}
+              filmNameClickHandler={() => {}}
+              activeCard={-1}
+              authorizationStatus={`NO_AUTH`}
+              loginButtonClickHandler={() => {}}/>
+          </Router>
         </Provider>
     )
     .toJSON();

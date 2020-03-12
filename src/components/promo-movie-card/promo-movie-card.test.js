@@ -1,11 +1,13 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
+import {Router} from "react-router-dom";
 import {createStore} from "redux";
 
 import PromoMovieCard from "./promo-movie-card";
 
 import reducer from "../../reducer/reducer";
+import history from "../../history";
 
 const promoFilmData = {
   name: `Film#1`,
@@ -31,7 +33,9 @@ it(`PromoMovieCard component renders correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={createStore(reducer)}>
-          <PromoMovieCard promoFilm={promoFilmData} loginButtonClickHandler={() => {}} />
+          <Router history={history}>
+            <PromoMovieCard promoFilm={promoFilmData} loginButtonClickHandler={() => {}} />
+          </Router>
         </Provider>
     )
     .toJSON();

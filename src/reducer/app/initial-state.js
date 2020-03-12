@@ -6,6 +6,7 @@ const initialState = {
   cardsRenderNumber: MAX_CARD_RENDER_NUMBER,
   isPlayerActive: false,
   isServerAvailable: true,
+  filmsToWatch: [],
 };
 
 export default initialState;
