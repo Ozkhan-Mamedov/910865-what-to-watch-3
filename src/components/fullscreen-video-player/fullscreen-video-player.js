@@ -53,7 +53,6 @@ class FullscreenVideoPlayer extends React.PureComponent {
         isFullscreenModeEnabled: true
       });
     } else {
-      video.exitFullscreen();
       this.setState({
         isFullscreenModeEnabled: false
       });

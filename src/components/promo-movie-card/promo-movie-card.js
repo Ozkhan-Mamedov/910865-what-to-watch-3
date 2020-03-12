@@ -37,7 +37,7 @@ const PromoMovieCard = (props) => {
               <span className="movie-card__year">{promoFilm.releaseDate}</span>
             </p>
 
-            <MovieCardButtons />
+            <MovieCardButtons film={promoFilm} />
           </div>
         </div>
       </div>

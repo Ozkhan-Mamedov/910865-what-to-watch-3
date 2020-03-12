@@ -38,6 +38,21 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         isServerAvailable: action.payload,
       });
+
+    case ActionType.ADD_FILM_TO_WATCH:
+      return extend(state, {
+        filmsToWatch: state.filmsToWatch.slice().concat(action.payload),
+      });
+
+    case ActionType.REMOVE_FILM_TO_WATCH:
+      const filmsToWatchList = state.filmsToWatch.slice();
+      const filmIndex = filmsToWatchList.findIndex((film) => film === action.payload);
+
+      filmsToWatchList.splice(filmIndex, 1);
+
+      return extend(state, {
+        filmsToWatch: filmsToWatchList,
+      });
   }
 
   return state;

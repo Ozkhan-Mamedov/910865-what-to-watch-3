@@ -23,6 +23,7 @@ exports[`MovieCardButtons component renders correctly 1`] = `
   </button>
   <button
     className="btn btn--list movie-card__button"
+    onClick={[Function]}
     type="button"
   >
     <svg
@@ -64,6 +65,7 @@ exports[`MovieCardButtons component renders correctly 2`] = `
   </button>
   <button
     className="btn btn--list movie-card__button"
+    onClick={[Function]}
     type="button"
   >
     <svg

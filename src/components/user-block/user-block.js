@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
-import {AUTHORIZATION_STATUS} from "../../constants";
+import {APP_ROUTES, AUTHORIZATION_STATUS} from "../../constants";
 
-const UserBlock = ({authorizationStatus, loginButtonClickHandler}) => {
+const UserBlock = ({authorizationStatus}) => {
   return (
     <div className="user-block">
 
@@ -11,8 +12,9 @@ const UserBlock = ({authorizationStatus, loginButtonClickHandler}) => {
         <div className="user-block__avatar">
           <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
         </div>
-        : <div className="user-block">
-          <a href="sign-in.html" className="user-block__link" onClick={loginButtonClickHandler}>Sign in</a>
+        :
+        <div className="user-block">
+          <Link className="user-block__link" to={APP_ROUTES.LOGIN}>Sign in</Link>
         </div>
       }
 
