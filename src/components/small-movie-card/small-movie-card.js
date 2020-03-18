@@ -3,8 +3,12 @@ import PropTypes from "prop-types";
 
 import VideoPlayer from "../video-player/video-player";
 
+import withVideoPlayerStatus from "../../hocs/withVideoPlayerStatus";
+
+const VideoPlayerWrapped = withVideoPlayerStatus(VideoPlayer);
+
 const SmallMovieCard = (props) => {
-  const {film, filmNameClickHandler, cardHoverHandler, activeCard} = props;
+  const {film, filmNameClickHandler, cardHoverHandler, cardId} = props;
   let timer;
 
   const cardMouseOverHandler = () => {
@@ -29,7 +33,7 @@ const SmallMovieCard = (props) => {
       onMouseOver={cardMouseOverHandler}
       onMouseOut={cardMouseOutHandler}
       onClick={cardClickHandler}>
-      {activeCard !== film.id ?
+      {cardId !== film.id ?
         <React.Fragment>
           <div className="small-movie-card__image">
             <img src={film.picture} alt={film.name} width="280" height="175"/>
@@ -38,7 +42,7 @@ const SmallMovieCard = (props) => {
             <a className="small-movie-card__link" href="movie-page.html">{film.name}</a>
           </h3>
         </React.Fragment> :
-        <VideoPlayer src={film.preview} poster={film.picture}/>
+        <VideoPlayerWrapped src={film.preview} poster={film.picture}/>
       }
     </article>
   );
@@ -66,7 +70,7 @@ SmallMovieCard.propTypes = {
   }),
   filmNameClickHandler: PropTypes.func.isRequired,
   cardHoverHandler: PropTypes.func.isRequired,
-  activeCard: PropTypes.number.isRequired,
+  cardId: PropTypes.number,
 };
 
 export default SmallMovieCard;

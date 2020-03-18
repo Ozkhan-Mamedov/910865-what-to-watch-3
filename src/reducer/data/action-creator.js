@@ -1,11 +1,12 @@
 import {
-  GET_COMMENTS_LIST, GET_FILM_LIST, GET_PROMO_MOVIE_DATA
+  GET_COMMENTS_LIST, GET_FILM_LIST, GET_PROMO_MOVIE_DATA, GET_FAVORITE_FILMS
 } from "../../constants";
 
 const ActionType = {
   GET_FILM_LIST,
   GET_COMMENTS_LIST,
   GET_PROMO_MOVIE_DATA,
+  GET_FAVORITE_FILMS,
 };
 
 const ActionCreator = {
@@ -23,6 +24,10 @@ const ActionCreator = {
     type: ActionType.GET_PROMO_MOVIE_DATA,
     payload: data,
   }),
+  getFavoriteFilms: (films) => ({
+    type: ActionType.GET_FAVORITE_FILMS,
+    payload: films,
+  })
 };
 
 export {ActionCreator, ActionType};

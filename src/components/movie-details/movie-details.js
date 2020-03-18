@@ -5,12 +5,12 @@ import {connect} from "react-redux";
 import MovieList from "../movie-list/movie-list";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import ErrorMessage from "../error-message/error-message";
 import Tabs from "../tabs/tabs";
-import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
-import FullscreenVideoPlayer from "../fullscreen-video-player/fullscreen-video-player";
+import {MovieCardButtons} from "../movie-card-buttons/movie-card-buttons";
 import UserBlock from "../user-block/user-block";
-import AddReview from "../add-review/add-review";
+
+import withHoveredCard from "../../hocs/withHoveredCard";
+import withFilmAddedToWatchStatus from "../../hocs/withFilmAddedToWatchStatus";
 
 import {
   MINUTES_IN_HOUR,
@@ -19,31 +19,25 @@ import {
   MONTH_SUBSTR,
   DAY_SUBSTR,
   YEAR_SUBSTR,
-  MORE_LIKE_THIS_LIST, MORE_LIKE_THIS_FILMS
+  MORE_LIKE_THIS_LIST,
+  MORE_LIKE_THIS_FILMS
 } from "../../constants";
-import {ActionCreator} from "../../reducer/app/action-creator";
-import {getActiveCard, getPlayerStatus} from "../../reducer/app/selectors";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
+import {Operation} from "../../reducer/data/reducer";
+
+const MovieCardButtonsWrapped = withFilmAddedToWatchStatus(MovieCardButtons);
+const MovieListWrapped = withHoveredCard(MovieList);
 
 class MovieDetails extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    /*
     this.state = {
       activeTab: TABS_KEYS.OVERVIEW,
-      addReviewButtonClicked: false,
-    };
+    };*/
 
-    this.tabClickHandler = this.tabClickHandler.bind(this);
-    this.onAddReviewButtonClickHandler = this.onAddReviewButtonClickHandler.bind(this);
-  }
-
-  onAddReviewButtonClickHandler(evt) {
-    evt.preventDefault();
-
-    this.setState({
-      addReviewButtonClicked: true,
-    });
+    // this.tabClickHandler = this.tabClickHandler.bind(this);
   }
 
   getMoreLikeThisFilm() {
@@ -53,13 +47,14 @@ class MovieDetails extends React.PureComponent {
     return films.filter((film) => film.genre === genre && targetFilm !== film);
   }
 
+  /*
   tabClickHandler(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({
         activeTab: tab,
       });
     }
-  }
+  }*/
 
   getDateTime(date) {
     const mseconds = Date.parse(date);
@@ -130,8 +125,8 @@ class MovieDetails extends React.PureComponent {
   }
 
   _renderTab() {
-    const {activeTab} = this.state;
-    const {film, filmComment} = this.props;
+    // const {activeTab} = this.state;
+    const {film, filmComment, activeTab} = this.props;
 
     switch (activeTab) {
       case TABS_KEYS.OVERVIEW:
@@ -242,102 +237,76 @@ class MovieDetails extends React.PureComponent {
   }
 
   render() {
-    const {film, filmNameClickHandler, isPlayerActive,
-      onExitButtonClickHandler, authorizationStatus,
-      loginButtonClickHandler} = this.props;
-    const {activeTab, addReviewButtonClicked} = this.state;
-
-    if (addReviewButtonClicked) {
-      return (
-        <AddReview>
-          <Header isMainPageElement={false}>
-            <React.Fragment>
-              <nav className="breadcrumbs">
-                <ul className="breadcrumbs__list">
-                  <li className="breadcrumbs__item">
-                    <a href="movie-page.html" className="breadcrumbs__link">{film.name}</a>
-                  </li>
-                  <li className="breadcrumbs__item">
-                    <a className="breadcrumbs__link">Add review</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <UserBlock authorizationStatus={`AUTH`} />
-            </React.Fragment>
-          </Header>
-        </AddReview>
-      );
-    }
+    const {film, filmNameClickHandler, authorizationStatus, activeTab, tabClickHandler} = this.props;
+    // const {activeTab} = this.state;
 
     return (
-      film !== undefined ?
-        <React.Fragment>
-          <section className="movie-card movie-card--full" style={{backgroundColor: film.backgroundColor}}>
-            <div className="movie-card__hero">
-              <div className="movie-card__bg">
-                <img src={film.backgroundImage} alt={film.name}/>
-              </div>
+      <React.Fragment>
+        <section className="movie-card movie-card--full" style={{backgroundColor: film.backgroundColor}}>
+          <div className="movie-card__hero">
+            <div className="movie-card__bg">
+              <img src={film.backgroundImage} alt={film.name}/>
+            </div>
 
-              <h1 className="visually-hidden">WTW</h1>
+            <h1 className="visually-hidden">WTW</h1>
 
-              <Header isMainPageElement={false} >
-                <UserBlock authorizationStatus={authorizationStatus} loginButtonClickHandler={loginButtonClickHandler}/>
-              </Header>
+            <Header isMainPageElement={false} >
+              <UserBlock authorizationStatus={authorizationStatus} />
+            </Header>
 
-              <div className="movie-card__wrap">
-                <div className="movie-card__desc">
-                  <h2 className="movie-card__title">{film.name}</h2>
-                  <p className="movie-card__meta">
-                    <span className="movie-card__genre">{film.genre}</span>
-                    <span className="movie-card__year">{film.releaseDate}</span>
-                  </p>
+            <div className="movie-card__wrap">
+              <div className="movie-card__desc">
+                <h2 className="movie-card__title">{film.name}</h2>
+                <p className="movie-card__meta">
+                  <span className="movie-card__genre">{film.genre}</span>
+                  <span className="movie-card__year">{film.releaseDate}</span>
+                </p>
 
-                  <MovieCardButtons authorizationStatus={authorizationStatus}
-                    onAddReviewButtonClick={this.onAddReviewButtonClickHandler}
-                    film={film}/>
-                </div>
+                <MovieCardButtonsWrapped authorizationStatus={authorizationStatus} film={film}/>
               </div>
             </div>
-            <div className="movie-card__wrap movie-card__translate-top">
-              <div className="movie-card__info">
-                <div className="movie-card__poster movie-card__poster--big">
-                  <img src={film.previewImage} alt="The Grand Budapest Hotel poster" width="218"
-                    height="327"/>
-                </div>
-                <div className="movie-card__desc">
-                  <nav className="movie-nav movie-card__nav">
-                    <Tabs activeTab={activeTab} onTabClick={this.tabClickHandler} />
-                  </nav>
-
-                  {this._renderTab()}
-
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <div className="page-content">
-            <MovieList films={this.getMoreLikeThisFilm().slice(0, MORE_LIKE_THIS_FILMS - 1)} filmNameClickHandler={filmNameClickHandler} list={MORE_LIKE_THIS_LIST} />
-
-            <Footer isMainPageElement={false} />
           </div>
-          {isPlayerActive ? <FullscreenVideoPlayer film={film} onExitButtonClickHandler={onExitButtonClickHandler} /> : null}
-        </React.Fragment>
-        : <ErrorMessage errorMessage={`Film not found!`}/>
+          <div className="movie-card__wrap movie-card__translate-top">
+            <div className="movie-card__info">
+              <div className="movie-card__poster movie-card__poster--big">
+                <img src={film.previewImage} alt="The Grand Budapest Hotel poster" width="218"
+                  height="327"/>
+              </div>
+              <div className="movie-card__desc">
+                <nav className="movie-nav movie-card__nav">
+                  <Tabs activeTab={activeTab} onTabClick={tabClickHandler} />
+                </nav>
+
+                {this._renderTab()}
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="page-content">
+          <MovieListWrapped films={this.getMoreLikeThisFilm().slice(0, MORE_LIKE_THIS_FILMS)} filmNameClickHandler={filmNameClickHandler} list={MORE_LIKE_THIS_LIST} />
+
+          <Footer isMainPageElement={false} />
+        </div>
+      </React.Fragment>
     );
+  }
+
+  componentDidMount() {
+    const {updateCommentsList, id} = this.props;
+
+    updateCommentsList(id);
   }
 }
 
 const mapStateToProps = (state) => ({
-  activeCard: getActiveCard(state),
-  isPlayerActive: getPlayerStatus(state),
   authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onExitButtonClickHandler() {
-    dispatch(ActionCreator.unrenderPlayer());
+  updateCommentsList(id) {
+    dispatch(Operation.getCommentsList(id));
   }
 });
 
@@ -389,10 +358,9 @@ MovieDetails.propTypes = {
     date: PropTypes.string.isRequired,
   })),
   filmNameClickHandler: PropTypes.func.isRequired,
-  isPlayerActive: PropTypes.bool,
-  onExitButtonClickHandler: PropTypes.func,
   authorizationStatus: PropTypes.string.isRequired,
-  loginButtonClickHandler: PropTypes.func.isRequired,
+  updateCommentsList: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export {MovieDetails};

@@ -1,11 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {Provider} from "react-redux";
-import {createStore} from "redux";
+import {Router} from "react-router-dom";
 
-import {AddReview} from "./add-review";
+import MyList from "./my-list";
 
-import reducer from "../../reducer/reducer";
+import {AUTHORIZATION_STATUS} from "../../constants";
+import history from "../../history";
 
 const films = [
   {
@@ -67,19 +67,12 @@ const films = [
   },
 ];
 
-it(`AddReview component renders correctly`, () => {
+it(`MyList component renders correctly`, () => {
   const tree = renderer
     .create(
-        <Provider store={createStore(reducer)}>
-          <AddReview
-            film={films[0]}
-            films={films}
-            activeCard={0}
-            postReview={() => {}}
-            changeActiveCard={() => {}}
-            id={0}
-            updateCommentsList={() => {}}/>
-        </Provider>
+        <Router history={history} >
+          <MyList films={films} authorizationStatus={AUTHORIZATION_STATUS.AUTH} filmNameClickHandler={() => {}}/>
+        </Router>
     )
     .toJSON();
 

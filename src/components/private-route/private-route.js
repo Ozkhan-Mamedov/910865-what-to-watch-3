@@ -6,16 +6,16 @@ import {Redirect, Route} from "react-router-dom";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {APP_ROUTES, AUTHORIZATION_STATUS} from "../../constants";
 
-const PrivateRoute = (props) => {
-  const {render, path, exact, authorizationStatus} = props;
+const PrivateRoute = (privateRouteProps) => {
+  const {render, path, exact, authorizationStatus} = privateRouteProps;
 
   return (
     <Route
       path={path}
       exact={exact}
-      render={() => {
+      render={(props) => {
         return authorizationStatus === AUTHORIZATION_STATUS.AUTH
-          ? render()
+          ? render(props)
           : <Redirect to={APP_ROUTES.LOGIN} />;
       }}
     />

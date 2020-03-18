@@ -4,9 +4,10 @@ exports[`MovieCardButtons component renders correctly 1`] = `
 <div
   className="movie-card__buttons"
 >
-  <button
+  <a
     className="btn btn--play movie-card__button"
-    type="button"
+    href="/player/0"
+    onClick={[Function]}
   >
     <svg
       height="19"
@@ -20,25 +21,7 @@ exports[`MovieCardButtons component renders correctly 1`] = `
     <span>
       Play
     </span>
-  </button>
-  <button
-    className="btn btn--list movie-card__button"
-    onClick={[Function]}
-    type="button"
-  >
-    <svg
-      height="20"
-      viewBox="0 0 19 20"
-      width="19"
-    >
-      <use
-        xlinkHref="#add"
-      />
-    </svg>
-    <span>
-      My list
-    </span>
-  </button>
+  </a>
 </div>
 `;
 
@@ -46,9 +29,10 @@ exports[`MovieCardButtons component renders correctly 2`] = `
 <div
   className="movie-card__buttons"
 >
-  <button
+  <a
     className="btn btn--play movie-card__button"
-    type="button"
+    href="/player/0"
+    onClick={[Function]}
   >
     <svg
       height="19"
@@ -62,30 +46,6 @@ exports[`MovieCardButtons component renders correctly 2`] = `
     <span>
       Play
     </span>
-  </button>
-  <button
-    className="btn btn--list movie-card__button"
-    onClick={[Function]}
-    type="button"
-  >
-    <svg
-      height="20"
-      viewBox="0 0 19 20"
-      width="19"
-    >
-      <use
-        xlinkHref="#add"
-      />
-    </svg>
-    <span>
-      My list
-    </span>
-  </button>
-  <a
-    className="btn movie-card__button"
-    href="add-review.html"
-  >
-    Add review
   </a>
 </div>
 `;

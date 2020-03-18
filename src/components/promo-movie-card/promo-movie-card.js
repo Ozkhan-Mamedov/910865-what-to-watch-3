@@ -3,13 +3,17 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import Header from "../header/header";
-import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
+import {MovieCardButtons} from "../movie-card-buttons/movie-card-buttons";
 import UserBlock from "../user-block/user-block";
+
+import withFilmAddedToWatchStatus from "../../hocs/withFilmAddedToWatchStatus";
 
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 
+const MovieCardButtonsWrapped = withFilmAddedToWatchStatus(MovieCardButtons);
+
 const PromoMovieCard = (props) => {
-  const {promoFilm, authorizationStatus, loginButtonClickHandler} = props;
+  const {promoFilm, authorizationStatus} = props;
 
   return (
     <section className="movie-card">
@@ -20,7 +24,7 @@ const PromoMovieCard = (props) => {
       <h1 className="visually-hidden">WTW</h1>
 
       <Header>
-        <UserBlock authorizationStatus={authorizationStatus} loginButtonClickHandler={loginButtonClickHandler}/>
+        <UserBlock authorizationStatus={authorizationStatus}/>
       </Header>
 
       <div className="movie-card__wrap">
@@ -37,7 +41,7 @@ const PromoMovieCard = (props) => {
               <span className="movie-card__year">{promoFilm.releaseDate}</span>
             </p>
 
-            <MovieCardButtons film={promoFilm} />
+            <MovieCardButtonsWrapped film={promoFilm} authorizationStatus={authorizationStatus} isMainPageElement={true} />
           </div>
         </div>
       </div>
@@ -70,7 +74,6 @@ PromoMovieCard.propTypes = {
     backgroundImage: PropTypes.string.isRequired,
   }),
   authorizationStatus: PropTypes.string,
-  loginButtonClickHandler: PropTypes.func.isRequired,
 };
 
 export {PromoMovieCard};

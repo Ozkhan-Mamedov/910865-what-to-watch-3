@@ -10,7 +10,9 @@ const UserBlock = ({authorizationStatus}) => {
 
       {authorizationStatus === AUTHORIZATION_STATUS.AUTH ?
         <div className="user-block__avatar">
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+          <Link to={APP_ROUTES.MY_LIST}>
+            <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+          </Link>
         </div>
         :
         <div className="user-block">
@@ -24,7 +26,6 @@ const UserBlock = ({authorizationStatus}) => {
 
 UserBlock.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  loginButtonClickHandler: PropTypes.func,
 };
 
 export default UserBlock;

@@ -8,6 +8,7 @@ import {MovieDetails} from "./movie-details";
 
 import reducer from "../../reducer/reducer";
 import history from "../../history";
+import {AUTHORIZATION_STATUS} from "../../constants";
 
 const film = {
   name: `Film#1`,
@@ -99,8 +100,10 @@ it(`MovieDetails component renders correctly`, () => {
               film={film}
               filmNameClickHandler={() => {}}
               activeCard={-1}
-              authorizationStatus={`NO_AUTH`}
-              loginButtonClickHandler={() => {}}/>
+              authorizationStatus={AUTHORIZATION_STATUS.NO_AUTH}
+              loginButtonClickHandler={() => {}}
+              id={0}
+              updateCommentsList={() => {}}/>
           </Router>
         </Provider>
     )

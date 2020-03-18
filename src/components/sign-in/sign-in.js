@@ -5,19 +5,25 @@ import PropTypes from "prop-types";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 
-import {HEADER_TYPE} from "../../constants";
+import {AUTH_ERROR_MESSAGE, HEADER_TYPE} from "../../constants";
 import {Operation} from "../../reducer/user/reducer";
 
 class SignIn extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    /*
+    this.state = {
+      errorMessage: ``,
+    };
+
     this.loginRef = React.createRef();
     this.passwordRef = React.createRef();
 
-    this.formSubmitHandler = this.formSubmitHandler.bind(this);
+    this.formSubmitHandler = this.formSubmitHandler.bind(this);*/
   }
 
+  /*
   formSubmitHandler(evt) {
     const {sendAuthData} = this.props;
 
@@ -25,10 +31,15 @@ class SignIn extends React.PureComponent {
     sendAuthData({
       login: this.loginRef.current.value,
       password: this.passwordRef.current.value,
-    });
-  }
+    }, () => this.setState({
+      errorMessage: AUTH_ERROR_MESSAGE
+    }));
+  }*/
 
   render() {
+    // const {errorMessage} = this.state;
+    const {errorMessage, formSubmitHandler, loginRef, passwordRef} = this.props;
+
     return (
       <div className="user-page">
         <Header isMainPageElement={false} type={HEADER_TYPE.USER_PAGE}>
@@ -36,16 +47,22 @@ class SignIn extends React.PureComponent {
         </Header>
 
         <div className="sign-in user-page__content">
-          <form action="#" className="sign-in__form" onSubmit={this.formSubmitHandler}>
+          <form action="#" className="sign-in__form" onSubmit={formSubmitHandler}>
+            {errorMessage ?
+              <div className="sign-in__message">
+                <p>{errorMessage}</p>
+              </div>
+              : null
+            }
             <div className="sign-in__fields">
-              <div className="sign-in__field">
+              <div className={`sign-in__field ${errorMessage ? `sign-in__field--error` : null}`}>
                 <input className="sign-in__input" type="email" placeholder="Email address" name="user-email"
-                  id="user-email" ref={this.loginRef} />
+                  id="user-email" ref={loginRef} />
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               </div>
               <div className="sign-in__field">
                 <input className="sign-in__input" type="password" placeholder="Password" name="user-password"
-                  id="user-password" required={true} ref={this.passwordRef} />
+                  id="user-password" required={true} ref={passwordRef} />
                 <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
               </div>
             </div>
@@ -61,15 +78,16 @@ class SignIn extends React.PureComponent {
   }
 }
 
+/*
 const mapDispatchToProps = (dispatch) => ({
-  sendAuthData(data) {
-    dispatch(Operation.login(data));
+  sendAuthData(data, onError) {
+    dispatch(Operation.login(data, onError));
   }
-});
+});*/
 
 SignIn.propTypes = {
   sendAuthData: PropTypes.func.isRequired,
 };
 
 export {SignIn};
-export default connect(null, mapDispatchToProps)(SignIn);
+// export default connect(null, mapDispatchToProps)(SignIn);

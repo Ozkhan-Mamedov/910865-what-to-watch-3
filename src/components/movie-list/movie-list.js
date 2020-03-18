@@ -7,31 +7,36 @@ import ShowMoreButton from "../show-more-button/show-more-button";
 
 import {MORE_LIKE_THIS_LIST, MOVIE_LIST} from "../../constants";
 import {ActionCreator} from "../../reducer/app/action-creator";
-import {getCardsRenderNumber, getGenre} from "../../reducer/app/selectors";
+import {getCardsRenderNumber} from "../../reducer/app/selectors";
 import {getFilteredFilmList} from "../../reducer/data/selectors";
 
 class MovieList extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    /*
     this.state = {
-      activeCard: -1
-    };
+      hoveredCard: -1
+    };*/
 
-    this.cardHoverHandler = this.cardHoverHandler.bind(this);
+    // this.cardHoverHandler = this.cardHoverHandler.bind(this);
   }
 
+  /*
   cardHoverHandler(id) {
-    if (id !== this.state.activeCard) {
+    const {hoveredCard} = this.props;
+
+    if (id !== hoveredCard) {
       this.setState({
-        activeCard: id,
+        hoveredCard: id,
       });
     }
-  }
+  }*/
 
   _renderList() {
-    const {films, filmNameClickHandler, list,
-      cardsRenderNumber, incrementCardsNumber, filteredFilmsList} = this.props;
+    // const {hoveredCard} = this.state;
+    const {hoveredCard, films, filmNameClickHandler, list,
+      cardsRenderNumber, incrementCardsNumber, filteredFilmsList, cardHoverHandler} = this.props;
 
     switch (list) {
       case MOVIE_LIST:
@@ -48,8 +53,8 @@ class MovieList extends React.PureComponent {
                     key={index}
                     film={film}
                     filmNameClickHandler={filmNameClickHandler}
-                    cardHoverHandler={this.cardHoverHandler}
-                    activeCard={this.state.activeCard}
+                    cardHoverHandler={cardHoverHandler}
+                    cardId={hoveredCard}
                   />
                 )
               }
@@ -74,8 +79,8 @@ class MovieList extends React.PureComponent {
                       key={index}
                       film={film}
                       filmNameClickHandler={filmNameClickHandler}
-                      cardHoverHandler={this.cardHoverHandler}
-                      activeCard={this.state.activeCard}
+                      cardHoverHandler={cardHoverHandler}
+                      cardId={hoveredCard}
                     />
                   )
                 }
@@ -99,7 +104,6 @@ class MovieList extends React.PureComponent {
 
 const mapStateToProps = (state) => ({
   cardsRenderNumber: getCardsRenderNumber(state),
-  activeGenre: getGenre(state),
   filteredFilmsList: getFilteredFilmList(state),
 });
 

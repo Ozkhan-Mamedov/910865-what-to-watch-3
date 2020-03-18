@@ -1,63 +1,66 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
-import {ActionCreator} from "../../reducer/app/action-creator";
-import {AUTHORIZATION_STATUS} from "../../constants";
+import {Operation} from "../../reducer/data/reducer";
+import {APP_ROUTES, AUTHORIZATION_STATUS} from "../../constants";
 
 class MovieCardButtons extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    /*
     this.state = {
-      isFilmAddedToWatch: false,
+      isFilmAddedToWatch: this.props.film.isFavorite,
     };
 
-    this.onAddToWatchButtonClick = this.onAddToWatchButtonClick.bind(this);
+    this.onAddToWatchButtonClick = this.onAddToWatchButtonClick.bind(this);*/
   }
 
+  /*
   onAddToWatchButtonClick() {
     const {isFilmAddedToWatch} = this.state;
-    const {addFilmToWatch, removeFilmToWatch, film} = this.props;
-
-    this.setState({
-      isFilmAddedToWatch: !isFilmAddedToWatch,
-    });
+    const {changeFavoriteFilmStatus, film, updateData} = this.props;
 
     if (!isFilmAddedToWatch) {
       this.setState({
         isFilmAddedToWatch: true,
       });
-      addFilmToWatch(film);
+      changeFavoriteFilmStatus(film.id, 1, updateData);
     } else {
       this.setState({
         isFilmAddedToWatch: false,
       });
-      removeFilmToWatch(film);
+      changeFavoriteFilmStatus(film.id, 0, updateData);
     }
-  }
+  }*/
 
   render() {
-    const {isFilmAddedToWatch} = this.state;
-    const {isMainPageElement, renderPlayer, authorizationStatus, onAddReviewButtonClick} = this.props;
+    //const {isFilmAddedToWatch} = this.state;
+    const {isMainPageElement, authorizationStatus, film, isFilmAddedToWatch, onAddToWatchButtonClick} = this.props;
 
     return (
       <div className="movie-card__buttons">
-        <button className="btn btn--play movie-card__button" type="button" onClick={renderPlayer}>
+        <Link to={`${APP_ROUTES.PLAYER}/${film.id - 1}`} className="btn btn--play movie-card__button" >
           <svg viewBox="0 0 19 19" width="19" height="19">
             <use xlinkHref="#play-s"/>
           </svg>
           <span>Play</span>
-        </button>
-        <button className="btn btn--list movie-card__button" type="button" onClick={this.onAddToWatchButtonClick}>
-          <svg viewBox="0 0 19 20" width="19" height="20">
-            <use xlinkHref={isFilmAddedToWatch ? `#in-list` : `#add`}/>
-          </svg>
-          <span>My list</span>
-        </button>
+        </Link>
         {
-          isMainPageElement || (authorizationStatus === AUTHORIZATION_STATUS.AUTH) ?
-            <a href="add-review.html" className="btn movie-card__button" onClick={onAddReviewButtonClick}>Add review</a>
+          authorizationStatus === AUTHORIZATION_STATUS.AUTH ?
+            <button className="btn btn--list movie-card__button" type="button" onClick={onAddToWatchButtonClick}>
+              <svg viewBox="0 0 19 20" width="19" height="20">
+                <use xlinkHref={isFilmAddedToWatch ? `#in-list` : `#add`}/>
+              </svg>
+              <span>My list</span>
+            </button>
+            : null
+        }
+        {
+          isMainPageElement === false && (authorizationStatus === AUTHORIZATION_STATUS.AUTH) ?
+            <Link to={`${APP_ROUTES.FILM}/${film.id - 1}/review`} className="btn movie-card__button">Add review</Link>
             : null
         }
       </div>
@@ -65,32 +68,25 @@ class MovieCardButtons extends React.PureComponent {
   }
 }
 
+/*
 const mapDispatchToProps = (dispatch) => ({
-  renderPlayer() {
-    dispatch(ActionCreator.renderPlayer());
+  changeFavoriteFilmStatus(id, status, resolver) {
+    dispatch(Operation.changeFavoriteFilmStatus(id, status, resolver));
   },
-  addFilmToWatch(film) {
-    dispatch(ActionCreator.addFilmToWatch(film));
-  },
-  removeFilmToWatch(film) {
-    dispatch(ActionCreator.removeFilmToWatch(film));
+  updateData() {
+    dispatch(Operation.getFilmList());
+    dispatch(Operation.getPromoMovieData());
+    dispatch(Operation.getFavoriteFilms());
   }
-});
+});*/
 
-MovieCardButtons.defaultProps = {
+/*MovieCardButtons.defaultProps = {
   isMainPageElement: false
-};
+};*/
 
 MovieCardButtons.propTypes = {
   isMainPageElement: PropTypes.bool.isRequired,
-  renderPlayer: PropTypes.func,
   authorizationStatus: PropTypes.string,
-  onAddReviewButtonClick: PropTypes.func,
-};
-
-MovieCardButtons.propTypes = {
-  addFilmToWatch: PropTypes.func,
-  removeFilmToWatch: PropTypes.func,
   film: PropTypes.exact({
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
@@ -109,8 +105,10 @@ MovieCardButtons.propTypes = {
     isFavorite: PropTypes.bool.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
-  })
+  }),
+  changeFavoriteFilmStatus: PropTypes.func,
+  updateData: PropTypes.func,
 };
 
 export {MovieCardButtons};
-export default connect(null, mapDispatchToProps)(MovieCardButtons);
+//export default connect(null, mapDispatchToProps)(MovieCardButtons);

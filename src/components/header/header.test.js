@@ -1,12 +1,17 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {Router} from "react-router-dom";
 
 import Header from "./header";
+
+import history from "../../history";
 
 it(`Main Header component renders correctly`, () => {
   const tree = renderer
     .create(
-        <Header />
+        <Router history={history}>
+          <Header />
+        </Router>
     )
     .toJSON();
 
@@ -16,7 +21,9 @@ it(`Main Header component renders correctly`, () => {
 it(`Header component renders correctly`, () => {
   const tree = renderer
     .create(
-        <Header isMainPageElement={false}/>
+        <Router history={history}>
+          <Header isMainPageElement={false}/>
+        </Router>
     )
     .toJSON();
 

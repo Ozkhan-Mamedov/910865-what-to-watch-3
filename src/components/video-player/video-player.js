@@ -7,27 +7,29 @@ class VideoPlayer extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    /*
     this.state = {
       isPaused: true,
       isPlaying: false,
     };
 
-    this._videoRef = React.createRef();
+    this._videoRef = React.createRef();*/
   }
 
   render() {
-    const {poster} = this.props;
+    const {poster, videoRef} = this.props;
 
     return (
       <video
         width={PREVIEW_PLAYER_PROPERTIES.WIDTH}
         height={PREVIEW_PLAYER_PROPERTIES.HEIGHT}
         poster={poster}
-        ref={this._videoRef}
+        ref={videoRef}
       />
     );
   }
 
+  /*
   componentDidMount() {
     const {src} = this.props;
     const video = this._videoRef.current;
@@ -62,7 +64,7 @@ class VideoPlayer extends React.PureComponent {
 
     video.oncanplaythrough = null;
     video.src = ``;
-  }
+  }*/
 }
 
 VideoPlayer.propTypes = {

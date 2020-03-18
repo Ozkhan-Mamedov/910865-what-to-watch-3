@@ -13,7 +13,8 @@ exports[`SignIn component renders correctly for main page 1`] = `
     >
       <a
         className="logo__link"
-        href="main.html"
+        href="/"
+        onClick={[Function]}
       >
         <span
           className="logo__letter logo__letter--1"
@@ -50,7 +51,7 @@ exports[`SignIn component renders correctly for main page 1`] = `
         className="sign-in__fields"
       >
         <div
-          className="sign-in__field"
+          className="sign-in__field null"
         >
           <input
             className="sign-in__input"
@@ -105,7 +106,8 @@ exports[`SignIn component renders correctly for main page 1`] = `
     >
       <a
         className="logo__link logo__link--light"
-        href="main.html"
+        href="/"
+        onClick={[Function]}
       >
         <span
           className="logo__letter logo__letter--1"
