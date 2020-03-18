@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {Router} from "react-router-dom";
 
-import {MovieCardButtons} from "./movie-card-buttons";
+import MovieCardButtons from "./movie-card-buttons";
 
 import history from "../../history";
 
@@ -30,7 +30,7 @@ it(`MovieCardButtons component renders correctly`, () => {
   const tree = renderer
     .create(
         <Router history={history}>
-          <MovieCardButtons film={film} />
+          <MovieCardButtons film={film} onAddToWatchButtonClick={() => {}}/>
         </Router>
     )
     .toJSON();
@@ -42,7 +42,7 @@ it(`MovieCardButtons component renders correctly`, () => {
   const tree = renderer
     .create(
         <Router history={history}>
-          <MovieCardButtons film={film} isMainPageElement={true}/>
+          <MovieCardButtons film={film} isMainPageElement={true} onAddToWatchButtonClick={() => {}}/>
         </Router>
     )
     .toJSON();

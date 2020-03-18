@@ -1,50 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 
 import SmallMovieCard from "../small-movie-card/small-movie-card";
 import ShowMoreButton from "../show-more-button/show-more-button";
 
 import {MORE_LIKE_THIS_LIST, MOVIE_LIST} from "../../constants";
-import {ActionCreator} from "../../reducer/app/action-creator";
-import {getCardsRenderNumber} from "../../reducer/app/selectors";
-import {getFilteredFilmList} from "../../reducer/data/selectors";
 
-class MovieList extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const MovieList = (props) => {
+  const {hoveredCard, films, filmNameClickHandler, list,
+    cardsRenderNumber, incrementCardsNumber, filteredFilmsList, cardHoverHandler, children} = props;
 
-    /*
-    this.state = {
-      hoveredCard: -1
-    };*/
-
-    // this.cardHoverHandler = this.cardHoverHandler.bind(this);
-  }
-
-  /*
-  cardHoverHandler(id) {
-    const {hoveredCard} = this.props;
-
-    if (id !== hoveredCard) {
-      this.setState({
-        hoveredCard: id,
-      });
-    }
-  }*/
-
-  _renderList() {
-    // const {hoveredCard} = this.state;
-    const {hoveredCard, films, filmNameClickHandler, list,
-      cardsRenderNumber, incrementCardsNumber, filteredFilmsList, cardHoverHandler} = this.props;
-
+  const _renderList = () => {
     switch (list) {
       case MOVIE_LIST:
         return (
           <section className="catalog">
             <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-            {this.props.children}
+            {children}
 
             <div className="catalog__movies-list">
               {
@@ -93,27 +66,16 @@ class MovieList extends React.PureComponent {
     }
 
     return null;
-  }
+  };
 
-  render() {
-    return (
-      this._renderList()
-    );
-  }
-}
-
-const mapStateToProps = (state) => ({
-  cardsRenderNumber: getCardsRenderNumber(state),
-  filteredFilmsList: getFilteredFilmList(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  incrementCardsNumber() {
-    dispatch(ActionCreator.incrementCardsNumber());
-  },
-});
+  return (
+    _renderList()
+  );
+};
 
 MovieList.propTypes = {
+  hoveredCard: PropTypes.number,
+  cardHoverHandler: PropTypes.func,
   films: PropTypes.arrayOf(PropTypes.exact({
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
@@ -156,8 +118,7 @@ MovieList.propTypes = {
     isFavorite: PropTypes.bool.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
-  }))
+  })),
 };
 
-export {MovieList};
-export default connect(mapStateToProps, mapDispatchToProps)(MovieList);
+export default MovieList;

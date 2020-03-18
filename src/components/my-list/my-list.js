@@ -4,16 +4,12 @@ import PropTypes from "prop-types";
 import Header from "../header/header";
 import UserBlock from "../user-block/user-block";
 import Footer from "../footer/footer";
-import {MovieList} from "../movie-list/movie-list";
-
-import withHoveredCard from "../../hocs/withHoveredCard";
+import MovieList from "../movie-list/movie-list";
 
 import {HEADER_TYPE, MOVIE_LIST} from "../../constants";
 
-const MovieListWrapped = withHoveredCard(MovieList);
-
 const MyList = (props) => {
-  const {authorizationStatus, filmNameClickHandler, films} = props;
+  const {authorizationStatus, filmNameClickHandler, films, cardHoverHandler, hoveredCard} = props;
 
   return (
     <div className="user-page">
@@ -24,7 +20,13 @@ const MyList = (props) => {
         </React.Fragment>
       </Header>
 
-      <MovieListWrapped filteredFilmsList={films} list={MOVIE_LIST} filmNameClickHandler={filmNameClickHandler}/>
+      <MovieList
+        filteredFilmsList={films}
+        list={MOVIE_LIST}
+        filmNameClickHandler={filmNameClickHandler}
+        hoveredCard={hoveredCard}
+        cardHoverHandler={cardHoverHandler}
+      />
 
       <Footer isMainPageElement={false} />
     </div>
@@ -52,7 +54,9 @@ MyList.propTypes = {
     isFavorite: PropTypes.bool.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
-  }))
+  })),
+  cardHoverHandler: PropTypes.func,
+  hoveredCard: PropTypes.number,
 };
 
 export default MyList;

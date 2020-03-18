@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+import PropTypes from "prop-types";
 
 import history from "../history";
 import {MAX_POST_LENGTH, MIN_POST_LENGTH} from "../constants";
@@ -136,6 +137,14 @@ const withAddReviewFormStatus = (Component) => {
       dispatch(appActionCreator.changeActiveCard(id));
     }
   });
+
+  WithAddReviewFormStatus.propTypes = {
+    changeActiveCard: PropTypes.func.isRequired,
+    id: PropTypes.number.isRequired,
+    postReview: PropTypes.func.isRequired,
+    activeCard: PropTypes.number.isRequired,
+    updateCommentsList: PropTypes.func.isRequired,
+  };
 
   return connect(mapStateToProps, mapDispatchToProps)(WithAddReviewFormStatus);
 };

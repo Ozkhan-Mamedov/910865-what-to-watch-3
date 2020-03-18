@@ -4,11 +4,11 @@ import {createStore} from "redux";
 import {Router} from "react-router-dom";
 import {Provider} from "react-redux";
 
-import {MovieDetails} from "./movie-details";
+import MovieDetails from "./movie-details";
 
 import reducer from "../../reducer/reducer";
 import history from "../../history";
-import {AUTHORIZATION_STATUS} from "../../constants";
+import {AUTHORIZATION_STATUS, TABS_KEYS} from "../../constants";
 
 const film = {
   name: `Film#1`,
@@ -103,7 +103,16 @@ it(`MovieDetails component renders correctly`, () => {
               authorizationStatus={AUTHORIZATION_STATUS.NO_AUTH}
               loginButtonClickHandler={() => {}}
               id={0}
-              updateCommentsList={() => {}}/>
+              updateCommentsList={() => {}}
+              activeTab={TABS_KEYS.OVERVIEW}
+              tabClickHandler={() => {}}
+              formatRating={() => {}}
+              getTextRating={() => {}}
+              getMoreLikeThisFilm={() => {
+                return [];
+              }}
+              getDateTime={() => {}}
+            />
           </Router>
         </Provider>
     )

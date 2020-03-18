@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+import PropTypes from "prop-types";
 
 import {AUTH_ERROR_MESSAGE} from "../constants";
 import {Operation} from "../reducer/user/reducer";
@@ -48,6 +49,10 @@ const withErrorMessage = (Component) => {
       dispatch(Operation.login(data, onError));
     }
   });
+
+  WithErrorMessage.propTypes = {
+    sendAuthData: PropTypes.func.isRequired,
+  };
 
   return connect(null, mapDispatchToProps)(WithErrorMessage);
 };

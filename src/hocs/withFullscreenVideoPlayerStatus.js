@@ -1,8 +1,7 @@
 import React from "react";
-import {connect} from "react-redux";
 
-import {Operation} from "../reducer/data/reducer";
 import {MINUTES_IN_HOUR, SECONDS_IN_MINUTE} from "../constants";
+import PropTypes from "prop-types";
 
 const withFullscreenVideoPlayerStatus = (Component) => {
   class WithFullscreenVideoPlayerStatus extends React.PureComponent {
@@ -135,6 +134,28 @@ const withFullscreenVideoPlayerStatus = (Component) => {
       video.ontimeupdate = null;
     }
   }
+
+  WithFullscreenVideoPlayerStatus.propTypes = {
+    film: PropTypes.exact({
+      name: PropTypes.string.isRequired,
+      picture: PropTypes.string.isRequired,
+      genre: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      releaseDate: PropTypes.string.isRequired,
+      ratingScore: PropTypes.number.isRequired,
+      ratingsNumber: PropTypes.number.isRequired,
+      director: PropTypes.string.isRequired,
+      starring: PropTypes.arrayOf(PropTypes.string),
+      description: PropTypes.string,
+      preview: PropTypes.string.isRequired,
+      runTime: PropTypes.number.isRequired,
+      previewImage: PropTypes.string.isRequired,
+      videoLink: PropTypes.string.isRequired,
+      isFavorite: PropTypes.bool.isRequired,
+      backgroundColor: PropTypes.string.isRequired,
+      backgroundImage: PropTypes.string.isRequired,
+    }),
+  };
 
   return WithFullscreenVideoPlayerStatus;
 };

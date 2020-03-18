@@ -1,8 +1,5 @@
 import React from "react";
-import {connect} from "react-redux";
-
-import {Operation} from "../reducer/data/reducer";
-import {MovieCardButtons} from "../components/movie-card-buttons/movie-card-buttons";
+import PropTypes from "prop-types";
 
 const withVideoPlayerStatus = (Component) => {
   class WithVideoPlayerStatus extends React.PureComponent {
@@ -59,6 +56,10 @@ const withVideoPlayerStatus = (Component) => {
       video.src = ``;
     }
   }
+
+  WithVideoPlayerStatus.propTypes = {
+    src: PropTypes.string.isRequired
+  };
 
   return WithVideoPlayerStatus;
 };

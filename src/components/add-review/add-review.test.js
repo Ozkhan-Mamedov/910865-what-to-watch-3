@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import {createStore} from "redux";
 
-import {AddReview} from "./add-review";
+import AddReview from "./add-review";
 
 import reducer from "../../reducer/reducer";
 
@@ -78,7 +78,11 @@ it(`AddReview component renders correctly`, () => {
             postReview={() => {}}
             changeActiveCard={() => {}}
             id={0}
-            updateCommentsList={() => {}}/>
+            updateCommentsList={() => {}}
+            textAreaChangeHandler={() => {}}
+            formSubmitHandler={() => {}}
+            radioButtonClickHandler={() => {}}
+          />
         </Provider>
     )
     .toJSON();

@@ -14,7 +14,7 @@ it(`SignIn component renders correctly for main page`, () => {
     .create(
         <Provider store={createStore(reducer)}>
           <Router history={history}>
-            <SignIn />
+            <SignIn errorMessage={`Error!`} formSubmitHandler={() => {}}/>
           </Router>
         </Provider>)
     .toJSON();

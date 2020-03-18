@@ -1,141 +1,39 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 
 import MovieList from "../movie-list/movie-list";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import Tabs from "../tabs/tabs";
-import {MovieCardButtons} from "../movie-card-buttons/movie-card-buttons";
+import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
 import UserBlock from "../user-block/user-block";
 
 import withHoveredCard from "../../hocs/withHoveredCard";
 import withFilmAddedToWatchStatus from "../../hocs/withFilmAddedToWatchStatus";
 
 import {
-  MINUTES_IN_HOUR,
   TABS_KEYS,
-  MONTH_KEYS,
-  MONTH_SUBSTR,
-  DAY_SUBSTR,
-  YEAR_SUBSTR,
   MORE_LIKE_THIS_LIST,
   MORE_LIKE_THIS_FILMS
 } from "../../constants";
-import {getAuthorizationStatus} from "../../reducer/user/selectors";
-import {Operation} from "../../reducer/data/reducer";
 
 const MovieCardButtonsWrapped = withFilmAddedToWatchStatus(MovieCardButtons);
 const MovieListWrapped = withHoveredCard(MovieList);
 
-class MovieDetails extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const MovieDetails = (props) => {
+  const {film, filmNameClickHandler, authorizationStatus, activeTab, tabClickHandler,
+    getMoreLikeThisFilm, formatRating, getTextRating, filmComment, getStarringList,
+    getDateTime, getFullDate, getFilmDuration} = props;
 
-    /*
-    this.state = {
-      activeTab: TABS_KEYS.OVERVIEW,
-    };*/
-
-    // this.tabClickHandler = this.tabClickHandler.bind(this);
-  }
-
-  getMoreLikeThisFilm() {
-    const {film: targetFilm, films} = this.props;
-    const {genre} = targetFilm;
-
-    return films.filter((film) => film.genre === genre && targetFilm !== film);
-  }
-
-  /*
-  tabClickHandler(tab) {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab,
-      });
-    }
-  }*/
-
-  getDateTime(date) {
-    const mseconds = Date.parse(date);
-
-    return new Date(mseconds).toLocaleDateString().replace(/\./g, `-`);
-  }
-
-  getFullDate(date) {
-    const mseconds = Date.parse(date);
-    const dateString = new Date(mseconds).toDateString();
-    const year = dateString.substr(YEAR_SUBSTR.START, YEAR_SUBSTR.LENGTH);
-    const currentMonthKey = dateString.substr(MONTH_SUBSTR.START, MONTH_SUBSTR.LENGTH);
-    const month = MONTH_KEYS.find((monthKey) => monthKey.key === currentMonthKey).month;
-    const day = dateString.substr(DAY_SUBSTR.START, DAY_SUBSTR.LENGTH);
-
-    return `${month} ${day[0] === `0` ? day[day.length - 1] : day}, ${year}`;
-  }
-
-  getTextRating(num) {
-    if (num < 3) {
-      return `Bad`;
-    }
-    if ((num >= 3) && (num < 5)) {
-      return `Normal`;
-    }
-    if ((num >= 5) && (num < 8)) {
-      return `Good`;
-    }
-    if ((num >= 8) && (num < 10)) {
-      return `Very good`;
-    }
-    if (num === 10) {
-      return `Awesome`;
-    }
-
-    return null;
-  }
-
-  formatRating(num) {
-    const stringNumber = num.toString();
-
-    return stringNumber.replace(`.`, `,`);
-  }
-
-  getFilmDuration(duration) {
-    const hours = Math.floor(duration / MINUTES_IN_HOUR);
-    const minutes = duration - (hours * MINUTES_IN_HOUR);
-
-    return `${hours === 0 ? `` : hours + `h `}${minutes === 0 ? `` : minutes + `m`}`;
-  }
-
-  getStarringList(actors) {
-    return actors.map((actor, index, arr) => {
-      if (index < arr.length - 1) {
-        return (
-          <React.Fragment key={index}>
-            {actor}, <br/>
-          </React.Fragment>
-        );
-      } else {
-        return (
-          <React.Fragment key={index}>
-            {actor}
-          </React.Fragment>
-        );
-      }
-    });
-  }
-
-  _renderTab() {
-    // const {activeTab} = this.state;
-    const {film, filmComment, activeTab} = this.props;
-
+  const _renderTab = () => {
     switch (activeTab) {
       case TABS_KEYS.OVERVIEW:
         return (
           <div className="movie-card__desc">
             <div className="movie-rating">
-              <div className="movie-rating__score">{this.formatRating(film.ratingsNumber)}</div>
+              <div className="movie-rating__score">{formatRating(film.ratingsNumber)}</div>
               <p className="movie-rating__meta">
-                <span className="movie-rating__level">{this.getTextRating(film.ratingsNumber)}</span>
+                <span className="movie-rating__level">{getTextRating(film.ratingsNumber)}</span>
                 <span className="movie-rating__count">{film.ratingScore} ratings</span>
               </p>
             </div>
@@ -162,7 +60,7 @@ class MovieDetails extends React.PureComponent {
               <p className="movie-card__details-item">
                 <strong className="movie-card__details-name">Starring</strong>
                 <span className="movie-card__details-value">
-                  {this.getStarringList(film.starring)}
+                  {getStarringList(film.starring)}
                 </span>
               </p>
             </div>
@@ -170,7 +68,7 @@ class MovieDetails extends React.PureComponent {
             <div className="movie-card__text-col">
               <p className="movie-card__details-item">
                 <strong className="movie-card__details-name">Run Time</strong>
-                <span className="movie-card__details-value">{this.getFilmDuration(film.runTime)}</span>
+                <span className="movie-card__details-value">{getFilmDuration(film.runTime)}</span>
               </p>
               <p className="movie-card__details-item">
                 <strong className="movie-card__details-name">Genre</strong>
@@ -198,13 +96,13 @@ class MovieDetails extends React.PureComponent {
 
                       <footer className="review__details">
                         <cite className="review__author">{comment.userName}</cite>
-                        <time className="review__date" dateTime={this.getDateTime(comment.date)}>
-                          {this.getFullDate(comment.date)}
+                        <time className="review__date" dateTime={getDateTime(comment.date)}>
+                          {getFullDate(comment.date)}
                         </time>
                       </footer>
                     </blockquote>
 
-                    <div className="review__rating">{this.formatRating(comment.rating)}</div>
+                    <div className="review__rating">{formatRating(comment.rating)}</div>
                   </div>
                 );
               })}
@@ -218,13 +116,13 @@ class MovieDetails extends React.PureComponent {
 
                       <footer className="review__details">
                         <cite className="review__author">{comment.userName}</cite>
-                        <time className="review__date" dateTime={this.getDateTime(comment.date)}>
-                          {this.getFullDate(comment.date)}
+                        <time className="review__date" dateTime={getDateTime(comment.date)}>
+                          {getFullDate(comment.date)}
                         </time>
                       </footer>
                     </blockquote>
 
-                    <div className="review__rating">{this.formatRating(comment.rating)}</div>
+                    <div className="review__rating">{formatRating(comment.rating)}</div>
                   </div>
                 );
               })}
@@ -234,102 +132,62 @@ class MovieDetails extends React.PureComponent {
     }
 
     return null;
-  }
+  };
 
-  render() {
-    const {film, filmNameClickHandler, authorizationStatus, activeTab, tabClickHandler} = this.props;
-    // const {activeTab} = this.state;
+  return (
+    <React.Fragment>
+      <section className="movie-card movie-card--full" style={{backgroundColor: film.backgroundColor}}>
+        <div className="movie-card__hero">
+          <div className="movie-card__bg">
+            <img src={film.backgroundImage} alt={film.name}/>
+          </div>
 
-    return (
-      <React.Fragment>
-        <section className="movie-card movie-card--full" style={{backgroundColor: film.backgroundColor}}>
-          <div className="movie-card__hero">
-            <div className="movie-card__bg">
-              <img src={film.backgroundImage} alt={film.name}/>
-            </div>
+          <h1 className="visually-hidden">WTW</h1>
 
-            <h1 className="visually-hidden">WTW</h1>
+          <Header isMainPageElement={false} >
+            <UserBlock authorizationStatus={authorizationStatus} />
+          </Header>
 
-            <Header isMainPageElement={false} >
-              <UserBlock authorizationStatus={authorizationStatus} />
-            </Header>
+          <div className="movie-card__wrap">
+            <div className="movie-card__desc">
+              <h2 className="movie-card__title">{film.name}</h2>
+              <p className="movie-card__meta">
+                <span className="movie-card__genre">{film.genre}</span>
+                <span className="movie-card__year">{film.releaseDate}</span>
+              </p>
 
-            <div className="movie-card__wrap">
-              <div className="movie-card__desc">
-                <h2 className="movie-card__title">{film.name}</h2>
-                <p className="movie-card__meta">
-                  <span className="movie-card__genre">{film.genre}</span>
-                  <span className="movie-card__year">{film.releaseDate}</span>
-                </p>
-
-                <MovieCardButtonsWrapped authorizationStatus={authorizationStatus} film={film}/>
-              </div>
+              <MovieCardButtonsWrapped authorizationStatus={authorizationStatus} film={film}/>
             </div>
           </div>
-          <div className="movie-card__wrap movie-card__translate-top">
-            <div className="movie-card__info">
-              <div className="movie-card__poster movie-card__poster--big">
-                <img src={film.previewImage} alt="The Grand Budapest Hotel poster" width="218"
-                  height="327"/>
-              </div>
-              <div className="movie-card__desc">
-                <nav className="movie-nav movie-card__nav">
-                  <Tabs activeTab={activeTab} onTabClick={tabClickHandler} />
-                </nav>
-
-                {this._renderTab()}
-
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="page-content">
-          <MovieListWrapped films={this.getMoreLikeThisFilm().slice(0, MORE_LIKE_THIS_FILMS)} filmNameClickHandler={filmNameClickHandler} list={MORE_LIKE_THIS_LIST} />
-
-          <Footer isMainPageElement={false} />
         </div>
-      </React.Fragment>
-    );
-  }
+        <div className="movie-card__wrap movie-card__translate-top">
+          <div className="movie-card__info">
+            <div className="movie-card__poster movie-card__poster--big">
+              <img src={film.previewImage} alt="The Grand Budapest Hotel poster" width="218"
+                height="327"/>
+            </div>
+            <div className="movie-card__desc">
+              <nav className="movie-nav movie-card__nav">
+                <Tabs activeTab={activeTab} onTabClick={tabClickHandler} />
+              </nav>
 
-  componentDidMount() {
-    const {updateCommentsList, id} = this.props;
+              {_renderTab()}
 
-    updateCommentsList(id);
-  }
-}
+            </div>
+          </div>
+        </div>
+      </section>
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-});
+      <div className="page-content">
+        <MovieListWrapped films={getMoreLikeThisFilm().slice(0, MORE_LIKE_THIS_FILMS)} filmNameClickHandler={filmNameClickHandler} list={MORE_LIKE_THIS_LIST} />
 
-const mapDispatchToProps = (dispatch) => ({
-  updateCommentsList(id) {
-    dispatch(Operation.getCommentsList(id));
-  }
-});
+        <Footer isMainPageElement={false} />
+      </div>
+    </React.Fragment>
+  );
+};
 
 MovieDetails.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.exact({
-    name: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    releaseDate: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingsNumber: PropTypes.number.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string),
-    description: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    videoLink: PropTypes.string.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-  })),
   film: PropTypes.exact({
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
@@ -359,9 +217,15 @@ MovieDetails.propTypes = {
   })),
   filmNameClickHandler: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  updateCommentsList: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
+  activeTab: PropTypes.string.isRequired,
+  tabClickHandler: PropTypes.func,
+  getMoreLikeThisFilm: PropTypes.func,
+  formatRating: PropTypes.func,
+  getTextRating: PropTypes.func,
+  getStarringList: PropTypes.func,
+  getDateTime: PropTypes.func,
+  getFullDate: PropTypes.func,
+  getFilmDuration: PropTypes.func
 };
 
-export {MovieDetails};
-export default connect(mapStateToProps, mapDispatchToProps)(MovieDetails);
+export default MovieDetails;

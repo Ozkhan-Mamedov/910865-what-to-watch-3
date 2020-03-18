@@ -6,8 +6,8 @@ import {connect} from "react-redux";
 import Main from "../main/main";
 import MovieDetails from "../movie-details/movie-details";
 import ErrorMessage from "../error-message/error-message";
-import {SignIn} from "../sign-in/sign-in";
-import {AddReview} from "../add-review/add-review";
+import SignIn from "../sign-in/sign-in";
+import AddReview from "../add-review/add-review";
 import Header from "../header/header";
 import UserBlock from "../user-block/user-block";
 import MyList from "../my-list/my-list";
@@ -18,6 +18,7 @@ import withActiveTab from "../../hocs/withActiveTab";
 import withAddReviewFormStatus from "../../hocs/withAddReviewFormStatus";
 import withErrorMessage from "../../hocs/withErrorMessage";
 import withFullscreenVideoPlayerStatus from "../../hocs/withFullscreenVideoPlayerStatus";
+import withHoveredCard from "../../hocs/withHoveredCard";
 
 import {ActionCreator as appActionCreator} from "../../reducer/app/action-creator";
 import {ActionCreator as userActionCreator} from "../../reducer/user/action-creator";
@@ -32,6 +33,7 @@ const MovieDetailsWrapped = withActiveTab(MovieDetails);
 const AddReviewWrapped = withAddReviewFormStatus(AddReview);
 const SignInWrapped = withErrorMessage(SignIn);
 const FullscreenVideoPlayerWrapped = withFullscreenVideoPlayerStatus(FullscreenVideoPlayer);
+const MyListWrapped = withHoveredCard(MyList);
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -94,7 +96,7 @@ class App extends React.PureComponent {
           }}>
           </Route>
           <PrivateRoute authorizationStatus={authorizationStatus} path={APP_ROUTES.MY_LIST} exact render={() => {
-            return <MyList authorizationStatus={authorizationStatus} filmNameClickHandler={this.filmNameClickHandler} films={favoriteFilms} />;
+            return <MyListWrapped authorizationStatus={authorizationStatus} filmNameClickHandler={this.filmNameClickHandler} films={favoriteFilms} />;
           }} />
           <PrivateRoute authorizationStatus={authorizationStatus} path={`${APP_ROUTES.FILM}/:id/review`} exact render={(props) => {
             const id = parseInt(props.match.params.id, 10);

@@ -189,17 +189,13 @@ Array [
             >
               <div
                 className="movie-rating__score"
-              >
-                2
-              </div>
+              />
               <p
                 className="movie-rating__meta"
               >
                 <span
                   className="movie-rating__level"
-                >
-                  Bad
-                </span>
+                />
                 <span
                   className="movie-rating__count"
                 >
@@ -240,46 +236,6 @@ Array [
   <div
     className="page-content"
   >
-    <section
-      className="catalog catalog--like-this"
-    >
-      <h2
-        className="catalog__title"
-      >
-        More like this
-      </h2>
-      <div
-        className="catalog__movies-list"
-      >
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="Film#1"
-              height="175"
-              src="picture#1"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              Film#1
-            </a>
-          </h3>
-        </article>
-      </div>
-    </section>
     <footer
       className="page-footer"
     >

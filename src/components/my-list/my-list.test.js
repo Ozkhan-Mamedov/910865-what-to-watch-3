@@ -71,7 +71,8 @@ it(`MyList component renders correctly`, () => {
   const tree = renderer
     .create(
         <Router history={history} >
-          <MyList films={films} authorizationStatus={AUTHORIZATION_STATUS.AUTH} filmNameClickHandler={() => {}}/>
+          <MyList films={films} authorizationStatus={AUTHORIZATION_STATUS.AUTH} filmNameClickHandler={() => {}}
+            cardHoverHandler={() => {}}/>
         </Router>
     )
     .toJSON();

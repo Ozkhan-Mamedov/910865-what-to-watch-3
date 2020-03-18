@@ -1,4 +1,9 @@
 import React from "react";
+import {connect} from "react-redux";
+
+import {getCardsRenderNumber} from "../reducer/app/selectors";
+import {getFilteredFilmList} from "../reducer/data/selectors";
+import {ActionCreator} from "../reducer/app/action-creator";
 
 const withHoveredCard = (Component) => {
   class WithHoveredCard extends React.PureComponent {
@@ -25,11 +30,25 @@ const withHoveredCard = (Component) => {
     render() {
       const {hoveredCard} = this.state;
 
-      return <Component {...this.props} hoveredCard={hoveredCard} cardHoverHandler={this.cardHoverHandler} />;
+      return <Component {...this.props}
+        hoveredCard={hoveredCard}
+        cardHoverHandler={this.cardHoverHandler}
+      />;
     }
   }
 
-  return WithHoveredCard;
+  const mapStateToProps = (state) => ({
+    cardsRenderNumber: getCardsRenderNumber(state),
+    filteredFilmsList: getFilteredFilmList(state),
+  });
+
+  const mapDispatchToProps = (dispatch) => ({
+    incrementCardsNumber() {
+      dispatch(ActionCreator.incrementCardsNumber());
+    },
+  });
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithHoveredCard);
 };
 
 export default withHoveredCard;

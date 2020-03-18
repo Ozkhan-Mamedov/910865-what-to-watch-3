@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import Header from "../header/header";
-import {MovieCardButtons} from "../movie-card-buttons/movie-card-buttons";
+import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
 import UserBlock from "../user-block/user-block";
 
 import withFilmAddedToWatchStatus from "../../hocs/withFilmAddedToWatchStatus";

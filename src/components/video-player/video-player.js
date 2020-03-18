@@ -3,73 +3,25 @@ import PropTypes from "prop-types";
 
 import {PREVIEW_PLAYER_PROPERTIES} from "../../constants";
 
-class VideoPlayer extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const VideoPlayer = (props) => {
+  const {poster, videoRef} = props;
 
-    /*
-    this.state = {
-      isPaused: true,
-      isPlaying: false,
-    };
-
-    this._videoRef = React.createRef();*/
-  }
-
-  render() {
-    const {poster, videoRef} = this.props;
-
-    return (
-      <video
-        width={PREVIEW_PLAYER_PROPERTIES.WIDTH}
-        height={PREVIEW_PLAYER_PROPERTIES.HEIGHT}
-        poster={poster}
-        ref={videoRef}
-      />
-    );
-  }
-
-  /*
-  componentDidMount() {
-    const {src} = this.props;
-    const video = this._videoRef.current;
-
-    video.src = src;
-    video.oncanplaythrough = () => {
-      video.muted = true;
-      this.setState({
-        isPaused: false,
-        isPlaying: true,
-      });
-    };
-  }
-
-  componentDidUpdate() {
-    const {isPaused, isPlaying} = this.state;
-    const video = this._videoRef.current;
-
-    if (isPaused) {
-      return;
-    }
-
-    if (isPlaying) {
-      video.play();
-    } else {
-      video.load();
-    }
-  }
-
-  componentWillUnmount() {
-    const video = this._videoRef.current;
-
-    video.oncanplaythrough = null;
-    video.src = ``;
-  }*/
-}
+  return (
+    <video
+      width={PREVIEW_PLAYER_PROPERTIES.WIDTH}
+      height={PREVIEW_PLAYER_PROPERTIES.HEIGHT}
+      poster={poster}
+      ref={videoRef}
+    />
+  );
+};
 
 VideoPlayer.propTypes = {
-  src: PropTypes.string.isRequired,
   poster: PropTypes.string.isRequired,
+  videoRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({current: PropTypes.any})
+  ])
 };
 
 export default VideoPlayer;
