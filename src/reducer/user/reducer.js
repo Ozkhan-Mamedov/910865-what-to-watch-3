@@ -11,14 +11,15 @@ const Operation = {
       });
   },
 
-  login: (authData) => (dispatch, getState, api) => {
+  login: (authData, onError) => (dispatch, getState, api) => {
     return api.post(`/login`, {
       email: authData.login,
       password: authData.password,
     })
       .then(() => {
         dispatch(ActionCreator.changeAuthorizationStatus(AUTHORIZATION_STATUS.AUTH));
-      });
+      })
+      .catch(() => onError());
   }
 };
 

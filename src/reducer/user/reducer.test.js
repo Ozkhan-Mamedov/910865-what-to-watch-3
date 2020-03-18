@@ -19,10 +19,4 @@ describe(`Reducer works correctly`, () => {
       authorizationStatus: AUTHORIZATION_STATUS.NO_AUTH
     });
   });
-
-  it(`Reducer should change promo film data correctly`, () => {
-    expect(reducer(initialState, ActionCreator.changeAuthorizationStatus(AUTHORIZATION_STATUS.REQUIRED))).toEqual({
-      authorizationStatus: AUTHORIZATION_STATUS.REQUIRED
-    });
-  });
 });

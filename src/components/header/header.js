@@ -1,17 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
-import {HEADER_TYPE} from "../../constants";
+import {APP_ROUTES, HEADER_TYPE} from "../../constants";
 
 const Header = ({isMainPageElement, type, children, customStyling}) => {
   return (
     <header className={`page-header movie-card__head ${type}`} style={customStyling}>
       <div className="logo">
-        <a href={isMainPageElement ? null : `main.html`} className="logo__link">
-          <span className="logo__letter logo__letter--1">W</span>
-          <span className="logo__letter logo__letter--2">T</span>
-          <span className="logo__letter logo__letter--3">W</span>
-        </a>
+        {
+          isMainPageElement ?
+            <a href={null} className="logo__link">
+              <span className="logo__letter logo__letter--1">W</span>
+              <span className="logo__letter logo__letter--2">T</span>
+              <span className="logo__letter logo__letter--3">W</span>
+            </a>
+            :
+            <Link to={APP_ROUTES.ROOT} className="logo__link">
+              <span className="logo__letter logo__letter--1">W</span>
+              <span className="logo__letter logo__letter--2">T</span>
+              <span className="logo__letter logo__letter--3">W</span>
+            </Link>
+        }
       </div>
 
       {children}

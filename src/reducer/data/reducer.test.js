@@ -117,6 +117,7 @@ describe(`Reducer works correctly`, () => {
       films,
       filmsComments: initialState.filmsComments,
       promoFilm: initialState.promoFilm,
+      favoriteFilms: initialState.favoriteFilms,
     });
   });
 
@@ -125,6 +126,7 @@ describe(`Reducer works correctly`, () => {
       films: initialState.films,
       filmsComments,
       promoFilm: initialState.promoFilm,
+      favoriteFilms: initialState.favoriteFilms,
     });
   });
 
@@ -133,6 +135,16 @@ describe(`Reducer works correctly`, () => {
       films: initialState.films,
       filmsComments: initialState.filmsComments,
       promoFilm: films[0],
+      favoriteFilms: initialState.favoriteFilms,
+    });
+  });
+
+  it(`Reducer should get favorite films correctly`, () => {
+    expect(reducer(initialState, ActionCreator.getFavoriteFilms(films))).toEqual({
+      films: initialState.films,
+      filmsComments: initialState.filmsComments,
+      promoFilm: initialState.promoFilm,
+      favoriteFilms: films,
     });
   });
 });

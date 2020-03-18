@@ -1,9 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {Router} from "react-router-dom";
 
-import MovieList from "./movie-list";
+import MyList from "./my-list";
 
-import {MORE_LIKE_THIS_LIST, MOVIE_LIST} from "../../constants";
+import {AUTHORIZATION_STATUS} from "../../constants";
+import history from "../../history";
 
 const films = [
   {
@@ -65,17 +67,14 @@ const films = [
   },
 ];
 
-it(`MovieList component renders correctly for main page`, () => {
+it(`MyList component renders correctly`, () => {
   const tree = renderer
-    .create(<MovieList filteredFilmsList={films} films={films} filmNameClickHandler={() => {}} list={MOVIE_LIST} cardHoverHandler={() => {}}/>)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
-
-it(`MovieList component renders correctly for details page`, () => {
-  const tree = renderer
-    .create(<MovieList films={films} filmNameClickHandler={() => {}} list={MORE_LIKE_THIS_LIST} cardHoverHandler={() => {}}/>)
+    .create(
+        <Router history={history} >
+          <MyList films={films} authorizationStatus={AUTHORIZATION_STATUS.AUTH} filmNameClickHandler={() => {}}
+            cardHoverHandler={() => {}}/>
+        </Router>
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();

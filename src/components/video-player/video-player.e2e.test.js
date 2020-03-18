@@ -4,6 +4,8 @@ import Adapter from "enzyme-adapter-react-16";
 
 import VideoPlayer from "./video-player";
 
+import withVideoPlayerStatus from "../../hocs/withVideoPlayerStatus";
+
 Enzyme.configure({
   adapter: new Adapter(),
 });
@@ -29,7 +31,8 @@ const film = {
 };
 
 describe(`Should VideoPlayer work correctly`, () => {
-  const wrapper = mount(<VideoPlayer src={film.preview} poster={film.picture} />);
+  const VideoPlayerWrapper = withVideoPlayerStatus(VideoPlayer);
+  const wrapper = mount(<VideoPlayerWrapper src={film.preview} poster={film.picture} />);
   const videoElement = wrapper.find(`video`);
 
   it(`Initial state should be correct`, () => {

@@ -102,10 +102,10 @@ exports[`PromoMovieCard component renders correctly 1`] = `
         <div
           className="movie-card__buttons"
         >
-          <button
+          <a
             className="btn btn--play movie-card__button"
+            href="/player/0"
             onClick={[Function]}
-            type="button"
           >
             <svg
               height="19"
@@ -119,25 +119,7 @@ exports[`PromoMovieCard component renders correctly 1`] = `
             <span>
               Play
             </span>
-          </button>
-          <button
-            className="btn btn--list movie-card__button"
-            onClick={[Function]}
-            type="button"
-          >
-            <svg
-              height="20"
-              viewBox="0 0 19 20"
-              width="19"
-            >
-              <use
-                xlinkHref="#add"
-              />
-            </svg>
-            <span>
-              My list
-            </span>
-          </button>
+          </a>
         </div>
       </div>
     </div>

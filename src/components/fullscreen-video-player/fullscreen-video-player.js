@@ -1,174 +1,59 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {MINUTES_IN_HOUR, SECONDS_IN_MINUTE} from "../../constants";
+const FullscreenVideoPlayer = (props) => {
+  const {film, onExitButtonClickHandler, isPlaying, progress, videoRef, onVideoEndHandler, onTimeUpdateHandler,
+    formatRemainingTime, onPlayButtonClickHandler, onFullScreenButtonClickHandler} = props;
 
-class FullscreenVideoPlayer extends React.PureComponent {
-  constructor(props) {
-    super(props);
+  return (
+    <div className="player">
+      <video src={film.videoLink} className="player__video" poster={film.picture} ref={videoRef}
+        onEnded={onVideoEndHandler}
+        onTimeUpdate={() => onTimeUpdateHandler(videoRef.current.currentTime)}
+      />
 
-    const {film} = this.props;
-    const {runTime} = film;
+      <button type="button" className="player__exit" onClick={onExitButtonClickHandler}>Exit</button>
 
-    this.state = {
-      isPlaying: false,
-      isFullscreenModeEnabled: false,
-      progress: 0,
-      timeRemaining: runTime * SECONDS_IN_MINUTE,
-    };
-
-    this._videoRef = React.createRef();
-    this.onPlayButtonClickHandler = this.onPlayButtonClickHandler.bind(this);
-    this.onFullScreenButtonClickHandler = this.onFullScreenButtonClickHandler.bind(this);
-    this.onVideoEndHandler = this.onVideoEndHandler.bind(this);
-    this.onTimeUpdateHandler = this.onTimeUpdateHandler.bind(this);
-  }
-
-  formatRemainingTime() {
-    const {timeRemaining} = this.state;
-    const hours = Math.floor(timeRemaining / MINUTES_IN_HOUR / SECONDS_IN_MINUTE);
-    const minutes = Math.floor((timeRemaining - hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE) / MINUTES_IN_HOUR);
-    const seconds = Math.floor(timeRemaining - (hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE) - (minutes * SECONDS_IN_MINUTE));
-
-    return `${hours < 10 ? `0` + Math.floor(hours) : Math.floor(hours)}:${minutes < 10 ? `0` + Math.floor(minutes) : Math.floor(minutes)}:${seconds < 10 ? `0` + Math.ceil(seconds) : Math.ceil(seconds)}`;
-  }
-
-  onPlayButtonClickHandler() {
-    const {isPlaying} = this.state;
-
-    this.setState({
-      isPlaying: !isPlaying,
-    });
-
-    this._videoRef.current.play();
-  }
-
-  onFullScreenButtonClickHandler() {
-    const {isFullscreenModeEnabled} = this.state;
-    const video = this._videoRef.current;
-
-    if (!isFullscreenModeEnabled) {
-      video.requestFullscreen();
-      this.setState({
-        isFullscreenModeEnabled: true
-      });
-    } else {
-      this.setState({
-        isFullscreenModeEnabled: false
-      });
-    }
-  }
-
-  onVideoEndHandler() {
-    this.setState({
-      isPlaying: false,
-    });
-  }
-
-  onTimeUpdateHandler(secs) {
-    const {film} = this.props;
-    const {isPlaying} = this.state;
-
-    if (isPlaying === true) {
-      const {runTime} = film;
-      const actualTime = Math.floor(secs);
-
-      this.setState({
-        progress: (actualTime / (runTime * SECONDS_IN_MINUTE)) * 100,
-        timeRemaining: (runTime * SECONDS_IN_MINUTE) - actualTime,
-      });
-    } else {
-      this._videoRef.current.oncanplaythrough = null;
-    }
-  }
-
-  render() {
-    const {film, onExitButtonClickHandler} = this.props;
-    const {isPlaying, progress} = this.state;
-
-    return (
-      <div className="player">
-        <video src={film.videoLink} className="player__video" poster={film.picture} ref={this._videoRef}
-          onEnded={this.onVideoEndHandler}
-          onTimeUpdate={() => this.onTimeUpdateHandler(this._videoRef.current.currentTime)}
-        />
-
-        <button type="button" className="player__exit" onClick={onExitButtonClickHandler}>Exit</button>
-
-        <div className="player__controls">
-          <div className="player__controls-row">
-            <div className="player__time">
-              <progress className="player__progress" value={progress} max="100"/>
-              <div className="player__toggler" style={{left: `${progress}%`}}>Toggler</div>
-            </div>
-            <div className="player__time-value">{this.formatRemainingTime()}</div>
+      <div className="player__controls">
+        <div className="player__controls-row">
+          <div className="player__time">
+            <progress className="player__progress" value={progress} max="100"/>
+            <div className="player__toggler" style={{left: `${progress}%`}}>Toggler</div>
           </div>
+          <div className="player__time-value">{formatRemainingTime()}</div>
+        </div>
 
-          <div className="player__controls-row">
-            <button type="button" className="player__play" onClick={this.onPlayButtonClickHandler}>
-              {isPlaying ?
-                <React.Fragment>
-                  <svg viewBox="0 0 14 21" width="14" height="21">
-                    <use xlinkHref="#pause"/>
-                  </svg>
-                  <span>Pause</span>
-                </React.Fragment>
-                :
-                <React.Fragment>
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"/>
-                  </svg>
-                  <span>Play</span>
-                </React.Fragment>
-              }
-            </button>
-            <div className="player__name">{film.name}</div>
+        <div className="player__controls-row">
+          <button type="button" className="player__play" onClick={onPlayButtonClickHandler}>
+            {isPlaying ?
+              <React.Fragment>
+                <svg viewBox="0 0 14 21" width="14" height="21">
+                  <use xlinkHref="#pause"/>
+                </svg>
+                <span>Pause</span>
+              </React.Fragment>
+              :
+              <React.Fragment>
+                <svg viewBox="0 0 19 19" width="19" height="19">
+                  <use xlinkHref="#play-s"/>
+                </svg>
+                <span>Play</span>
+              </React.Fragment>
+            }
+          </button>
+          <div className="player__name">{film.name}</div>
 
-            <button type="button" className="player__full-screen" onClick={this.onFullScreenButtonClickHandler}>
-              <svg viewBox="0 0 27 27" width="27" height="27">
-                <use xlinkHref="#full-screen"/>
-              </svg>
-              <span>Full screen</span>
-            </button>
-          </div>
+          <button type="button" className="player__full-screen" onClick={onFullScreenButtonClickHandler}>
+            <svg viewBox="0 0 27 27" width="27" height="27">
+              <use xlinkHref="#full-screen"/>
+            </svg>
+            <span>Full screen</span>
+          </button>
         </div>
       </div>
-    );
-  }
-
-  componentDidMount() {
-    const video = this._videoRef.current;
-
-    video.oncanplaythrough = () => {
-      this.setState({
-        isPlaying: true,
-      });
-    };
-  }
-
-  componentDidUpdate() {
-    const {isPlaying} = this.state;
-    const video = this._videoRef.current;
-    const videoPlayPromise = video.play();
-
-    if (videoPlayPromise !== undefined) {
-      videoPlayPromise.then(() => {
-        if (!isPlaying) {
-          video.pause();
-        }
-      });
-    }
-  }
-
-  componentWillUnmount() {
-    const video = this._videoRef.current;
-
-    video.oncanplaythrough = null;
-    video.src = ``;
-    video.onended = null;
-    video.ontimeupdate = null;
-  }
-}
+    </div>
+  );
+};
 
 FullscreenVideoPlayer.propTypes = {
   film: PropTypes.exact({
@@ -191,6 +76,17 @@ FullscreenVideoPlayer.propTypes = {
     backgroundImage: PropTypes.string.isRequired,
   }),
   onExitButtonClickHandler: PropTypes.func.isRequired,
+  isPlaying: PropTypes.bool,
+  progress: PropTypes.number,
+  videoRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({current: PropTypes.any})
+  ]),
+  onVideoEndHandler: PropTypes.func,
+  onTimeUpdateHandler: PropTypes.func,
+  formatRemainingTime: PropTypes.func,
+  onPlayButtonClickHandler: PropTypes.func,
+  onFullScreenButtonClickHandler: PropTypes.func
 };
 
 export default FullscreenVideoPlayer;

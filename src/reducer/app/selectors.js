@@ -14,17 +14,8 @@ const getCardsRenderNumber = (state) => {
   return state[NAME_SPACE].cardsRenderNumber;
 };
 
-const getPlayerStatus = (state) => {
-  return state[NAME_SPACE].isPlayerActive;
-};
-
 const getServerStatus = (state) => {
   return state[NAME_SPACE].isServerAvailable;
 };
 
-const getFilmsToWatch = (state) => {
-  return state[NAME_SPACE].filmsToWatch;
-};
-
-export {getGenre, getActiveCard, getCardsRenderNumber,
-  getPlayerStatus, getServerStatus, getFilmsToWatch};
+export {getGenre, getActiveCard, getCardsRenderNumber, getServerStatus};

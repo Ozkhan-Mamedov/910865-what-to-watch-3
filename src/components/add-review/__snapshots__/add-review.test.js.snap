@@ -5,7 +5,7 @@ exports[`AddReview component renders correctly 1`] = `
   className="movie-card movie-card--full"
   style={
     Object {
-      "backgroundColor": "background color#2",
+      "backgroundColor": "background color#1",
     }
   }
 >
@@ -16,8 +16,8 @@ exports[`AddReview component renders correctly 1`] = `
       className="movie-card__bg"
     >
       <img
-        alt="Film#2"
-        src="background image#2"
+        alt="Film#1"
+        src="background image#1"
       />
     </div>
     <h1
@@ -29,9 +29,9 @@ exports[`AddReview component renders correctly 1`] = `
       className="movie-card__poster movie-card__poster--small"
     >
       <img
-        alt="Film#2 poster"
+        alt="Film#1 poster"
         height="327"
-        src="preview image#2"
+        src="preview image#1"
         width="218"
       />
     </div>
@@ -133,8 +133,8 @@ exports[`AddReview component renders correctly 1`] = `
         <textarea
           className="add-review__textarea"
           id="review-text"
-          maxLength={400}
-          minLength={50}
+          maxLength="400"
+          minLength="50"
           name="review-text"
           onChange={[Function]}
           placeholder="Review text"
@@ -144,6 +144,7 @@ exports[`AddReview component renders correctly 1`] = `
         >
           <button
             className="add-review__btn"
+            disabled={true}
             type="submit"
           >
             Post

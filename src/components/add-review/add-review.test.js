@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import {createStore} from "redux";
 
-import {AddReview} from "./add-review";
+import AddReview from "./add-review";
 
 import reducer from "../../reducer/reducer";
 
@@ -71,7 +71,18 @@ it(`AddReview component renders correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={createStore(reducer)}>
-          <AddReview films={films} activeCard={1} postReview={() => {}}/>
+          <AddReview
+            film={films[0]}
+            films={films}
+            activeCard={0}
+            postReview={() => {}}
+            changeActiveCard={() => {}}
+            id={0}
+            updateCommentsList={() => {}}
+            textAreaChangeHandler={() => {}}
+            formSubmitHandler={() => {}}
+            radioButtonClickHandler={() => {}}
+          />
         </Provider>
     )
     .toJSON();

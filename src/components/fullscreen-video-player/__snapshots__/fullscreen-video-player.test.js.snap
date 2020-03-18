@@ -6,7 +6,6 @@ exports[`FullscreenVideoPlayer component renders correctly 1`] = `
 >
   <video
     className="player__video"
-    onEnded={[Function]}
     onTimeUpdate={[Function]}
     poster="picture#1"
     src="video link#1"
@@ -30,13 +29,12 @@ exports[`FullscreenVideoPlayer component renders correctly 1`] = `
         <progress
           className="player__progress"
           max="100"
-          value={0}
         />
         <div
           className="player__toggler"
           style={
             Object {
-              "left": "0%",
+              "left": "undefined%",
             }
           }
         >
@@ -45,16 +43,13 @@ exports[`FullscreenVideoPlayer component renders correctly 1`] = `
       </div>
       <div
         className="player__time-value"
-      >
-        02:10:00
-      </div>
+      />
     </div>
     <div
       className="player__controls-row"
     >
       <button
         className="player__play"
-        onClick={[Function]}
         type="button"
       >
         <svg
@@ -77,7 +72,6 @@ exports[`FullscreenVideoPlayer component renders correctly 1`] = `
       </div>
       <button
         className="player__full-screen"
-        onClick={[Function]}
         type="button"
       >
         <svg

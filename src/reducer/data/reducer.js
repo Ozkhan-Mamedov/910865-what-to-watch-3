@@ -37,7 +37,20 @@ const Operation = {
       .catch(() => {
         onError();
       });
-  }
+  },
+  getFavoriteFilms: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((responce) => {
+        dispatch(ActionCreator.getFavoriteFilms(
+            responce.data.map((film) => filmAdapter(film))
+        ));
+      });
+  },
+  changeFavoriteFilmStatus: (id, status, resolver) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${id}/${status}`, extend({}, {
+      isFavourite: status === 1
+    })).then(() => resolver());
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -55,6 +68,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_PROMO_MOVIE_DATA:
       return extend(state, {
         promoFilm: action.payload,
+      });
+
+    case ActionType.GET_FAVORITE_FILMS:
+      return extend(state, {
+        favoriteFilms: action.payload,
       });
   }
 

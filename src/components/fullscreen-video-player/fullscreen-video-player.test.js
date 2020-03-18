@@ -27,7 +27,7 @@ const film =
 it(`FullscreenVideoPlayer component renders correctly`, () => {
   const tree = renderer
     .create(
-        <FullscreenVideoPlayer film={film} onExitButtonClickHandler={() => {}}/>, {
+        <FullscreenVideoPlayer film={film} onExitButtonClickHandler={() => {}} formatRemainingTime={() => {}}/>, {
           createNodeMock: () => {
             return {};
           }

@@ -35,17 +35,12 @@ const store = createStore(
     )
 );
 
+store.dispatch(userOperation.checkUserStatus());
+store.dispatch(dataOperation.getFavoriteFilms());
 store.dispatch(dataOperation.getFilmList())
-  .then(() => {
-    store.dispatch(dataOperation.getPromoMovieData());
-  })
-  .then(() => {
-    store.dispatch(userOperation.checkUserStatus());
-  })
-  .then(() => {
-    ReactDOM.render(
-        <Provider store={store}>
-          <App />
-        </Provider>,
-        document.getElementById(`root`));
-  });
+  .then(() => store.dispatch(dataOperation.getPromoMovieData()))
+  .then(() => setTimeout(ReactDOM.render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+      document.getElementById(`root`)), 1000));

@@ -28,4 +28,8 @@ const getPromoFilm = (state) => {
   return state[NAME_SPACE].promoFilm;
 };
 
-export {getFilms, getFilteredFilmList, getFilmsComments, getPromoFilm};
+const getFavoriteFilms = (state) => {
+  return state[NAME_SPACE].favoriteFilms;
+};
+
+export {getFilms, getFilteredFilmList, getFilmsComments, getPromoFilm, getFavoriteFilms};

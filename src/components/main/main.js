@@ -6,31 +6,30 @@ import MovieList from "../movie-list/movie-list";
 import GenreList from "../genre-list/genre-list";
 import Footer from "../footer/footer";
 import PromoMovieCard from "../promo-movie-card/promo-movie-card";
-import FullscreenVideoPlayer from "../fullscreen-video-player/fullscreen-video-player";
+
+import withHoveredCard from "../../hocs/withHoveredCard";
 
 import {MOVIE_LIST} from "../../constants";
-import {ActionCreator} from "../../reducer/app/action-creator";
-import {getActiveCard, getPlayerStatus} from "../../reducer/app/selectors";
 import {getPromoFilm} from "../../reducer/data/selectors";
 
+const MovieListWrapped = withHoveredCard(MovieList);
+
 const Main = (props) => {
-  const {promoFilm, films, filmNameClickHandler, isPlayerActive, onExitButtonClickHandler, loginButtonClickHandler} = props;
+  const {promoFilm, films, filmNameClickHandler} = props;
 
   if (promoFilm && films) {
     return (
       <React.Fragment>
-        <PromoMovieCard promoFilm={promoFilm} loginButtonClickHandler={loginButtonClickHandler}/>
+        <PromoMovieCard promoFilm={promoFilm}/>
 
         <div className="page-content">
-          <MovieList filmNameClickHandler={filmNameClickHandler} films={films} list={MOVIE_LIST}>
+          <MovieListWrapped filmNameClickHandler={filmNameClickHandler} films={films} list={MOVIE_LIST}>
             <GenreList films={films}/>
-          </MovieList>
+          </MovieListWrapped>
 
           <Footer/>
         </div>
 
-        {isPlayerActive ?
-          <FullscreenVideoPlayer film={promoFilm} onExitButtonClickHandler={onExitButtonClickHandler}/> : null}
       </React.Fragment>
     );
   }
@@ -39,15 +38,7 @@ const Main = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  isPlayerActive: getPlayerStatus(state),
-  activeCard: getActiveCard(state),
   promoFilm: getPromoFilm(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onExitButtonClickHandler() {
-    dispatch(ActionCreator.unrenderPlayer());
-  }
 });
 
 Main.propTypes = {
@@ -90,10 +81,7 @@ Main.propTypes = {
     backgroundImage: PropTypes.string.isRequired,
   })),
   filmNameClickHandler: PropTypes.func.isRequired,
-  isPlayerActive: PropTypes.bool,
-  onExitButtonClickHandler: PropTypes.func,
-  loginButtonClickHandler: PropTypes.func.isRequired,
 };
 
 export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps)(Main);
