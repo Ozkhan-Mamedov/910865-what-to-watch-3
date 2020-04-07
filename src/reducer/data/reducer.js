@@ -26,16 +26,13 @@ const Operation = {
         dispatch(ActionCreator.getPromoMovieData(filmAdapter(responce.data)));
       });
   },
-  postReview: (data, id, onSuccess, onError) => (dispatch, getState, api) => {
+  postReview: (data, id, handleSuccessfulRequest) => (dispatch, getState, api) => {
     return api.post(`/comments/${id + 1}`, {
       rating: data.rating,
       comment: data.comment,
     })
       .then(() => {
-        onSuccess();
-      })
-      .catch(() => {
-        onError();
+        handleSuccessfulRequest();
       });
   },
   getFavoriteFilms: () => (dispatch, getState, api) => {
@@ -73,6 +70,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_FAVORITE_FILMS:
       return extend(state, {
         favoriteFilms: action.payload,
+      });
+
+    case ActionType.CHANGE_FORM_PENDING_STATUS:
+      return extend(state, {
+        formPending: action.payload,
       });
   }
 

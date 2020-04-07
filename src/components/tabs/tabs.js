@@ -11,11 +11,8 @@ const Tabs = (props) => {
       {
         TABS_LIST.map((tab, index) =>
           <li className={`movie-nav__item ${activeTab === tab ? `movie-nav__item--active` : ``}`} key={index}
-            onClick={(evt) => {
-              evt.preventDefault();
-              onTabClick(evt.target.textContent);
-            }}>
-            <a href="#" className="movie-nav__link">{tab}</a>
+            onClick={onTabClick}>
+            <a href={null} className="movie-nav__link" style={{cursor: `pointer`}}>{tab}</a>
           </li>
         )
       }

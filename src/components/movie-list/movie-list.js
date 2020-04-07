@@ -7,8 +7,9 @@ import ShowMoreButton from "../show-more-button/show-more-button";
 import {MORE_LIKE_THIS_LIST, MOVIE_LIST} from "../../constants";
 
 const MovieList = (props) => {
-  const {hoveredCard, films, filmNameClickHandler, list,
-    cardsRenderNumber, incrementCardsNumber, filteredFilmsList, cardHoverHandler, children} = props;
+  const {hoveredCard, films, onFilmCardClick, list,
+    cardsRenderNumber, increaseCardsNumber, filteredFilmsList,
+    onCardHover, children} = props;
 
   const _renderList = () => {
     switch (list) {
@@ -25,8 +26,8 @@ const MovieList = (props) => {
                   <SmallMovieCard
                     key={index}
                     film={film}
-                    filmNameClickHandler={filmNameClickHandler}
-                    cardHoverHandler={cardHoverHandler}
+                    onFilmCardClick={onFilmCardClick}
+                    onCardHover={onCardHover}
                     cardId={hoveredCard}
                   />
                 )
@@ -34,7 +35,7 @@ const MovieList = (props) => {
             </div>
 
             {cardsRenderNumber < filteredFilmsList.length ?
-              <ShowMoreButton buttonClickHandler={incrementCardsNumber} />
+              <ShowMoreButton onButtonClick={increaseCardsNumber} />
               : null}
           </section>
         );
@@ -51,8 +52,8 @@ const MovieList = (props) => {
                     <SmallMovieCard
                       key={index}
                       film={film}
-                      filmNameClickHandler={filmNameClickHandler}
-                      cardHoverHandler={cardHoverHandler}
+                      onFilmCardClick={onFilmCardClick}
+                      onCardHover={onCardHover}
                       cardId={hoveredCard}
                     />
                   )
@@ -75,7 +76,7 @@ const MovieList = (props) => {
 
 MovieList.propTypes = {
   hoveredCard: PropTypes.number,
-  cardHoverHandler: PropTypes.func,
+  onCardHover: PropTypes.func,
   films: PropTypes.arrayOf(PropTypes.exact({
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
@@ -95,10 +96,10 @@ MovieList.propTypes = {
     backgroundColor: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
   })),
-  filmNameClickHandler: PropTypes.func.isRequired,
+  onFilmCardClick: PropTypes.func.isRequired,
   list: PropTypes.string.isRequired,
   cardsRenderNumber: PropTypes.number,
-  incrementCardsNumber: PropTypes.func,
+  increaseCardsNumber: PropTypes.func,
   children: PropTypes.element,
   filteredFilmsList: PropTypes.arrayOf(PropTypes.exact({
     name: PropTypes.string.isRequired,

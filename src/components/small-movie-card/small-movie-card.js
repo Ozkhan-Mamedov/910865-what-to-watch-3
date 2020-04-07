@@ -3,36 +3,36 @@ import PropTypes from "prop-types";
 
 import VideoPlayer from "../video-player/video-player";
 
-import withVideoPlayerStatus from "../../hocs/withVideoPlayerStatus";
+import withVideoPlayerStatus from "../../hocs/with-video-player-status/with-video-player-status";
 
 const VideoPlayerWrapped = withVideoPlayerStatus(VideoPlayer);
 
 const SmallMovieCard = (props) => {
-  const {film, filmNameClickHandler, cardHoverHandler, cardId} = props;
+  const {film, onFilmCardClick, onCardHover, cardId} = props;
   let timer;
 
-  const cardMouseOverHandler = () => {
+  const handleCardMouseOver = () => {
     timer = setTimeout(() => {
-      cardHoverHandler(film.id);
+      onCardHover(film.id);
     }, 1000);
   };
 
-  const cardMouseOutHandler = () => {
+  const handleCardMouseOut = () => {
     clearTimeout(timer);
-    cardHoverHandler(-1);
+    onCardHover(-1);
   };
 
-  const cardClickHandler = (evt) => {
+  const handleCardClick = (evt) => {
     evt.preventDefault();
     clearTimeout(timer);
-    filmNameClickHandler(film.id);
+    onFilmCardClick(film.id);
   };
 
   return (
     <article className="small-movie-card catalog__movies-card"
-      onMouseOver={cardMouseOverHandler}
-      onMouseOut={cardMouseOutHandler}
-      onClick={cardClickHandler}>
+      onMouseOver={handleCardMouseOver}
+      onMouseOut={handleCardMouseOut}
+      onClick={handleCardClick}>
       {cardId !== film.id ?
         <React.Fragment>
           <div className="small-movie-card__image">
@@ -68,8 +68,8 @@ SmallMovieCard.propTypes = {
     backgroundColor: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
   }),
-  filmNameClickHandler: PropTypes.func.isRequired,
-  cardHoverHandler: PropTypes.func.isRequired,
+  onFilmCardClick: PropTypes.func.isRequired,
+  onCardHover: PropTypes.func.isRequired,
   cardId: PropTypes.number,
 };
 

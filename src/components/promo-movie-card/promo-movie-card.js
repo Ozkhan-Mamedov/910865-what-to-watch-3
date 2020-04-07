@@ -6,7 +6,7 @@ import Header from "../header/header";
 import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
 import UserBlock from "../user-block/user-block";
 
-import withFilmAddedToWatchStatus from "../../hocs/withFilmAddedToWatchStatus";
+import withFilmAddedToWatchStatus from "../../hocs/with-film-added-to-watch-status/with-film-added-to-watch-status";
 
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 

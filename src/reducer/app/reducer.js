@@ -14,7 +14,7 @@ const reducer = (state = initialState, action) => {
         activeCard: action.payload,
       });
 
-    case ActionType.INCREMENT_CARDS_NUMBER:
+    case ActionType.INCREASE_CARDS_NUMBER:
       return extend(state, {
         cardsRenderNumber: state.cardsRenderNumber + action.payload,
       });

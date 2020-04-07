@@ -3,12 +3,12 @@ import renderer from "react-test-renderer";
 
 import Tabs from "./tabs";
 
-import {TABS_KEYS} from "../../constants";
+import {TabKey} from "../../constants";
 
 it(`Tabs component renders correctly`, () => {
   const tree = renderer
     .create(<Tabs
-      activeTab={TABS_KEYS.OVERVIEW}
+      activeTab={TabKey.OVERVIEW}
       onTabClick={() => {}}
     />)
     .toJSON();

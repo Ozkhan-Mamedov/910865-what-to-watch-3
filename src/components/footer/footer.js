@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {APP_ROUTES} from "../../constants";
+
+import Logo from "../logo/logo";
+
+import {AppRoute} from "../../constants";
 
 const Footer = ({isMainPageElement}) => {
   return (
@@ -10,15 +13,11 @@ const Footer = ({isMainPageElement}) => {
         {
           isMainPageElement ?
             <a href={null} className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
+              <Logo />
             </a>
             :
-            <Link to={APP_ROUTES.ROOT} className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
+            <Link to={AppRoute.ROOT} className="logo__link logo__link--light">
+              <Logo />
             </Link>
         }
       </div>

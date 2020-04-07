@@ -34,7 +34,7 @@ it(`PromoMovieCard component renders correctly`, () => {
     .create(
         <Provider store={createStore(reducer)}>
           <Router history={history}>
-            <PromoMovieCard promoFilm={promoFilmData} loginButtonClickHandler={() => {}} />
+            <PromoMovieCard promoFilm={promoFilmData} />
           </Router>
         </Provider>
     )

@@ -5,7 +5,7 @@ import ShowMoreButton from "./show-more-button";
 
 it(`ShowMoreButton component renders correctly for main page`, () => {
   const tree = renderer
-    .create(<ShowMoreButton buttonClickHandler={() => {}}/>)
+    .create(<ShowMoreButton onButtonClick={() => {}}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

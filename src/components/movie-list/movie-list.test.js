@@ -67,7 +67,12 @@ const films = [
 
 it(`MovieList component renders correctly for main page`, () => {
   const tree = renderer
-    .create(<MovieList filteredFilmsList={films} films={films} filmNameClickHandler={() => {}} list={MOVIE_LIST} cardHoverHandler={() => {}}/>)
+    .create(<MovieList
+      filteredFilmsList={films}
+      films={films}
+      onFilmCardClick={() => {}}
+      list={MOVIE_LIST}
+      onCardHover={() => {}}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -75,7 +80,11 @@ it(`MovieList component renders correctly for main page`, () => {
 
 it(`MovieList component renders correctly for details page`, () => {
   const tree = renderer
-    .create(<MovieList films={films} filmNameClickHandler={() => {}} list={MORE_LIKE_THIS_LIST} cardHoverHandler={() => {}}/>)
+    .create(<MovieList
+      onFilmCardClick={() => {}}
+      films={films}
+      list={MORE_LIKE_THIS_LIST}
+      onCardHover={() => {}}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

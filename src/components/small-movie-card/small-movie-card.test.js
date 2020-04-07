@@ -25,8 +25,12 @@ const film = {
 
 it(`SmallMovieCard component renders correctly`, () => {
   const tree = renderer
-    .create(<SmallMovieCard film={film} cardHoverHandler={() => {}}
-      filmNameClickHandler={() => {}} activeCard={-1}/>)
+    .create(<SmallMovieCard
+      film={film}
+      onCardHover={() => {}}
+      onFilmCardClick={() => {}}
+      activeCard={-1}
+    />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

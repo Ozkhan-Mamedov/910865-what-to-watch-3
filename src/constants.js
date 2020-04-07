@@ -1,5 +1,5 @@
 const ALL_GENRES = `ALL_GENRES`;
-const GENRE_KEYS = {
+const GenreKey = {
   ALL_GENRES,
   COMEDY: `Comedy`,
   DRAMA: `Drama`,
@@ -9,7 +9,7 @@ const GENRE_KEYS = {
   ACTION: `Action`,
   FANTASY: `Fantasy`
 };
-const GENRES = {
+const Genre = {
   ALL_GENRES: `All genres`,
   COMEDY: `Comedies`,
   DRAMA: `Dramas`,
@@ -23,7 +23,7 @@ const MAX_GENRE_NUMBER = 10;
 
 const CHANGE_FILTER_BY_GENRE = `CHANGE_FILTER_BY_GENRE`;
 const CHANGE_ACTIVE_CARD = `CHANGE_ACTIVE_CARD`;
-const INCREMENT_CARDS_NUMBER = `INCREMENT_CARDS_NUMBER`;
+const INCREASE_CARDS_NUMBER = `INCREASE_CARDS_NUMBER`;
 const DECREASE_CARDS_NUMBER = `DECREASE_CARDS_NUMBER`;
 const GET_FILM_LIST = `GET_FILM_LIST`;
 const GET_PROMO_MOVIE_DATA = `GET_PROMO_MOVIE_DATA`;
@@ -31,9 +31,10 @@ const GET_COMMENTS_LIST = `GET_COMMENTS_LIST`;
 const CHANGE_SERVER_STATUS = `CHANGE_SERVER_STATUS`;
 const CHANGE_AUTHORIZATION_STATUS = `CHANGE_AUTHORIZATION_STATUS`;
 const GET_FAVORITE_FILMS = `GET_FAVORITE_FILMS`;
+const CHANGE_FORM_PENDING_STATUS = `CHANGE_FORM_PENDING_STATUS`;
 
 const TABS_LIST = [`Overview`, `Details`, `Reviews`];
-const TABS_KEYS = {
+const TabKey = {
   OVERVIEW: `Overview`,
   DETAILS: `Details`,
   REVIEWS: `Reviews`,
@@ -41,15 +42,15 @@ const TABS_KEYS = {
 
 const MINUTES_IN_HOUR = 60;
 const SECONDS_IN_MINUTE = 60;
-const MONTH_SUBSTR = {
+const MonthSubstr = {
   START: 4,
   LENGTH: 3
 };
-const DAY_SUBSTR = {
+const DaySubstr = {
   START: 8,
   LENGTH: 2
 };
-const YEAR_SUBSTR = {
+const YearSubstr = {
   START: 11,
   LENGTH: 4
 };
@@ -109,12 +110,12 @@ const MORE_LIKE_THIS_LIST = `MORE_LIKE_THIS_LIST`;
 const MORE_LIKE_THIS_FILMS = 4;
 const MAX_CARD_RENDER_NUMBER = 8;
 
-const PREVIEW_PLAYER_PROPERTIES = {
+const PreviewPlayerProperty = {
   WIDTH: 280,
   HEIGHT: 175,
 };
 
-const ERROR = {
+const Error = {
   UNAUTHORIZED: 401,
   NOT_FOUND: 404,
   SERVER_ERROR: `5xx`,
@@ -123,12 +124,12 @@ const SERVER_NOT_WORKING_ERROR = `Oops server error occurred!`;
 const FILM_NOT_FOUND_ERROR = `Film not found!`;
 const AUTH_ERROR_MESSAGE = `Please enter a valid email address`;
 
-const HEADER_TYPE = {
+const HeaderType = {
   MOVIE_CARD: `movie-card__head`,
   USER_PAGE: `user-page__head`,
 };
 
-const AUTHORIZATION_STATUS = {
+const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
 };
@@ -136,7 +137,7 @@ const AUTHORIZATION_STATUS = {
 const MAX_POST_LENGTH = `400`;
 const MIN_POST_LENGTH = `50`;
 
-const APP_ROUTES = {
+const AppRoute = {
   LOGIN: `/login`,
   ROOT: `/`,
   MY_LIST: `/mylist`,
@@ -147,38 +148,39 @@ const APP_ROUTES = {
 export {
   ALL_GENRES,
   CHANGE_FILTER_BY_GENRE,
-  GENRES,
-  GENRE_KEYS,
+  Genre,
+  GenreKey,
   MAX_GENRE_NUMBER,
   TABS_LIST,
-  TABS_KEYS,
+  TabKey,
   MINUTES_IN_HOUR,
   CHANGE_ACTIVE_CARD,
-  MONTH_SUBSTR,
-  DAY_SUBSTR,
-  YEAR_SUBSTR,
+  MonthSubstr,
+  DaySubstr,
+  YearSubstr,
   MONTH_KEYS,
   MORE_LIKE_THIS_LIST,
   MOVIE_LIST,
   MORE_LIKE_THIS_FILMS,
   MAX_CARD_RENDER_NUMBER,
-  INCREMENT_CARDS_NUMBER,
-  PREVIEW_PLAYER_PROPERTIES,
+  INCREASE_CARDS_NUMBER,
+  PreviewPlayerProperty,
   DECREASE_CARDS_NUMBER,
   SECONDS_IN_MINUTE,
   GET_FILM_LIST,
   GET_COMMENTS_LIST,
   GET_PROMO_MOVIE_DATA,
-  ERROR,
+  Error,
   CHANGE_SERVER_STATUS,
   SERVER_NOT_WORKING_ERROR,
-  HEADER_TYPE,
+  HeaderType,
   CHANGE_AUTHORIZATION_STATUS,
-  AUTHORIZATION_STATUS,
+  AuthorizationStatus,
   MAX_POST_LENGTH,
   MIN_POST_LENGTH,
-  APP_ROUTES,
+  AppRoute,
   GET_FAVORITE_FILMS,
   FILM_NOT_FOUND_ERROR,
-  AUTH_ERROR_MESSAGE
+  AUTH_ERROR_MESSAGE,
+  CHANGE_FORM_PENDING_STATUS
 };

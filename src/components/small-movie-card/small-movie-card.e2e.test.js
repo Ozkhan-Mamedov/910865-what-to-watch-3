@@ -29,12 +29,14 @@ const film = {
 };
 
 describe(`Should SmallMovieCard work correctly`, () => {
-  const filmNameClickHandler = jest.fn();
-  const cardHoverHandler = jest.fn();
+  const handleFilmCardClick = jest.fn();
+  const handleCardHover = jest.fn();
 
   const smallMovieComponent = shallow(
-      <SmallMovieCard film={film} filmNameClickHandler={filmNameClickHandler}
-        cardHoverHandler={cardHoverHandler} activeCard={-1}/>
+      <SmallMovieCard film={film}
+        onCardHover={handleCardHover}
+        activeCard={-1}
+        onFilmCardClick={handleFilmCardClick}/>
   );
 
   const movieCard = smallMovieComponent.find(`.small-movie-card`);
@@ -42,13 +44,13 @@ describe(`Should SmallMovieCard work correctly`, () => {
   it(`Should hover correctly`, () => {
     movieCard.simulate(`mouseover`);
 
-    setTimeout(() => expect(cardHoverHandler).toHaveBeenCalledWith(1), 1000);
+    setTimeout(() => expect(handleCardHover).toHaveBeenCalledWith(1), 1000);
   });
 
   it(`Should remove hover correctly`, () => {
     movieCard.simulate(`mouseout`);
 
-    expect(cardHoverHandler).toHaveBeenCalledWith(-1);
+    expect(handleCardHover).toHaveBeenCalledWith(-1);
   });
 
   it(`Should film card be pressed`, () => {
@@ -57,7 +59,7 @@ describe(`Should SmallMovieCard work correctly`, () => {
       }
     });
 
-    expect(filmNameClickHandler.mock.calls.length).toBe(1);
+    expect(handleFilmCardClick.mock.calls.length).toBe(1);
   });
 
   it(`Should film card return correct value`, () => {
@@ -66,6 +68,6 @@ describe(`Should SmallMovieCard work correctly`, () => {
       }
     });
 
-    expect(filmNameClickHandler).toHaveBeenCalledWith(1);
+    expect(handleFilmCardClick).toHaveBeenCalledWith(1);
   });
 });

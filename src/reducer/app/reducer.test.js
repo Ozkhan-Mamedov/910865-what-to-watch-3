@@ -27,7 +27,7 @@ describe(`Reducer works correctly`, () => {
   });
 
   it(`Reducer should change cards render number correctly`, () => {
-    expect(reducer(initialState, ActionCreator.incrementCardsNumber())).toEqual({
+    expect(reducer(initialState, ActionCreator.increaseCardsNumber())).toEqual({
       genre: initialState.genre,
       activeCard: initialState.activeCard,
       cardsRenderNumber: MAX_CARD_RENDER_NUMBER * 2,

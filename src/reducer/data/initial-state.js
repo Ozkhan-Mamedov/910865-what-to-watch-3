@@ -3,6 +3,7 @@ const initialState = {
   filmsComments: [],
   promoFilm: null,
   favoriteFilms: [],
+  formPending: false
 };
 
 export default initialState;

@@ -1,7 +1,7 @@
-import {AUTHORIZATION_STATUS} from "../../constants";
+import {AuthorizationStatus} from "../../constants";
 
 const initialState = {
-  authorizationStatus: AUTHORIZATION_STATUS.NO_AUTH,
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
 };
 
 export default initialState;

@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {PREVIEW_PLAYER_PROPERTIES} from "../../constants";
+import {PreviewPlayerProperty} from "../../constants";
 
 const VideoPlayer = (props) => {
   const {poster, videoRef} = props;
 
   return (
     <video
-      width={PREVIEW_PLAYER_PROPERTIES.WIDTH}
-      height={PREVIEW_PLAYER_PROPERTIES.HEIGHT}
+      width={PreviewPlayerProperty.WIDTH}
+      height={PreviewPlayerProperty.HEIGHT}
       poster={poster}
       ref={videoRef}
     />

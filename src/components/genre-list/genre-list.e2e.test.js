@@ -76,7 +76,7 @@ describe(`Should GenreList work correctly`, () => {
   />);
   const genreItems = wrapper.find(`.catalog__genres-item`);
 
-  it(`ActiveClass change should be correct`, () => {
+  it(`GenreList ActiveClass change should be correct`, () => {
     const genreItem = genreItems.at(0);
 
     genreItem.simulate(`click`);

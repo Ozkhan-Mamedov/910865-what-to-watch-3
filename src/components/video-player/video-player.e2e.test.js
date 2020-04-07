@@ -4,7 +4,7 @@ import Adapter from "enzyme-adapter-react-16";
 
 import VideoPlayer from "./video-player";
 
-import withVideoPlayerStatus from "../../hocs/withVideoPlayerStatus";
+import withVideoPlayerStatus from "../../hocs/with-video-player-status/with-video-player-status";
 
 Enzyme.configure({
   adapter: new Adapter(),

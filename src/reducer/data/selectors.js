@@ -32,4 +32,9 @@ const getFavoriteFilms = (state) => {
   return state[NAME_SPACE].favoriteFilms;
 };
 
-export {getFilms, getFilteredFilmList, getFilmsComments, getPromoFilm, getFavoriteFilms};
+const getFormPendingStatus = (state) => {
+  return state[NAME_SPACE].formPending;
+};
+
+export {getFilms, getFilteredFilmList, getFilmsComments,
+  getPromoFilm, getFavoriteFilms, getFormPendingStatus};

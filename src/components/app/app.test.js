@@ -6,6 +6,7 @@ import {createStore} from "redux";
 import {App} from "./app";
 
 import reducer from "../../reducer/reducer";
+import {AuthorizationStatus} from "../../constants";
 
 const films = [
   {
@@ -67,7 +68,7 @@ const films = [
   },
 ];
 
-it(`App component renders correctly`, () => {
+it(`App with authorization renders correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={createStore(reducer)}>
@@ -76,7 +77,24 @@ it(`App component renders correctly`, () => {
             activeCard={-1}
             cardClickHandler={() => {}}
             isServerAvailable={true}
-            authorizationStatus={`NO_AUTH`}
+            authorizationStatus={AuthorizationStatus.AUTH}
+            changeAuthorizationStatus={() => {}}/>
+        </Provider>)
+    .toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`App without authorization component renders correctly`, () => {
+  const tree = renderer
+    .create(
+        <Provider store={createStore(reducer)}>
+          <App
+            films={films}
+            activeCard={-1}
+            cardClickHandler={() => {}}
+            isServerAvailable={true}
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
             changeAuthorizationStatus={() => {}}/>
         </Provider>)
     .toJSON();

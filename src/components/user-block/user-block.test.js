@@ -8,14 +8,14 @@ import UserBlock from "./user-block";
 
 import reducer from "../../reducer/reducer";
 import history from "../../history";
-import {AUTHORIZATION_STATUS} from "../../constants";
+import {AuthorizationStatus} from "../../constants";
 
 it(`UserBlock component renders correctly for main page`, () => {
   const tree = renderer
     .create(
         <Provider store={createStore(reducer)}>
           <Router history={history}>
-            <UserBlock loginButtonClickHandler={() => {}} authorizationStatus={AUTHORIZATION_STATUS.AUTH}/>
+            <UserBlock authorizationStatus={AuthorizationStatus.AUTH}/>
           </Router>
         </Provider>)
     .toJSON();

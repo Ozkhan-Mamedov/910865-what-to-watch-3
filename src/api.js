@@ -1,35 +1,35 @@
 import axios from "axios";
 
-import {ERROR} from "./constants";
+import {Error} from "./constants";
 
-const createAPI = (errorHandler, onUnauthorized) => {
+const createAPI = (handleServerError, handleUnauthorizedStatus) => {
   const api = axios.create({
     baseURL: `https://htmlacademy-react-3.appspot.com/wtw`,
     timeout: 5000,
     withCredentials: true,
   });
 
-  const onSuccess = (responce) => {
+  const handleSuccessfulRequest = (responce) => {
     return responce;
   };
 
-  const onError = (error) => {
+  const handleErrorRequest = (error) => {
     const {response} = error;
 
-    if (response.status === ERROR.UNAUTHORIZED) {
-      onUnauthorized();
+    if (response.status === Error.UNAUTHORIZED) {
+      handleUnauthorizedStatus();
 
       throw error;
     }
 
-    if (response.status === ERROR.NOT_FOUND || response.status.toString[0] === ERROR.SERVER_ERROR[0]) {
-      errorHandler();
+    if (response.status === Error.NOT_FOUND || response.status.toString[0] === Error.SERVER_ERROR[0]) {
+      handleServerError();
     }
 
     throw error;
   };
 
-  api.interceptors.response.use(onSuccess, onError);
+  api.interceptors.response.use(handleSuccessfulRequest, handleErrorRequest);
 
   return api;
 };

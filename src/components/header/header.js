@@ -2,7 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 
-import {APP_ROUTES, HEADER_TYPE} from "../../constants";
+import Logo from "../logo/logo";
+
+import {AppRoute, HeaderType} from "../../constants";
 
 const Header = ({isMainPageElement, type, children, customStyling}) => {
   return (
@@ -11,15 +13,11 @@ const Header = ({isMainPageElement, type, children, customStyling}) => {
         {
           isMainPageElement ?
             <a href={null} className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
+              <Logo />
             </a>
             :
-            <Link to={APP_ROUTES.ROOT} className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
+            <Link to={AppRoute.ROOT} className="logo__link">
+              <Logo />
             </Link>
         }
       </div>
@@ -32,14 +30,17 @@ const Header = ({isMainPageElement, type, children, customStyling}) => {
 
 Header.defaultProps = {
   isMainPageElement: true,
-  type: HEADER_TYPE.MOVIE_CARD,
+  type: HeaderType.MOVIE_CARD,
   customStyling: {},
 };
 
 Header.propTypes = {
   isMainPageElement: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element
+  ]),
   customStyling: PropTypes.shape(),
 };
 

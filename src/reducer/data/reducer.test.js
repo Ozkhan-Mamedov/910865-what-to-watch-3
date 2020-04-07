@@ -118,6 +118,7 @@ describe(`Reducer works correctly`, () => {
       filmsComments: initialState.filmsComments,
       promoFilm: initialState.promoFilm,
       favoriteFilms: initialState.favoriteFilms,
+      formPending: initialState.formPending
     });
   });
 
@@ -127,6 +128,7 @@ describe(`Reducer works correctly`, () => {
       filmsComments,
       promoFilm: initialState.promoFilm,
       favoriteFilms: initialState.favoriteFilms,
+      formPending: initialState.formPending
     });
   });
 
@@ -135,6 +137,7 @@ describe(`Reducer works correctly`, () => {
       films: initialState.films,
       filmsComments: initialState.filmsComments,
       promoFilm: films[0],
+      formPending: initialState.formPending,
       favoriteFilms: initialState.favoriteFilms,
     });
   });
@@ -145,6 +148,17 @@ describe(`Reducer works correctly`, () => {
       filmsComments: initialState.filmsComments,
       promoFilm: initialState.promoFilm,
       favoriteFilms: films,
+      formPending: initialState.formPending
+    });
+  });
+
+  it(`Reducer should change form pending status correctly`, () => {
+    expect(reducer(initialState, ActionCreator.changeFormPendingStatus(true))).toEqual({
+      films: initialState.films,
+      filmsComments: initialState.filmsComments,
+      promoFilm: initialState.promoFilm,
+      favoriteFilms: initialState.favoriteFilms,
+      formPending: true,
     });
   });
 });

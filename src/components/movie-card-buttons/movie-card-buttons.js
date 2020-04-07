@@ -2,21 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 
-import {APP_ROUTES, AUTHORIZATION_STATUS} from "../../constants";
+import {AppRoute, AuthorizationStatus} from "../../constants";
 
 const MovieCardButtons = (props) => {
   const {isMainPageElement, authorizationStatus, film, isFilmAddedToWatch, onAddToWatchButtonClick} = props;
 
   return (
     <div className="movie-card__buttons">
-      <Link to={`${APP_ROUTES.PLAYER}/${film.id - 1}`} className="btn btn--play movie-card__button" >
+      <Link to={`${AppRoute.PLAYER}/${film.id - 1}`} className="btn btn--play movie-card__button" >
         <svg viewBox="0 0 19 19" width="19" height="19">
           <use xlinkHref="#play-s"/>
         </svg>
         <span>Play</span>
       </Link>
       {
-        authorizationStatus === AUTHORIZATION_STATUS.AUTH ?
+        authorizationStatus === AuthorizationStatus.AUTH ?
           <button className="btn btn--list movie-card__button" type="button" onClick={onAddToWatchButtonClick}>
             <svg viewBox="0 0 19 20" width="19" height="20">
               <use xlinkHref={isFilmAddedToWatch ? `#in-list` : `#add`}/>
@@ -26,8 +26,8 @@ const MovieCardButtons = (props) => {
           : null
       }
       {
-        isMainPageElement === false && (authorizationStatus === AUTHORIZATION_STATUS.AUTH) ?
-          <Link to={`${APP_ROUTES.FILM}/${film.id - 1}/review`} className="btn movie-card__button">Add review</Link>
+        isMainPageElement === false && (authorizationStatus === AuthorizationStatus.AUTH) ?
+          <Link to={`${AppRoute.FILM}/${film.id - 1}/review`} className="btn movie-card__button">Add review</Link>
           : null
       }
     </div>

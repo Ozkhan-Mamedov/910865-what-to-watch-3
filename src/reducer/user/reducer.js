@@ -1,25 +1,25 @@
 import extend from "../../utils";
 import initialState from "./initial-state";
 import {ActionType, ActionCreator} from "./action-creator";
-import {AUTHORIZATION_STATUS} from "../../constants";
+import {AuthorizationStatus} from "../../constants";
 
 const Operation = {
   checkUserStatus: () => (dispatch, getState, api) => {
     return api.get(`/login`)
       .then(() => {
-        dispatch(ActionCreator.changeAuthorizationStatus(AUTHORIZATION_STATUS.AUTH));
+        dispatch(ActionCreator.changeAuthorizationStatus(AuthorizationStatus.AUTH));
       });
   },
 
-  login: (authData, onError) => (dispatch, getState, api) => {
+  login: (authData, handleErrorRequest) => (dispatch, getState, api) => {
     return api.post(`/login`, {
       email: authData.login,
       password: authData.password,
     })
       .then(() => {
-        dispatch(ActionCreator.changeAuthorizationStatus(AUTHORIZATION_STATUS.AUTH));
+        dispatch(ActionCreator.changeAuthorizationStatus(AuthorizationStatus.AUTH));
       })
-      .catch(() => onError());
+      .catch(() => handleErrorRequest());
   }
 };
 

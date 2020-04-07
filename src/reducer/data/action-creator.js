@@ -1,5 +1,6 @@
 import {
-  GET_COMMENTS_LIST, GET_FILM_LIST, GET_PROMO_MOVIE_DATA, GET_FAVORITE_FILMS
+  GET_COMMENTS_LIST, GET_FILM_LIST, GET_PROMO_MOVIE_DATA,
+  GET_FAVORITE_FILMS, CHANGE_FORM_PENDING_STATUS
 } from "../../constants";
 
 const ActionType = {
@@ -7,6 +8,7 @@ const ActionType = {
   GET_COMMENTS_LIST,
   GET_PROMO_MOVIE_DATA,
   GET_FAVORITE_FILMS,
+  CHANGE_FORM_PENDING_STATUS
 };
 
 const ActionCreator = {
@@ -27,6 +29,10 @@ const ActionCreator = {
   getFavoriteFilms: (films) => ({
     type: ActionType.GET_FAVORITE_FILMS,
     payload: films,
+  }),
+  changeFormPendingStatus: (status) => ({
+    type: ActionType.CHANGE_FORM_PENDING_STATUS,
+    payload: status,
   })
 };
 

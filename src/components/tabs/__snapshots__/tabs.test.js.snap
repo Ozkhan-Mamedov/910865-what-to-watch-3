@@ -10,7 +10,12 @@ exports[`Tabs component renders correctly 1`] = `
   >
     <a
       className="movie-nav__link"
-      href="#"
+      href={null}
+      style={
+        Object {
+          "cursor": "pointer",
+        }
+      }
     >
       Overview
     </a>
@@ -21,7 +26,12 @@ exports[`Tabs component renders correctly 1`] = `
   >
     <a
       className="movie-nav__link"
-      href="#"
+      href={null}
+      style={
+        Object {
+          "cursor": "pointer",
+        }
+      }
     >
       Details
     </a>
@@ -32,7 +42,12 @@ exports[`Tabs component renders correctly 1`] = `
   >
     <a
       className="movie-nav__link"
-      href="#"
+      href={null}
+      style={
+        Object {
+          "cursor": "pointer",
+        }
+      }
     >
       Reviews
     </a>
